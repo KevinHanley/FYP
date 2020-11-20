@@ -23,6 +23,10 @@
         </div>
     </form>
 
+<br>
+    <img src="../resources/images/test.jpg" class="small-image-display" alt="Please" style="width: 100px; height: 100px">
+<p>me</p>
+
 
 </body>
 </html>
