@@ -9,21 +9,21 @@ import java.sql.Statement;
 
 public class AWSUserAccess {
 
-    public GeneralUser retrieveUser(String inputEmailAddress){
 
-        GeneralUser user = null;
+
+    public GeneralUser retrieveUser(String inputEmailAddress){
+        GeneralUser user = new GeneralUser();
         Connection conn = AWSConnection.establishDatabaseConnection();
 
         try{
             Statement st = conn.createStatement();
             ResultSet rs;
 
-            rs = st.executeQuery("select * from User where email=" + inputEmailAddress); //SQL
+            rs = st.executeQuery("select * from User where email='"+ inputEmailAddress +"'"); //SQL
             while (rs.next()){
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
-                user.setEmail(rs.getString("lastName"));
-                user.setGender(rs.getString("gender"));
+                user.setEmail(rs.getString("email"));;
             }
 
             conn.close();
@@ -37,22 +37,74 @@ public class AWSUserAccess {
 
 
 
-    public void insertNewUser(){
+    public String insertNewUser(GeneralUser newUser){
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+        String didItWrok = "failed to add user";
+
+        try{
+            Statement st = conn.createStatement();
+            st.execute("insert into User (firstName, lastName, email, dateOfBirth, userType) values('" + newUser.getFirstName()
+                    + "', '" + newUser.getLastName() + "', '" + newUser.getEmail() + "', '" + newUser.getDateOfBirth()
+                    + "', " + newUser.getUserType() + ")");
+
+            conn.close();
+            System.out.println("*********** A GREAT SUCCESS*************");
+            didItWrok = "success";
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        return didItWrok;
 
     }
 
-    public void deleteUser(){
 
+
+    public String editUser(GeneralUser editUser){
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+        String completed = "Editing failed";
+
+        try{
+            Statement st = conn.createStatement();
+            st.execute("update User set firstName='" + editUser.getFirstName()+"', lastName='" + editUser.getLastName() + "', dateOfBirth='" + editUser.getDateOfBirth() + "', userType=" + editUser.getUserType() + " where email='" + editUser.getEmail() +"'");
+
+            conn.close();
+            System.out.println("*********** A GREAT SUCCESS*************");
+            completed = "Editing was a success!";
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return completed;
     }
 
-    public void editUser(){
 
+
+    public String deleteUser(String email){
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+        String deletionMessage = "Delete didn't work.";
+
+        try{
+            Statement st = conn.createStatement();
+            st.execute("delete from User where email='" + email + "'");
+
+            conn.close();
+            System.out.println("*********** A GREAT SUCCESS*************");
+            deletionMessage = "Deletion was a success!";
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return deletionMessage;
     }
+
+
 
     public String getNameFromDB(){
 
         Connection conn = AWSConnection.establishDatabaseConnection();
-        String email = "";
+        String fName = "";
         try{
             Statement st = conn.createStatement();
             ResultSet rs;
@@ -67,7 +119,7 @@ public class AWSUserAccess {
                 System.out.println("User's Date of Birth: " + rs.getDate("dateOfBirth"));
                 System.out.println("User's Gender: " + rs.getString("gender"));
                 System.out.println("User's User Type : " + rs.getInt("userType"));
-                email = rs.getString("email");
+                fName = rs.getString("firstName");
             }
 
             conn.close();
@@ -76,6 +128,6 @@ public class AWSUserAccess {
             System.out.println(e);
         }
 
-        return email;
+        return fName;
     }
 }

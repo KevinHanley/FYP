@@ -15,28 +15,13 @@ public class HashServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
-
-        String myname = request.getParameter("myname");
+       // String password = request.getParameter("password");
 
         ImageHash ih = new ImageHash();
-        String output = ih.doHash();
+        String output = ih.generateImageHash(); //get a hash of a test image - 'test.jpg'
 
-        request.getSession(true).setAttribute("INPUT", myname);
+       // request.getSession(true).setAttribute("INPUT", password);
         request.getSession(true).setAttribute("OUTPUT", output);
-
-
-
-//        Image image = new ImageIcon(this.getClass().getResource("/images/test.jpg")).getImage();
-//
-//        String isFound = "0";
-//
-//        if(image == null){
-//            isFound = "1";
-//        }else{
-//            isFound = "2";
-//        }
-//        request.getSession(true).setAttribute("ISFOUND", isFound);
-
 
         RequestDispatcher rd = request.getRequestDispatcher("/secondPage.jsp");
         rd.forward(request, response);

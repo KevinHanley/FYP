@@ -1,0 +1,48 @@
+
+.navbar {
+    background-color: #FFF;
+    text-align: center;
+    box-shadow: 0 6px 4px -4px #D3D3D3;
+    height: 130px;
+}
+
+.navbar-header a{
+    color: #000;
+
+}
+
+.navbar-header{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.input-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.panel-heading {
+    text-align: center;
+}
+
+.login-buttons {
+    left: 50%;
+    transform: translate(-50%,0%);
+}
+
+.login-buttons button{
+    width: 150px;
+}
+
+.login-btn {
+    margin-top: 20px;
+}
+
+#tabs-headings{
+    margin-top: 100px;
+}
+
+.item-spacing-top{
+    margin-top: 80px;
+}

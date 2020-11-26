@@ -16,15 +16,39 @@
 <br>
 <br>
 
-<h3>Users Details (first test)</h3>
+<!-- The following HTML is only used to verify java methods are -->
+<!-- outputted correctly to the front-end. These are only placeholders. -->
+
+<!-- display returned users details -->
+<h3>Retrieving User Details on Login</h3>
 <p>Email: ${USER.getEmail()}</p>
 <p>Name: ${USER.getFirstName()}</p>
 <p>Surname: ${USER.getLastName()}</p>
-<p>Gender: ${USER.getGender()}</p>
 
 <br>
 <br>
 
+<h3>Add New User test</h3>
+<p>Result of adding: ${ADDRESULT}</p>
+
+<br>
+<br>
+
+<h3>Edit User Details test</h3>
+<p>Result of edits: ${EDITRESULT}</p>
+
+<br>
+<br>
+
+<h3>Delete User Details test</h3>
+<p>Result of deletion: ${DELETERESULT}</p>
+
+<br>
+<br>
+
+
+<!-- output of image hashes -->
+<h3>Results of the Hash Test</h3>
 <p>The Hash input is: ${INPUT}</p>
 <p>The Hash output is: ${OUTPUT}</p>
 </body>

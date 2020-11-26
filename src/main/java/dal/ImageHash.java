@@ -21,12 +21,20 @@ public class ImageHash {
     //******************************************************************************
 
 
-    public String doHash(){
+    public String generateImageHash(){
+
+
+        //***************************
+        // In future iterations, an image will be input from the cloud
+        // This image is what will be hashed
+        //***************************
+
+
         byte[] data;
-        //String passwordToHash = myname;
         String generatedHash = null;
 
-        try { //image thing
+        try {
+            //locate a local image and put its bytes into the 'data' array
             BufferedImage bImage = ImageIO.read(getClass().getResource("/images/test2.jpg"));
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ImageIO.write(bImage, "jpg", bos);
@@ -35,9 +43,7 @@ public class ImageHash {
             try {
                 // Create MessageDigest instance
                 MessageDigest md = MessageDigest.getInstance("SHA-256");
-                //Add password bytes to digest
-                            //md.update(passwordToHash.getBytes()); *************
-                //Get the hash's bytes
+                //Add image bytes to the digest and get the hash's bytes
                 byte[] bytes = md.digest(data);
                 //This bytes[] has bytes in decimal format;
                 //Convert it to hexadecimal format
@@ -46,7 +52,7 @@ public class ImageHash {
                 {
                     sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
                 }
-                //Get complete hashed password in hex format
+                //Get complete hashed image in hex format
                 generatedHash = sb.toString();
 
             } catch (NoSuchAlgorithmException e) {
@@ -56,11 +62,10 @@ public class ImageHash {
 
         }catch (Exception e){
             System.out.println(e);
-            System.out.println("***************Image Error*************");
+            System.out.println("***************Image Input Error*************");
         }
 
-        System.out.println(generatedHash);
-        return generatedHash;
+        return generatedHash; //Return the completed Hash of the image
     }
 
 
