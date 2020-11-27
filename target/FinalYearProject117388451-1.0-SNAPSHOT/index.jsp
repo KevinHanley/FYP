@@ -26,10 +26,10 @@
     <section class="d-flex flex-column justify-content-between" id="hero">
         <div id="hero-top">
             <nav class="navbar navbar-light navbar-expand-md">
-                <div class="container-fluid"><a class="navbar-brand" href="#">PassPic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="container-fluid"><a class="navbar-brand" href="#">Pass Pic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav mx-auto">
-                            <li class="nav-item"><a class="nav-link active" href="bootstraptest.jsp">What is PassPic?</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="login.jsp">What is PassPic?</a></li>
                             <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
                             <li class="nav-item"><a class="nav-link" href="login.jsp">Contact Us</a></li>
                         </ul>

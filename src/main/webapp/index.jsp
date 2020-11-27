@@ -23,10 +23,12 @@
 </head>
 
 <body>
+<!-- Background image -->
+<!-- <span>Photo by <a href="https://unsplash.com/@iwnph?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Iwan Shimko</a> on <a href="https://unsplash.com/s/photos/polaroid?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> -->
     <section class="d-flex flex-column justify-content-between" id="hero">
         <div id="hero-top">
             <nav class="navbar navbar-light navbar-expand-md">
-                <div class="container-fluid"><a class="navbar-brand" href="#">PassPic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="container-fluid"><a class="navbar-brand" href="#">Pass Pic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav mx-auto">
                             <li class="nav-item"><a class="nav-link active" href="login.jsp">What is PassPic?</a></li>

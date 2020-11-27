@@ -2,6 +2,7 @@ package bll;
 
 public class GeneralUser {
 
+    //Decalring attributes
     private int userID;
     private int orgID;
     private int phone;
@@ -26,7 +27,7 @@ public class GeneralUser {
         this.userType = usertype;
     }
 
-
+    //Getters and Setters
     public int getUserID() {
         return userID;
     }

@@ -26,32 +26,24 @@
     <link rel="stylesheet" href="styles/login.css" type="text/css"/>
 </head>
 <body>
-
     <nav class="navbar">
         <div class="container-fluid">
-
             <!-- This is Logo within the navbar -->
             <div class="navbar-header">
                 <a class="navbar-brand" href="index.jsp">Home</a>
             </div>
-
         </div>
     </nav>
-
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
                 <!-- empty -->
             </div>
-
-
             <div class="col-sm-4">
                 <ul class="nav nav-tabs" id="tabs-headings">
                     <li class="active"><a data-toggle="tab" href="#login-box">Login</a></li>
                     <li><a data-toggle="tab" href="#sign-up-box">Sign Up</a></li>
                 </ul>
-
-
                 <div class="tab-content">
                     <!-- tab 1 for logging in -->
                     <div id="login-box" class="tab-pane fade in active">
@@ -71,7 +63,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- tab 2 for creating an account -->
                     <div id="sign-up-box" class="tab-pane fade">
                         <div class="panel panel-default">
@@ -93,6 +84,7 @@
                                         <input id="email" type="text" class="form-control" name="email" placeholder="Email">
                                     </div>
                                     <div class="input-group">
+                                        <label>Date of Birth</label>
                                         <input id="day" type="text" class="form-control" name="day" placeholder="Day">
                                         <input id="month" type="text" class="form-control" name="month" placeholder="Month">
                                         <input id="year" type="text" class="form-control" name="year" placeholder="Year">
@@ -105,98 +97,75 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-
             <div class="col-sm-4">
                 <!-- empty -->
             </div>
         </div>
     </div>
-
-
-    <div class="container item-spacing-top">
-
-        <row>
-            <div class="col-sm-6"></div>
-            <div class="col-sm-6">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <!-- empty -->
+            </div>
+            <div class="col-sm-8">
                 <!--Edit a user within the database -->
                 <h3>Edit a Users Details</h3>
                 <form action="AccountServlet" method="POST">
                     <input type="hidden" name="action" value="edit">
-
-                    <div>
+                    <div class="input-group">
                         <label>Your Email:</label>
                         <input id="editemail" type="text" name="editemail" placeholder="Edit email address">
                     </div>
-
                     <br>
-
-                    <div>
+                    <div class="input-group">
                         <label>Edit First Name:</label>
                         <input id="editfname" type="text" name="editfname" placeholder="Edit first name">
                     </div>
-                    <div>
+                    <div class="input-group">
                         <label>Edit Last Name:</label>
                         <input id="editlname" type="text" name="editlname" placeholder="Edit last name">
                     </div>
-                    <div>
+                    <div class="input-group">
                         <label>Edit Date of Birth:</label>
                         <input id="editday" type="String" name="editday" placeholder="Edit Day">
                         <input id="editmonth" type="String" name="editmonth" placeholder="Edit Month">
                         <input id="edityear" type="String" name="edityear" placeholder="Edit Full Year">
                     </div>
-
-                    <div>
+                    <div class="input-group">
                         <button type="submit">Edit Account Details</button>
                     </div>
                 </form>
             </div>
-        </row>
-
-
-
-        <row>
-            <div class="col-sm-6"></div>
-            <div class="col-sm-6">
+            <div class="col-sm-2">
+                <!-- empty -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <!-- empty -->
+            </div>
+            <div class="col-sm-8">
                 <!--Delete a user from the database -->
                 <h3>Delete a User</h3>
                 <p>Use 'dale@gmail.com' as the email to run this test.</p>
                 <form action="AccountServlet" method="POST">
                     <input type="hidden" name="action" value="delete">
-                    <div>
+                    <div class="input-group">
                         <label>Email Address:</label>
                         <input id="deleteUserEmailAddress" type="text" name="deleteUserEmailAddress" placeholder="Enter email address..">
                     </div>
-                    <div>
+                    <div class="input-group">
                         <button type="submit">Delete?</button>
                     </div>
                 </form>
             </div>
-        </row>
-
-
-
-
-
-        <row>
-            <div class="col-md-12">
-                <!-- This form will convert an locally stored image into a hash -->
-                <h3>Run a Hash Test</h3>
-                <img src="life/customer.jpg" alt="1 image" height="200" width="200"><br>
-
-                <form action="HashServlet" method="POST">
-                    <div>
-                        <button type="submit">Test - Create a Hash of This Image</button>
-                    </div>
-                </form>
+            <div class="col-sm-2">
+                <!-- empty -->
             </div>
-        </row>
-
+        </div>
     </div>
-
 
 </body>
 </html>

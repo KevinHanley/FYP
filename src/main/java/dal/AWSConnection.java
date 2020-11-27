@@ -14,7 +14,8 @@ public class AWSConnection {
         try{
             String driver = "com.mysql.cj.jdbc.Driver";
             String path = "jdbc:mysql://test.cxhq3iwt6hbg.eu-west-1.rds.amazonaws.com:3306/test?useTimeZone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
-            // arguments appended to the AWS url above prevent "file tampering / password changed" error.
+            //Arguments appended to the AWS url above prevent "file tampering / password changed" error.
+            //Solution found on: https://stackoverflow.com/questions/51586401/glassfish-keystore-error-after-adding-mysql-connector
             Class.forName(driver);
 
             conn = DriverManager.getConnection(path, "admin", "kevin2020");

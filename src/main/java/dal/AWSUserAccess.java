@@ -9,7 +9,8 @@ import java.sql.Statement;
 
 public class AWSUserAccess {
 
-
+    //Execute SQL commands with the remote MySQL database
+    //Code adapted from 3rd year Java Project
 
     public GeneralUser retrieveUser(String inputEmailAddress){
         GeneralUser user = new GeneralUser();

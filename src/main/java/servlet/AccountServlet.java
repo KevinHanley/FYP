@@ -14,7 +14,6 @@ import java.io.IOException;
 @WebServlet(name = "AccountServlet")
 public class AccountServlet extends HttpServlet {
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
         //Variable to see if user is logging in, retrieving data, editing details or deleting data.
@@ -63,7 +62,7 @@ public class AccountServlet extends HttpServlet {
         request.getSession(true).setAttribute("USER", user);
 
         //open the second page
-        RequestDispatcher rd = request.getRequestDispatcher("/secondPage.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/imageSelection.jsp");
         rd.forward(request, response);
     }
 

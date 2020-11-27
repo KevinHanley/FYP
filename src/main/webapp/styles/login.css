@@ -3,12 +3,12 @@
     background-color: #FFF;
     text-align: center;
     box-shadow: 0 6px 4px -4px #D3D3D3;
-    height: 130px;
+    height: 800px;
 }
 
 .navbar-header a{
     color: #000;
-
+    vertical-align: center;
 }
 
 .navbar-header{
