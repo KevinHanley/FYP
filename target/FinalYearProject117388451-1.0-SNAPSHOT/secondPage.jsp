@@ -46,6 +46,13 @@
 <br>
 <br>
 
+<h3>*** Name of uploaded file ***</h3>
+<p>Name: ${FILENAME}</p>
+<p>Image Hash: ${NEWHASH}</p>
+
+<br>
+<br>
+
 
 <!-- output of image hashes -->
 <h3>Results of the Hash Test</h3>

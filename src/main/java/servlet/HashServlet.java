@@ -17,11 +17,15 @@ public class HashServlet extends HttpServlet {
 
        // String password = request.getParameter("password");
 
+
+        //*** changes made to Image Hash class, some code commented out
+
+
         ImageHash ih = new ImageHash();
-        String output = ih.generateImageHash(); //get a hash of a test image - 'test.jpg'
+      //  String output = ih.generateImageHash(); //get a hash of a test image - 'test.jpg'
 
        // request.getSession(true).setAttribute("INPUT", password);
-        request.getSession(true).setAttribute("OUTPUT", output);
+    //    request.getSession(true).setAttribute("OUTPUT", output);
 
         RequestDispatcher rd = request.getRequestDispatcher("/secondPage.jsp");
         rd.forward(request, response);

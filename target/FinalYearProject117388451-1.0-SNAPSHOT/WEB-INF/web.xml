@@ -30,4 +30,14 @@
         <servlet-name>AccountServlet</servlet-name>
         <url-pattern>/AccountServlet</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>ImageServlet</servlet-name>
+        <servlet-class>servlet.ImageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImageServlet</servlet-name>
+        <url-pattern>/ImageServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

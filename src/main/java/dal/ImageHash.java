@@ -21,21 +21,13 @@ public class ImageHash {
     //******************************************************************************
 
 
-    public String generateImageHash(){
-
-
-        //***************************
-        // In future iterations, an image will be input from the cloud
-        // This image is what will be hashed
-        //***************************
-
+    public String generateImageHash(BufferedImage bImage){
 
         byte[] data;
         String generatedHash = null;
 
         try {
-            //locate a local image and put its bytes into the 'data' array
-            BufferedImage bImage = ImageIO.read(getClass().getResource("/images/test2.jpg"));
+            //take the input image and put its bytes into the 'data' array
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ImageIO.write(bImage, "jpg", bos);
             data = bos.toByteArray();
