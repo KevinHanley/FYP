@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <!-- This form will convert an locally stored image into a hash -->
             <h3>Run a Hash Test</h3>
-            <img src="life/customer.jpg" alt="1 image" height="200" width="200"><br>
+            <img src="images/customer.jpg" alt="1 image" height="200" width="200"><br>
 
             <form action="HashServlet" method="POST">
                 <div>
@@ -43,6 +43,7 @@
         <div class="col-md-12">
             <h3>Select an Image</h3>
             <form action="ImageServlet" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="imageaction" value="upload">
                 Choose a File: <input type="file" name="file" accept="image/jpeg">
                 <button type="submit">Upload Image</button>
             </form>

@@ -17,10 +17,13 @@
         <servlet-name>HashServlet</servlet-name>
         <servlet-class>servlet.HashServlet</servlet-class>
     </servlet>
+
+
     <servlet-mapping>
         <servlet-name>HashServlet</servlet-name>
         <url-pattern>/HashServlet</url-pattern>
     </servlet-mapping>
+
 
     <servlet>
         <servlet-name>AccountServlet</servlet-name>

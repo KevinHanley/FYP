@@ -42,12 +42,12 @@
             <version>8.0.22</version>
         </dependency>
 
-        <!-- https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-project-maven.html
+        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
         <dependency>
             <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
-            <version>1.11.327</version>
-        </dependency> -->
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.11.914</version>
+        </dependency>
 
     </dependencies>
 

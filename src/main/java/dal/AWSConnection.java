@@ -1,5 +1,11 @@
 package dal;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -26,5 +32,31 @@ public class AWSConnection {
         }
 
         return conn; //return database connection
+    }
+
+
+    //Establish a connection to AWS S3
+    public AmazonS3 connectToS3(){
+
+        AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+
+        //OR
+
+        //Establish connection to S3
+//        AmazonS3 s3 = AmazonS3ClientBuilder
+//                .standard()
+//                .withRegion(Regions.EU_WEST_1)
+//                .build();
+
+        //OR
+
+//        AWSCredentials credentials = new BasicAWSCredentials("public-key","secret-key");
+//        AmazonS3 s3 = AmazonS3ClientBuilder
+//                .standard()
+//                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+//                .withRegion(Regions.EU_WEST_1)
+//                .build();
+
+        return s3;
     }
 }

@@ -22,9 +22,11 @@ public class AWSUserAccess {
 
             rs = st.executeQuery("select * from User where email='"+ inputEmailAddress +"'"); //SQL
             while (rs.next()){
+                user.setUserID(rs.getInt("userID"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setEmail(rs.getString("email"));;
+                user.setUserType(rs.getInt("userType"));
             }
 
             conn.close();
@@ -69,7 +71,9 @@ public class AWSUserAccess {
 
         try{
             Statement st = conn.createStatement();
-            st.execute("update User set firstName='" + editUser.getFirstName()+"', lastName='" + editUser.getLastName() + "', dateOfBirth='" + editUser.getDateOfBirth() + "', userType=" + editUser.getUserType() + " where email='" + editUser.getEmail() +"'");
+            st.execute("update User set firstName='" + editUser.getFirstName()+"', lastName='" + editUser.getLastName()
+                    + "', dateOfBirth='" + editUser.getDateOfBirth() + "', userType=" + editUser.getUserType()
+                    + " where email='" + editUser.getEmail() +"'");
 
             conn.close();
             System.out.println("*********** A GREAT SUCCESS*************");

@@ -114,7 +114,7 @@
                 <h3>Edit a Users Details</h3>
                 <form action="AccountServlet" method="POST">
                     <input type="hidden" name="action" value="edit">
-                    <div class="input-group">
+                    <div class="input[-group">
                         <label>Your Email:</label>
                         <input id="editemail" type="text" name="editemail" placeholder="Edit email address">
                     </div>
