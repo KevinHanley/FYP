@@ -34,6 +34,8 @@
             </div>
         </div>
     </nav>
+
+
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
@@ -104,64 +106,76 @@
             </div>
         </div>
     </div>
+
+
     <div class="container">
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <!-- empty -->
             </div>
-            <div class="col-sm-8">
-                <!--Edit a user within the database -->
-                <h3>Edit a Users Details</h3>
-                <form action="AccountServlet" method="POST">
-                    <input type="hidden" name="action" value="edit">
-                    <div class="input[-group">
-                        <label>Your Email:</label>
-                        <input id="editemail" type="text" name="editemail" placeholder="Edit email address">
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>Edit a Users Details</h4></div>
+                    <div class="panel-body">
+                        <!--Edit a user in the database -->
+                        <form action="AccountServlet" method="POST">
+                            <input type="hidden" name="action" value="edit">
+                            <div class="input-group">
+                                <label>Your Email: </label>
+                                <input id="editemail" type="text" name="editemail" placeholder="Edit email address">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <label>Edit First Name: </label>
+                                <input id="editfname" type="text" name="editfname" placeholder="Edit first name">
+                            </div>
+                            <div class="input-group">
+                                <label>Edit Last Name: </label>
+                                <input id="editlname" type="text" name="editlname" placeholder="Edit last name">
+                            </div>
+                            <div class="input-group">
+                                <label>Edit Date of Birth: </label><br>
+                                <input id="editday" type="String" name="editday" placeholder="Edit Day"><br>
+                                <input id="editmonth" type="String" name="editmonth" placeholder="Edit Month"><br>
+                                <input id="edityear" type="String" name="edityear" placeholder="Edit Full Year">
+                            </div>
+                            <div class="input-group">
+                                <button type="submit">Edit Account Details</button>
+                            </div>
+                        </form>
                     </div>
-                    <br>
-                    <div class="input-group">
-                        <label>Edit First Name:</label>
-                        <input id="editfname" type="text" name="editfname" placeholder="Edit first name">
-                    </div>
-                    <div class="input-group">
-                        <label>Edit Last Name:</label>
-                        <input id="editlname" type="text" name="editlname" placeholder="Edit last name">
-                    </div>
-                    <div class="input-group">
-                        <label>Edit Date of Birth:</label>
-                        <input id="editday" type="String" name="editday" placeholder="Edit Day">
-                        <input id="editmonth" type="String" name="editmonth" placeholder="Edit Month">
-                        <input id="edityear" type="String" name="edityear" placeholder="Edit Full Year">
-                    </div>
-                    <div class="input-group">
-                        <button type="submit">Edit Account Details</button>
-                    </div>
-                </form>
+                </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <!-- empty -->
             </div>
         </div>
+
+
+
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <!-- empty -->
             </div>
-            <div class="col-sm-8">
-                <!--Delete a user from the database -->
-                <h3>Delete a User</h3>
-                <p>Use 'dale@gmail.com' as the email to run this test.</p>
-                <form action="AccountServlet" method="POST">
-                    <input type="hidden" name="action" value="delete">
-                    <div class="input-group">
-                        <label>Email Address:</label>
-                        <input id="deleteUserEmailAddress" type="text" name="deleteUserEmailAddress" placeholder="Enter email address..">
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <!--Delete a user from the database -->
+                    <div class="panel-heading"><h4>Delete a User</h4></div>
+                    <div class="panel-body">
+                        <form action="AccountServlet" method="POST">
+                            <input type="hidden" name="action" value="delete">
+                            <div class="input-group">
+                                <label>Email Address: </label>
+                                <input id="deleteUserEmailAddress" type="text" name="deleteUserEmailAddress" placeholder="Enter email address..">
+                            </div>
+                            <div class="input-group">
+                                <button type="submit">Delete Account</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="input-group">
-                        <button type="submit">Delete?</button>
-                    </div>
-                </form>
+                </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <!-- empty -->
             </div>
         </div>

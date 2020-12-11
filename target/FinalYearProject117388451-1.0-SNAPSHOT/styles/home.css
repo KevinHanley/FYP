@@ -1,7 +1,4 @@
 #hero {
-    width: 100%;
-    height: 100vh;
-    color: rgb(0,0,0);
 
     /* Background image:
        <span>Photo by <a href="https://unsplash.com/@iwnph?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Iwan Shimko</a> on <a href="https://unsplash.com/s/photos/polaroid?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> */
@@ -12,13 +9,6 @@
     #hero {
         background: url("../images/hero-small.jpg") center / cover no-repeat;
     }
-}
-
-#navcol-1 {
-    text-transform: uppercase;
-    font-size: 13px;
-    font-family: Montserrat, sans-serif;
-    font-weight: 600;
 }
 
 #title {
@@ -33,18 +23,10 @@
     font-weight: bold;
 }
 
-
-#hero-bottom .container {
-    max-width: 700px;
-    text-align: center;
-}
-
 .info-button {
     background: rgba(0,98,204,0);
     border: 3px solid #fff;
     border-radius: 30px;
 }
 
-#hero-bottom {
-    margin-bottom: 50px;
-}
+
