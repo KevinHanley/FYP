@@ -34,12 +34,11 @@ public class AWSImageAccess {
     //******************************************************************************************************************
 
 
-    public String uploadImageToMySQL(String fileName, BufferedImage uploadedImage, GeneralUser user) throws IOException {
+    public void uploadImageToMySQL(String fileName, BufferedImage uploadedImage, GeneralUser user) throws IOException {
 
         // InputStream Code: https://stackoverflow.com/questions/7645068/how-can-i-convert-a-bufferedimage-object-into-an-inputstream-or-a-blob
         // Prepared Statement: https://www.codeproject.com/Questions/1136841/JSP-how-to-convert-BLOB-from-mysql-into-bufferedim
 
-        String result = "Upload To RDS Failed";
         Connection conn = AWSConnection.establishDatabaseConnection();
 
         //Get user id for Database
@@ -63,12 +62,11 @@ public class AWSImageAccess {
             prepStat.execute();
 
             conn.close();
-            result = "Upload To RDS Was Successful!";
+
         }catch(Exception e){
             System.out.println(e);
         }
 
-        return result;
     }
 
 

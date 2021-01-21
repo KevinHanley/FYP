@@ -83,10 +83,11 @@ public class AccountServlet extends HttpServlet {
         GeneralUser newUser = new GeneralUser(fname, lname, email, dob, 1);
 
         //add the new user to the database
-        String success = awsUA.insertNewUser(newUser);
+        awsUA.insertNewUser(newUser);
 
-        //set session attributes with return data
-        request.getSession(true).setAttribute("ADDRESULT", success);
+        //set session attributes with the new users data
+        GeneralUser user = awsUA.retrieveUser(email); //create a user object from the database
+        request.getSession(true).setAttribute("USER", user);
 
         //open the second page
         RequestDispatcher rd = request.getRequestDispatcher("/imageSelection.jsp");

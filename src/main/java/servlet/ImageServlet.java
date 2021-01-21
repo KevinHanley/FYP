@@ -43,12 +43,22 @@ public class ImageServlet extends HttpServlet {
             case "compare":
                 compareImage(request, response);
                 break;
+            case "firstpassword":
+                openConfirmation(request, response);
+                break;
+            case "secondpassword":
+                confirmPasswords(request, response);
+                break;
             default:
                 //do nothing
                 break;
 
         }
     }
+
+
+
+
 
     private void uploadImage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -70,35 +80,24 @@ public class ImageServlet extends HttpServlet {
 
         //convert the inputStream to a BufferedImage and pass it to the hashing function
         BufferedImage uploadedImage = ImageIO.read(fileContent);
-        ImageHash ih = new ImageHash();
-        String outputHash = ih.generateImageHash(uploadedImage);
-
-        //save to AWS s3 (Currently not working due to certificate errors, using AWS RDS instead)
-//        AWSImageAccess awsIA = new AWSImageAccess();
-//        String result = awsIA.uploadImage(uploadedImage);
-
 
         //Save as a BLOB in Remote AWS MySQL Database
         AWSImageAccess awsIA = new AWSImageAccess();
-        String mysqlResult = awsIA.uploadImageToMySQL(fileName, uploadedImage, user);
+        awsIA.uploadImageToMySQL(fileName, uploadedImage, user);
 
         //Get image back from database
-//        PasswordImage passImg = new PasswordImage();
-//        int userID = user.getUserID();
-//        passImg = awsIA.retrieveImageFromMySQL(userID);
+        PasswordImage passImg = new PasswordImage();
+        int userID = user.getUserID();
+        passImg = awsIA.retrieveImageFromMySQL(userID);
 
+        request.getSession(true).setAttribute("IMAGEPASS", passImg);
 
-        //Save Hash to Database
-        AWSPasswordAccess passwordAccess = new AWSPasswordAccess();
-        passwordAccess.storeHash(user, outputHash);
-
-        //Return results to front-end
-        request.getSession(true).setAttribute("FILENAME", fileName);
-        request.getSession(true).setAttribute("NEWHASH", outputHash);
-        request.getSession(true).setAttribute("UPLOADRESULT", mysqlResult);
-        RequestDispatcher rd = request.getRequestDispatcher("/secondPage.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/createPassword.jsp");
         rd.forward(request, response);
     }
+
+
+
 
 
     protected void retrieveImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -113,12 +112,69 @@ public class ImageServlet extends HttpServlet {
         passImage = imageAccess.retrieveImageFromMySQL(userID);
 
         request.getSession(true).setAttribute("IMAGEPASS", passImage);
-        //request.setAttribute("IMAGEPASS", passImage);
 
         RequestDispatcher rd = request.getRequestDispatcher("/password.jsp");
         rd.forward(request, response);
-
     }
+
+
+
+
+
+    private void openConfirmation(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //Capture tiles selected by user
+        String tileArray1 = request.getParameter("tilearray1");
+        request.getSession(true).setAttribute("TILEARRAY1", tileArray1);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/confirmPassword.jsp");
+        rd.forward(request, response);
+    }
+
+
+
+
+
+    private void confirmPasswords(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //Capture the second set of tiles selected by user
+        String tileArray2 = request.getParameter("tilearray2");
+        request.getSession(true).setAttribute("TILEARRAY2", tileArray2);
+
+        //Get the first sequence of Tiles
+        String tileArray1 = (String) request.getSession().getAttribute("TILEARRAY1");
+
+        //get session objects
+        PasswordImage passImage = (PasswordImage) request.getSession().getAttribute("IMAGEPASS");
+        GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
+
+
+        //Check if the two sequences of tiles match
+        if(tileArray1.equals(tileArray2)){
+            //passwords are equal
+
+            //Generate Hash
+            ImageHash ih = new ImageHash();
+            String generatedHash = ih.generateImageHash(tileArray1, passImage);
+
+            //Save hash to Database
+            AWSPasswordAccess passwordAccess = new AWSPasswordAccess();
+            passwordAccess.storeHash(user, generatedHash);
+
+            //log in the user
+
+
+        }else{
+            //send error message back to confirmPassword.jsp
+        }
+
+        RequestDispatcher rd = request.getRequestDispatcher("/secondPage.jsp");
+        rd.forward(request, response);
+    }
+
+
 
 
     private void compareImage(HttpServletRequest request, HttpServletResponse response)
@@ -135,7 +191,7 @@ public class ImageServlet extends HttpServlet {
 
         //Convert Co-ordinates into image segments
         ImageHash ih = new ImageHash();
-        BufferedImage[] bImgArray = ih.cutImage(tileArray, passImage);
+      //  BufferedImage[] bImgArray = ih.cutImage(tileArray, passImage);
 
 
         //Following code: https://stackoverflow.com/questions/2438375/how-to-convert-bufferedimage-to-image-to-display-on-jsp
@@ -163,6 +219,9 @@ public class ImageServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/test.jsp");
         rd.forward(request, response);
     }
+
+
+
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

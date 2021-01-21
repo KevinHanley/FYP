@@ -52,6 +52,27 @@
         <!-- The following HTML is only used to verify java methods are -->
         <!-- outputted correctly to the front-end. These are only placeholders. -->
 
+
+
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+
+            <div class="col-md-8">
+                <!-- display returned users details -->
+                <h3>Result of Tile Matching:</h3>
+                <p>Result: ${MATCHING}</p>
+
+            </div>
+
+            <div class="col-md-2">
+            </div>
+        </div>
+
+
+
+
+
         <div class="row">
             <div class="col-md-2">
             </div>

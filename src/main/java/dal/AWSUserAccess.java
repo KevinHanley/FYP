@@ -40,10 +40,9 @@ public class AWSUserAccess {
 
 
 
-    public String insertNewUser(GeneralUser newUser){
+    public void insertNewUser(GeneralUser newUser){
 
         Connection conn = AWSConnection.establishDatabaseConnection();
-        String didItWrok = "failed to add user";
 
         try{
             Statement st = conn.createStatement();
@@ -52,13 +51,10 @@ public class AWSUserAccess {
                     + "', " + newUser.getUserType() + ")");
 
             conn.close();
-            System.out.println("*********** A GREAT SUCCESS*************");
-            didItWrok = "success";
+
         }catch(Exception e){
             System.out.println(e);
         }
-
-        return didItWrok;
 
     }
 
@@ -102,37 +98,5 @@ public class AWSUserAccess {
             System.out.println(e);
         }
         return deletionMessage;
-    }
-
-
-
-    public String getNameFromDB(){
-
-        Connection conn = AWSConnection.establishDatabaseConnection();
-        String fName = "";
-        try{
-            Statement st = conn.createStatement();
-            ResultSet rs;
-
-            rs = st.executeQuery("select * from User");
-            while (rs.next()){
-                System.out.println("User's ID Number: " + rs.getInt("userID"));
-                System.out.println("User's Org. ID: " + rs.getInt("orgID"));
-                System.out.println("User's First Name: " + rs.getString("firstName"));
-                System.out.println("User's Last Name: " + rs.getString("lastName"));
-                System.out.println("User's Email: " + rs.getString("email"));
-                System.out.println("User's Date of Birth: " + rs.getDate("dateOfBirth"));
-                System.out.println("User's Gender: " + rs.getString("gender"));
-                System.out.println("User's User Type : " + rs.getInt("userType"));
-                fName = rs.getString("firstName");
-            }
-
-            conn.close();
-
-        }catch(Exception e){
-            System.out.println(e);
-        }
-
-        return fName;
     }
 }

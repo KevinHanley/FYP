@@ -23,8 +23,6 @@
 </head>
 
 <body>
-<!-- Background image -->
-<!-- <span>Photo by <a href="https://unsplash.com/@iwnph?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Iwan Shimko</a> on <a href="https://unsplash.com/s/photos/polaroid?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> -->
 <section class="d-flex flex-column justify-content-between" id="hero">
     <div id="hero-top">
         <nav class="navbar navbar-light navbar-expand-md">
