@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>PTesting Outputs</title>
+    <title>Testing Outputs</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -137,6 +137,18 @@
                 <h3>Results of the Hash Test</h3>
                 <p>The Hash input is: ${INPUT}</p>
                 <p>The Hash output is: ${OUTPUT}</p>
+            </div>
+
+            <div class="col-md-2">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+
+            <div class="col-md-8">
+                <a href="MyServlet">View image you just uploaded?</a>
             </div>
 
             <div class="col-md-2">

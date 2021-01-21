@@ -1,4 +1,6 @@
 package dal;
+import bll.GeneralUser;
+import bll.PasswordImage;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import dal.AWSConnection;
@@ -20,8 +22,135 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.sql.*;
+import java.util.Base64;
 
 public class AWSImageAccess {
+
+    //******************************************************************************************************************
+    //******************************************************************************************************************
+    // Connect to AWS MySQL
+    //******************************************************************************************************************
+    //******************************************************************************************************************
+
+
+    public String uploadImageToMySQL(String fileName, BufferedImage uploadedImage, GeneralUser user) throws IOException {
+
+        // InputStream Code: https://stackoverflow.com/questions/7645068/how-can-i-convert-a-bufferedimage-object-into-an-inputstream-or-a-blob
+        // Prepared Statement: https://www.codeproject.com/Questions/1136841/JSP-how-to-convert-BLOB-from-mysql-into-bufferedim
+
+        String result = "Upload To RDS Failed";
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        //Get user id for Database
+        int userID = user.getUserID();
+
+
+        //get file as inputStream
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        ImageIO.write(uploadedImage, "jpg", outStream);
+        InputStream inStream = new ByteArrayInputStream(outStream.toByteArray());
+
+        //Send SQL to database
+        try{
+            String mySQL = "insert into Image (imageName, imageFile, userID) values (?,?,?)";
+            PreparedStatement prepStat = conn.prepareStatement(mySQL);
+
+            prepStat.setString(1, fileName);
+            prepStat.setBlob(2, inStream);
+            prepStat.setInt(3, userID);
+
+            prepStat.execute();
+
+            conn.close();
+            result = "Upload To RDS Was Successful!";
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        return result;
+    }
+
+
+
+
+    public PasswordImage retrieveImageFromMySQL(int userID){
+
+        //SQL: https://www.codeproject.com/Questions/1136841/JSP-how-to-convert-BLOB-from-mysql-into-bufferedim
+
+        //Variables
+        PasswordImage passImg = new PasswordImage();
+
+        //Get connection
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        System.out.println("Inside the retrieve function 1");
+
+        try{
+            Statement statement = conn.createStatement();
+            ResultSet rs;
+
+            rs = statement.executeQuery("select * from Image where userID=" + userID);
+
+            System.out.println("Inside the retrieve function 2");
+
+            while (rs.next()){
+                passImg.setImageID(rs.getInt("imageID"));
+                passImg.setImageName(rs.getString("imageName"));
+                passImg.setImageFile(rs.getBlob("imageFile"));
+                passImg.setUserID(rs.getInt("userID"));
+
+                Blob blob = rs.getBlob("imageFile");
+                InputStream inputStream = blob.getBinaryStream();
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+
+                byte[] imageBytes = outputStream.toByteArray();
+                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+
+                inputStream.close();
+                outputStream.close();
+
+                passImg.setBase64Image(base64Image);
+
+
+                System.out.println("Inside the retrieve function 3");
+
+            }
+
+            conn.close();
+
+            //InputStream imgStream = resultSet.getBinaryStream(3); //add blob into InputStream
+        }catch (SQLException | IOException e){
+            System.out.println(e);
+        }
+
+        return passImg;
+    }
+
+
+
+
+
+
+
+
+    //******************************************************************************************************************
+    //******************************************************************************************************************
+    // Connect to AWS S3 (Currenlty not working due to certificate errors
+    //******************************************************************************************************************
+    //******************************************************************************************************************
+
+
+
+
+
 
     //Create an S3 Bucket on AWS
     public String createS3Bucket(){
@@ -168,5 +297,13 @@ public class AWSImageAccess {
         AmazonS3 s3 = awsConn.connectToS3();
 
     }
+
+
+
+
+
+
+
+
 
 }

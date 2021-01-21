@@ -32,12 +32,13 @@
                 <div class="container-fluid"><a class="navbar-brand" href="#">Pass Pic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav mx-auto">
-                            <li class="nav-item"><a class="nav-link active" href="account.jsp">What is PassPic?</a></li>
-                            <li class="nav-item"><a class="nav-link" href="account.jsp">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="account.jsp">Contact Us</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#">What is PassPic?</a></li>
+                            <li class="nav-item"><a class="nav-link" href="login.jsp">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="test.jsp">Contact Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="MyServlet">TEST</a></li>
                         </ul>
                         <ul class="nav navbar-nav">
-                            <li class="nav-item"><a class="nav-link active" href="account.jsp">Sign In</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="login.jsp">Sign In</a></li>
                             <li class="nav-item"><a class="nav-link" href="account.jsp">My Account</a></li>
                         </ul>
                     </div>

@@ -52,18 +52,14 @@ public class AccountServlet extends HttpServlet {
         AWSUserAccess awsUA = new AWSUserAccess();
         GeneralUser user = awsUA.retrieveUser(emailAddress); //create a user object from the database
 
-
-        //********
-        //in future iterations the user's login image will be collected
-        //at this point, and displayed at the user.
-        //********
-
         //set session attributes with return data
         request.getSession(true).setAttribute("USER", user);
+        //request.getSession(true).setAttribute("imageaction", "retrieve"); //*******************************************************************************
 
-        //open the second page
-        RequestDispatcher rd = request.getRequestDispatcher("/imageSelection.jsp");
+        //Get the users image from the database
+        RequestDispatcher rd = request.getRequestDispatcher("ImageServlet?imageaction=retrieve");
         rd.forward(request, response);
+
     }
 
 

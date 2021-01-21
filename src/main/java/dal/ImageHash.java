@@ -1,11 +1,20 @@
 package dal;
 
+import bll.GeneralUser;
+import bll.PasswordImage;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
 public class ImageHash {
 
@@ -60,5 +69,74 @@ public class ImageHash {
         return generatedHash; //Return the completed Hash of the image
     }
 
+
+
+
+    public BufferedImage[] cutImage(String tileArray, PasswordImage passImage) {
+
+        //Online Resources
+        //Convert to bufferedImage: https://stackoverflow.com/questions/30751964/how-to-convert-blob-to-image-to-display-it-on-a-jlabel-in-java
+        //Image 'cutting' code adapted from: https://gist.github.com/madan712/3672616
+
+        //get the image as a Blob
+        Blob blob = passImage.getImageFile();
+        BufferedImage image = null;
+
+        //convert Blob to a BufferedImage
+        try{
+            InputStream inpStr = blob.getBinaryStream();
+            image = ImageIO.read(inpStr);
+
+        }catch (IOException | SQLException ex){
+            System.out.println(ex.toString());
+        }
+
+        //Get dimensions of image
+        int imageHeight = image.getHeight();
+        int imageWidth = image.getWidth();
+
+        //number of rows and columns
+        int rows = 16;
+        int columns = 16;
+
+        //dimensions of each tile
+        int tileWidth = imageWidth / columns;
+        int tileHeight = imageHeight / rows;
+
+        //tile positioning variables
+        int x = 0;
+        int y = 0;
+
+        //Array of individually selected tiles
+        List<String> list = Arrays.asList(tileArray.split(","));
+        int arrayCount = list.size(); //total number of selections
+
+        //Buffered Image Array to hold the image tiles
+        BufferedImage[] bImgArray = new BufferedImage[8];
+
+        //Loop through all the tiles
+        for (int i = 0; i < arrayCount; i++){
+            String[] tileLocation;
+            tileLocation = list.get(i).split("-");
+
+            //identify the row/column of the current tile
+            int tileRow = Integer.parseInt(tileLocation[0]);
+            int tileColumn = Integer.parseInt(tileLocation[1]);
+
+            //get the pixels of the upper left corner of each tile
+            //i.e. this tiles upper corner could be positioned at 260x440px
+            y = (tileColumn - 1) * tileWidth;
+            x = (tileRow - 1) * tileHeight;
+
+            //get the entire tile as its own BufferImage
+            BufferedImage subImage = image.getSubimage(x, y, tileWidth, tileHeight);
+            bImgArray[i] = subImage; //add tile to an array
+        }
+
+        //test code
+        //BufferedImage subImage = image.getSubimage(x, y, tileWidth, tileHeight);
+
+        return  bImgArray;
+    }
 
 }

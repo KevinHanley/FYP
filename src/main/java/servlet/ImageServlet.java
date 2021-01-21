@@ -1,6 +1,7 @@
 package servlet;
 
 import bll.GeneralUser;
+import bll.PasswordImage;
 import com.oracle.tools.packager.IOUtils;
 import dal.AWSImageAccess;
 import dal.AWSPasswordAccess;
@@ -19,7 +20,11 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Paths;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
 
 @WebServlet(name = "ImageServlet")
 @MultipartConfig
@@ -35,7 +40,7 @@ public class ImageServlet extends HttpServlet {
             case "retrieve":
                 retrieveImage(request, response);
                 break;
-            case "login":
+            case "compare":
                 compareImage(request, response);
                 break;
             default:
@@ -68,9 +73,20 @@ public class ImageServlet extends HttpServlet {
         ImageHash ih = new ImageHash();
         String outputHash = ih.generateImageHash(uploadedImage);
 
-        //save to AWS s3
+        //save to AWS s3 (Currently not working due to certificate errors, using AWS RDS instead)
+//        AWSImageAccess awsIA = new AWSImageAccess();
+//        String result = awsIA.uploadImage(uploadedImage);
+
+
+        //Save as a BLOB in Remote AWS MySQL Database
         AWSImageAccess awsIA = new AWSImageAccess();
-        String result = awsIA.uploadImage(uploadedImage);
+        String mysqlResult = awsIA.uploadImageToMySQL(fileName, uploadedImage, user);
+
+        //Get image back from database
+//        PasswordImage passImg = new PasswordImage();
+//        int userID = user.getUserID();
+//        passImg = awsIA.retrieveImageFromMySQL(userID);
+
 
         //Save Hash to Database
         AWSPasswordAccess passwordAccess = new AWSPasswordAccess();
@@ -79,31 +95,73 @@ public class ImageServlet extends HttpServlet {
         //Return results to front-end
         request.getSession(true).setAttribute("FILENAME", fileName);
         request.getSession(true).setAttribute("NEWHASH", outputHash);
-//        request.getSession(true).setAttribute("UPLOADRESULT", result);
+        request.getSession(true).setAttribute("UPLOADRESULT", mysqlResult);
         RequestDispatcher rd = request.getRequestDispatcher("/secondPage.jsp");
         rd.forward(request, response);
     }
 
 
     protected void retrieveImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
 
-        //get the users email
-        //search s3 for matching image
-        //return the image
-        //send to function to cut into 64x64
-        //display to user
+        // Get the user and their ID number
+        GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
+        int userID = user.getUserID();
+
+        //search for their image and return it
+        AWSImageAccess imageAccess = new AWSImageAccess();
+        PasswordImage passImage;
+        passImage = imageAccess.retrieveImageFromMySQL(userID);
+
+        request.getSession(true).setAttribute("IMAGEPASS", passImage);
+        //request.setAttribute("IMAGEPASS", passImage);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/password.jsp");
+        rd.forward(request, response);
 
     }
+
 
     private void compareImage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //Take input tiles
+        //Capture tiles selected by user
+        String tileArray = request.getParameter("tilearray");
+
+        //get the users image
+        PasswordImage passImage = (PasswordImage) request.getSession().getAttribute("IMAGEPASS");
+
+        //Get the User
+        GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
+
+        //Convert Co-ordinates into image segments
+        ImageHash ih = new ImageHash();
+        BufferedImage[] bImgArray = ih.cutImage(tileArray, passImage);
+
+
+        //Following code: https://stackoverflow.com/questions/2438375/how-to-convert-bufferedimage-to-image-to-display-on-jsp
+//        ByteArrayOutputStream output = new ByteArrayOutputStream();
+//        ImageIO.write(bImg, "png", output);
+//        String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
+//        request.getSession(true).setAttribute("IMAGE64", imageAsBase64);
+
+
+
+
+        //Concat segments
+        // maybe use this pixel RGB code?: https://stackoverflow.com/questions/9396159/how-do-i-create-a-bufferedimage-from-array-containing-pixels/9396487
         //convert to Hash
+
         //compare to Database Hash using: AWSPasswordAccess.java -> compareHash(user, hash)
+
         //login or reject based on boolean returned from compareHash()
 
+
+
+
+        request.getSession(true).setAttribute("SELECTEDTILES", tileArray);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/test.jsp");
+        rd.forward(request, response);
     }
 
 

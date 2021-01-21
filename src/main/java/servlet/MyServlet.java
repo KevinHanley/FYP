@@ -1,6 +1,8 @@
 package servlet;
 
 import bll.GeneralUser;
+import bll.PasswordImage;
+import dal.AWSImageAccess;
 import dal.AWSUserAccess;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Paths;
+import java.sql.Blob;
+import java.sql.SQLException;
 
 @WebServlet(name = "MyServlet")
 @MultipartConfig
@@ -26,6 +31,7 @@ public class MyServlet extends HttpServlet {
         // *********************
         // This Servlet is for running tests
         // *********************
+
 
     }
 
