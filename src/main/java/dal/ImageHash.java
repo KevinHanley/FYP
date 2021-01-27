@@ -3,6 +3,7 @@ package dal;
 import bll.PasswordImage;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,7 +25,9 @@ public class ImageHash {
     // https://howtodoinjava.com/java/java-security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
     // https://www.tutorialspoint.com/How-to-convert-Image-to-Byte-Array-in-java
     // https://stackoverflow.com/questions/18309868/imageio-iioexception-cant-read-input-file
-
+    //Convert to bufferedImage: https://stackoverflow.com/questions/30751964/how-to-convert-blob-to-image-to-display-it-on-a-jlabel-in-java
+    //Image 'cutting' code adapted from: https://gist.github.com/madan712/3672616
+    //Combining images in Array: http://jens-na.github.io/2013/11/06/java-how-to-concat-buffered-images/
     //******************************************************************************
     //******************************************************************************
 
@@ -49,10 +52,6 @@ public class ImageHash {
 
     public BufferedImage[] getImageTiles(String tileArray, PasswordImage passImage) {
 
-        //Online Resources
-        //Convert to bufferedImage: https://stackoverflow.com/questions/30751964/how-to-convert-blob-to-image-to-display-it-on-a-jlabel-in-java
-        //Image 'cutting' code adapted from: https://gist.github.com/madan712/3672616
-
         //get the image as a Blob
         Blob blob = passImage.getImageFile();
         BufferedImage image = null;
@@ -69,6 +68,9 @@ public class ImageHash {
         //Get dimensions of image
         int imageHeight = image.getHeight();
         int imageWidth = image.getWidth();
+
+        System.out.println("Image Height = " + imageHeight);
+        System.out.println("Image Width = " + imageWidth);
 
         //number of rows and columns
         int rows = 16;
@@ -98,13 +100,24 @@ public class ImageHash {
             int tileRow = Integer.parseInt(tileLocation[0]);
             int tileColumn = Integer.parseInt(tileLocation[1]);
 
+            System.out.println("tileRow = " + tileRow);
+            System.out.println("tileColumn = " + tileColumn);
+
             //get the pixels of the upper left corner of each tile
             //i.e. this tiles upper corner could be positioned at 260x440px
             y = (tileColumn - 1) * tileWidth;
             x = (tileRow - 1) * tileHeight;
 
+            System.out.println("Loop No. 1: " + i);
+            System.out.println("x = " + x);
+            System.out.println("y = " + y);
+            System.out.println("tileWidth = " + tileWidth);
+            System.out.println("tileHeight = " + tileHeight);
+
             //get the entire tile as its own BufferImage
+            System.out.println("About to go in");
             BufferedImage subImage = image.getSubimage(x, y, tileWidth, tileHeight);
+            System.out.println("Finished");
             bImgArray[i] = subImage; //add tile to an array
         }
 
@@ -117,9 +130,32 @@ public class ImageHash {
 
     public BufferedImage concatTiles(BufferedImage[] tiles){
 
+        //all the images tiles (segments) will be combined
+        //into a single larger image, this will then be hashed.
+
+        //variable to hold the 'concatenated' image adn width
         BufferedImage concatImage = null;
+        int tileWidth = tiles[0].getWidth();
 
+        //find the total height
+        int combinedHeights = 0;
+        for(int x = 0; x < tiles.length; x++) {
+            combinedHeights += tiles[x].getHeight();
+        }
 
+        //incremental height variable
+        int heightCurr = 0;
+
+        //new image dimensions
+        concatImage = new BufferedImage(tileWidth, combinedHeights, BufferedImage.TYPE_INT_RGB);
+
+        //add images from the array into new concatenated image
+        Graphics2D g2d = concatImage.createGraphics();
+        for(int i = 0; i < tiles.length; i++) {
+            g2d.drawImage(tiles[i], 0, heightCurr, null);
+            heightCurr += tiles[i].getHeight();
+        }
+        g2d.dispose();
 
         return concatImage;
     }

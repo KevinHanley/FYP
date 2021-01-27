@@ -31,7 +31,7 @@ public class AWSPasswordAccess {
             Statement st = conn.createStatement();
             ResultSet rs;
 
-            rs = st.executeQuery("select * from Password where userID="+ user.getUserID() +"");
+            rs = st.executeQuery("select * from Password where userID=" + user.getUserID());
             while (rs.next()){
                 hash = rs.getString("hash");
             }

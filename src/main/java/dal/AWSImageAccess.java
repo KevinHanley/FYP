@@ -75,14 +75,13 @@ public class AWSImageAccess {
     public PasswordImage retrieveImageFromMySQL(int userID){
 
         //SQL: https://www.codeproject.com/Questions/1136841/JSP-how-to-convert-BLOB-from-mysql-into-bufferedim
+        //Base64 Code: https://stackoverflow.com/questions/2438375/how-to-convert-bufferedimage-to-image-to-display-on-jsp
 
-        //Variables
+        //Image Object
         PasswordImage passImg = new PasswordImage();
 
         //Get connection
         Connection conn = AWSConnection.establishDatabaseConnection();
-
-        System.out.println("Inside the retrieve function 1");
 
         try{
             Statement statement = conn.createStatement();
@@ -90,14 +89,14 @@ public class AWSImageAccess {
 
             rs = statement.executeQuery("select * from Image where userID=" + userID);
 
-            System.out.println("Inside the retrieve function 2");
-
             while (rs.next()){
+                //Assign database values to the image object
                 passImg.setImageID(rs.getInt("imageID"));
                 passImg.setImageName(rs.getString("imageName"));
                 passImg.setImageFile(rs.getBlob("imageFile"));
                 passImg.setUserID(rs.getInt("userID"));
 
+                //Convert the BLOB to a Base64 Image
                 Blob blob = rs.getBlob("imageFile");
                 InputStream inputStream = blob.getBinaryStream();
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -111,14 +110,12 @@ public class AWSImageAccess {
                 byte[] imageBytes = outputStream.toByteArray();
                 String base64Image = Base64.getEncoder().encodeToString(imageBytes);
 
-
+                //Close the streams
                 inputStream.close();
                 outputStream.close();
 
+                //Assign the string to the image object
                 passImg.setBase64Image(base64Image);
-
-
-                System.out.println("Inside the retrieve function 3");
 
             }
 
@@ -141,7 +138,8 @@ public class AWSImageAccess {
 
     //******************************************************************************************************************
     //******************************************************************************************************************
-    // Connect to AWS S3 (Currenlty not working due to certificate errors
+    // Connect to AWS S3 (Currently not working due to certificate errors)
+    // Obsolete code below, will use MySQL going forward
     //******************************************************************************************************************
     //******************************************************************************************************************
 

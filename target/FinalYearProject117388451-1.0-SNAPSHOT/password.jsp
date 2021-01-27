@@ -18,6 +18,7 @@
     <!--
     ***************************************
     Displaying image from servlet: https://mail.codejava.net/coding/how-to-display-images-from-database-in-jsp-page-with-java-servlet
+    Displaying image from servlet: https://stackoverflow.com/questions/2438375/how-to-convert-bufferedimage-to-image-to-display-on-jsp
     Clickable grid code: https://stackoverflow.com/questions/6010615/clickable-grid-over-image-in-javascript-and-jquery
     If HasClass: https://stackoverflow.com/questions/4565075/jquery-if-element-has-class-do-this
     Array 'pop': https://stackoverflow.com/questions/19544452/remove-last-item-from-array

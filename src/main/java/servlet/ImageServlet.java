@@ -151,6 +151,9 @@ public class ImageServlet extends HttpServlet {
         GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
 
 
+        String finalTest = "DIDN'T WORK CHIEF";
+        String destination = "/confirmPassword.jsp"; // default destination
+
         //Check if the two sequences of tiles match
         if(tileArray1.equals(tileArray2)){
             //passwords are equal
@@ -163,14 +166,18 @@ public class ImageServlet extends HttpServlet {
             AWSPasswordAccess passwordAccess = new AWSPasswordAccess();
             passwordAccess.storeHash(user, generatedHash);
 
-            //log in the user
-
+            finalTest = "A GREAT SUCCESS!";
+            destination = "/secondPage.jsp";
 
         }else{
             //send error message back to confirmPassword.jsp
+            //use if statement within HTML to display the error message, changed by setting a seesion attribute true/false.*******************************************
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/secondPage.jsp");
+        request.getSession(true).setAttribute("FINALHASHTEST", finalTest);
+
+
+        RequestDispatcher rd = request.getRequestDispatcher(destination);
         rd.forward(request, response);
     }
 
@@ -191,32 +198,25 @@ public class ImageServlet extends HttpServlet {
 
         //Convert Co-ordinates into image segments
         ImageHash ih = new ImageHash();
-      //  BufferedImage[] bImgArray = ih.cutImage(tileArray, passImage);
+        String generatedHash = ih.generateImageHash(tileArray, passImage);
+
+        //Compare hash to Database
+        AWSPasswordAccess passwordAccess = new AWSPasswordAccess();
+        boolean matching = passwordAccess.compareHash(user, generatedHash);
+
+        String destination = "/password.jsp";
+
+        if(matching == true){
+            //open loggedIn.jsp
+            destination = "/loggedIn.jsp";
+
+        }else{
+            //return to password.jsp
+            //use if statement within HTML to display the error message, changed by setting a seesion attribute true/false. *******************************************
+        }
 
 
-        //Following code: https://stackoverflow.com/questions/2438375/how-to-convert-bufferedimage-to-image-to-display-on-jsp
-//        ByteArrayOutputStream output = new ByteArrayOutputStream();
-//        ImageIO.write(bImg, "png", output);
-//        String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
-//        request.getSession(true).setAttribute("IMAGE64", imageAsBase64);
-
-
-
-
-        //Concat segments
-        // maybe use this pixel RGB code?: https://stackoverflow.com/questions/9396159/how-do-i-create-a-bufferedimage-from-array-containing-pixels/9396487
-        //convert to Hash
-
-        //compare to Database Hash using: AWSPasswordAccess.java -> compareHash(user, hash)
-
-        //login or reject based on boolean returned from compareHash()
-
-
-
-
-        request.getSession(true).setAttribute("SELECTEDTILES", tileArray);
-
-        RequestDispatcher rd = request.getRequestDispatcher("/test.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher(destination);
         rd.forward(request, response);
     }
 

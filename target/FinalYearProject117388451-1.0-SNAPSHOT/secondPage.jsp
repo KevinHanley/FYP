@@ -53,6 +53,21 @@
         <!-- outputted correctly to the front-end. These are only placeholders. -->
 
 
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+
+            <div class="col-md-8">
+                <!-- display returned users details -->
+                <h3>Result of Overall Test:</h3>
+                <p>Result: ${FINALHASHTEST}</p>
+
+            </div>
+
+            <div class="col-md-2">
+            </div>
+        </div>
+
 
         <div class="row">
             <div class="col-md-2">

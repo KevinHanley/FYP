@@ -54,7 +54,6 @@ public class AccountServlet extends HttpServlet {
 
         //set session attributes with return data
         request.getSession(true).setAttribute("USER", user);
-        //request.getSession(true).setAttribute("imageaction", "retrieve"); //*******************************************************************************
 
         //Get the users image from the database
         RequestDispatcher rd = request.getRequestDispatcher("ImageServlet?imageaction=retrieve");
