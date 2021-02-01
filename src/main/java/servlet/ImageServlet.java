@@ -200,11 +200,13 @@ public class ImageServlet extends HttpServlet {
         ImageHash ih = new ImageHash();
         String generatedHash = ih.generateImageHash(tileArray, passImage);
 
+        System.out.println("The generated hash is: " + generatedHash);
         //Compare hash to Database
         AWSPasswordAccess passwordAccess = new AWSPasswordAccess();
         boolean matching = passwordAccess.compareHash(user, generatedHash);
 
         String destination = "/password.jsp";
+        String errorMessage = "";
 
         if(matching == true){
             //open loggedIn.jsp
@@ -213,6 +215,9 @@ public class ImageServlet extends HttpServlet {
         }else{
             //return to password.jsp
             //use if statement within HTML to display the error message, changed by setting a seesion attribute true/false. *******************************************
+            destination = "/password.jsp";
+            errorMessage = generatedHash;
+            request.getSession(true).setAttribute("TILEERROR", errorMessage);
         }
 
 

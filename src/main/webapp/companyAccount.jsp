@@ -1,22 +1,20 @@
 <%--
   Created by IntelliJ IDEA.
   User: kevinhanley
-  Date: 25/01/2021
-  Time: 4:06 p.m.
+  Date: 01/02/2021
+  Time: 6:05 p.m.
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Logged In</title>
+    <title>Title</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
 </head>
 <body>
-
-<h1>You are logged in.</h1>
 
 
 <!-- Option 2: Separate Popper and Bootstrap JS -->

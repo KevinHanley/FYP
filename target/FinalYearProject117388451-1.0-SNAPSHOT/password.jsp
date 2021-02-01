@@ -94,6 +94,7 @@
                 if ($(this).hasClass('selected')) {
                     //add the cell to the array
                     cellarray.push($(this).data('id'));
+                    alert("cell width is: " + $cellwidth + ". Cell Height is: " + $cellheight);
 
                 } else {
                     //remove last item from the array
@@ -114,10 +115,12 @@
     <input type="hidden" name="tilearray">
     <input type="hidden" name="imageaction" value="compare">
     <div id="grid-source">
-        <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}" width="600" height="600"/>
+        <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}"/>
     </div>
     <button type="submit">Submit Tiles</button>
 </form>
+
+<h2>Message: ${TILEERROR}</h2>
 
 </body>
 </html>

@@ -66,11 +66,8 @@ public class ImageHash {
         }
 
         //Get dimensions of image
-        int imageHeight = image.getHeight();
         int imageWidth = image.getWidth();
-
-        System.out.println("Image Height = " + imageHeight);
-        System.out.println("Image Width = " + imageWidth);
+        int imageHeight = image.getHeight();
 
         //number of rows and columns
         int rows = 16;
@@ -100,24 +97,13 @@ public class ImageHash {
             int tileRow = Integer.parseInt(tileLocation[0]);
             int tileColumn = Integer.parseInt(tileLocation[1]);
 
-            System.out.println("tileRow = " + tileRow);
-            System.out.println("tileColumn = " + tileColumn);
-
             //get the pixels of the upper left corner of each tile
             //i.e. this tiles upper corner could be positioned at 260x440px
-            y = (tileColumn - 1) * tileWidth;
-            x = (tileRow - 1) * tileHeight;
-
-            System.out.println("Loop No. 1: " + i);
-            System.out.println("x = " + x);
-            System.out.println("y = " + y);
-            System.out.println("tileWidth = " + tileWidth);
-            System.out.println("tileHeight = " + tileHeight);
+            x = (tileColumn - 1) * tileWidth;
+            y = (tileRow - 1) * tileHeight;
 
             //get the entire tile as its own BufferImage
-            System.out.println("About to go in");
             BufferedImage subImage = image.getSubimage(x, y, tileWidth, tileHeight);
-            System.out.println("Finished");
             bImgArray[i] = subImage; //add tile to an array
         }
 

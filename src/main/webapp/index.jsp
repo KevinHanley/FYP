@@ -33,12 +33,12 @@
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav mx-auto">
                             <li class="nav-item"><a class="nav-link active" href="#">What is PassPic?</a></li>
-                            <li class="nav-item"><a class="nav-link" href="account.jsp">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="test.jsp">Contact Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="account.jsp">User Account</a></li>
+                            <li class="nav-item"><a class="nav-link" href="test.jsp">Test</a></li>
                         </ul>
                         <ul class="nav navbar-nav">
-                            <li class="nav-item"><a class="nav-link active" href="account.jsp">Sign In</a></li>
-                            <li class="nav-item"><a class="nav-link" href="account.jsp">My Account</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="account.jsp">Individuals</a></li>
+                            <li class="nav-item"><a class="nav-link" href="companyAccount.jsp">Organisational</a></li>
                         </ul>
                     </div>
                 </div>
@@ -47,14 +47,52 @@
             <h1 id="sutitle" class="text-center">Secure.</h1>
         </div>
         <div id="hero-bottom">
+            <div class="container-fluid">
+                <!--test row-->
+                <div class="row">
+                    <div class="col-10">
+                        <!-- leave empty -->
+                    </div>
+                    <div class="col-2">
+                        <p>Sign up today!</p>
+                        <a href="account.jsp" class="btn btn-outline-primary btn-lg">Sign up</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10">
+                        <!-- leave empty -->
+                    </div>
+                    <div class="col-2">
+                        <p>Already signed up?</p>
+                        <a href="account.jsp" class="btn btn-outline-primary btn-lg">Log In</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="container">
+                <!--old row-->
                 <div class="row">
                     <div class="col">
                         <p>Authentication taken seriously.</p>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col"><button class="btn btn-primary info-button" type="button">More Info</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="d-flex flex-column justify-content-between" id="about-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-6" id="info-pic">
+                    <h1>What is PassPic about?</h1>
+                </div>
+
+                <div class="col-6">
+                    <p>Here at PassPic we aim to revolutionise how people authenticate themselves online.</p>
                 </div>
             </div>
         </div>
