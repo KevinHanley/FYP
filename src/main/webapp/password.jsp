@@ -31,6 +31,8 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
+            $('#submitbutton').prop("disabled", true)
+
             var $src = $('#grid-source');
             var $wrap = $('<div id="grid-overlay"></div>');
             //var $gsize = 30; //size of each cell in pixels
@@ -94,11 +96,18 @@
                 if ($(this).hasClass('selected')) {
                     //add the cell to the array
                     cellarray.push($(this).data('id'));
-                    alert("cell width is: " + $cellwidth + ". Cell Height is: " + $cellheight);
 
                 } else {
                     //remove last item from the array
                     cellarray.pop();
+                }
+
+
+                //setting the button disable/enabled.
+                if (cellarray.length < 8) {
+                    $('#submitbutton').prop("disabled", true)
+                } else {
+                    $('#submitbutton').prop("disabled", false)
                 }
 
                 //update the hidden variable in the form.
@@ -108,19 +117,31 @@
     </script>
 </head>
 <body>
-
-<h2>Select tiles from your password: ${IMAGEPASS.getImageName()}</h2>
-
-<form action="ImageServlet" method="POST">
-    <input type="hidden" name="tilearray">
-    <input type="hidden" name="imageaction" value="compare">
-    <div id="grid-source">
-        <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}"/>
+<div class="container text-center">
+    <div class="row">
+        <h2>Select your tiles for: ${IMAGEPASS.getImageName()}</h2>
     </div>
-    <button type="submit">Submit Tiles</button>
-</form>
 
-<h2>Message: ${TILEERROR}</h2>
+    <div class="d-flex justify-content-center align-items-center container ">
+        <div class="row">
+            <form action="ImageServlet" method="POST">
+                <input type="hidden" name="tilearray">
+                <input type="hidden" name="imageaction" value="compare">
+                <div id="grid-source">
+                    <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}"/>
+                </div>
 
+                <br>
+                <br>
+
+                <button id="submitbutton" class="btn btn-primary btn-outline-primary" type="submit">Submit Tiles</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <h2>${TILEERROR}</h2>
+    </div>
+</div>
 </body>
 </html>

@@ -13,14 +13,27 @@
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/test.css" type="text/css"/>
 
+    <script type="text/javascript" src="test.js"></script>
+
 </head>
 <body>
-    <div align="center">
-        <H2>You selected the following tiles:</H2>
 
-        <h1>${SELECTEDTILES}</h1>
+    <input type="text" id="imagesearch" placeholder="search">
+    <button onclick="SearchPhotos()">Search</button>
+    <button onclick="ClearPhotos()">Clear</button>
 
-        <img src="data:image/png;base64,${IMAGE64}"/>
+    <h3>Base64 Test</h3>
+    <form action="MyServlet" method="POST">
+        <input type="hidden" name="action" value="base">
+        <input type="hidden" id="basestring" name="basestring" value="">
+
+        <button class="btn btn-primary" type="submit">Select after choosing image</button>
+    </form>
+
+    <h3>Unsplash Images</h3>
+    <div id="outputimage">
+
     </div>
+
 </body>
 </html>

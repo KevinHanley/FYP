@@ -31,6 +31,8 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
+            $('#submitbutton').prop("disabled", true)
+
             var $src = $('#grid-source');
             var $wrap = $('<div id="grid-overlay"></div>');
             //var $gsize = 30; //size of each cell in pixels
@@ -100,6 +102,13 @@
                     cellarray.pop();
                 }
 
+                //setting the button disable/enabled.
+                if (cellarray.length < 8) {
+                    $('#submitbutton').prop("disabled", true)
+                } else {
+                    $('#submitbutton').prop("disabled", false)
+                }
+
                 //update the hidden variable in the form.
                 $('input[name=tilearray2]').val(cellarray.join());
             });
@@ -107,15 +116,15 @@
     </script>
 </head>
 <body>
-        <h2>Select tiles to confirm your password: ${IMAGEPASS.getImageName()}</h2>
+    <h2>Select tiles to confirm your password: ${IMAGEPASS.getImageName()}</h2>
 
-        <form action="ImageServlet" method="POST">
-            <input type="hidden" name="tilearray2">
-            <input type="hidden" name="imageaction" value="secondpassword">
-            <div id="grid-source">
-                <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}" width="600" height="600"/>
-            </div>
-            <button type="submit">Confirm Selection?</button>
-        </form>
+    <form action="ImageServlet" method="POST">
+        <input type="hidden" name="tilearray2">
+        <input type="hidden" name="imageaction" value="secondpassword">
+        <div id="grid-source">
+            <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}" width="600" height="600"/>
+        </div>
+        <button id="submitbutton" type="submit">Confirm Selection?</button>
+    </form>
 </body>
 </html>

@@ -18,6 +18,20 @@
 
 <h1>You are logged in.</h1>
 
+<!--
+<h2>Name: ${IMAGEPASSTEST.getImageName()}</h2>
+
+<img src="data:image/jpg;base64,${IMAGEPASSTEST.getBase64Image()}" width="600" height="600"/>
+
+-->
+
+<h2>Test Number 2 Kev:</h2>
+
+<img src="${BASE64TEST}"/>
+
+
+
+
 
 <!-- Option 2: Separate Popper and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

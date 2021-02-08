@@ -2,10 +2,10 @@ package bll;
 
 public class GeneralUser {
 
-    //Decalring attributes
+    //Declaring attributes
     private int userID;
     private int orgID;
-    private int phone;
+    private String phone;
     private int userType;
     private String firstName;
     private String lastName;
@@ -44,10 +44,10 @@ public class GeneralUser {
     }
 
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

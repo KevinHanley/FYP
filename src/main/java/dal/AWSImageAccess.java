@@ -98,6 +98,8 @@ public class AWSImageAccess {
 
                 //Convert the BLOB to a Base64 Image
                 Blob blob = rs.getBlob("imageFile");
+                System.out.println("Printing BLOB");
+                System.out.println(blob);
                 InputStream inputStream = blob.getBinaryStream();
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 byte[] buffer = new byte[4096];
@@ -109,7 +111,8 @@ public class AWSImageAccess {
 
                 byte[] imageBytes = outputStream.toByteArray();
                 String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-
+                System.out.println("Printing BASE 64");
+                System.out.println(base64Image);
                 //Close the streams
                 inputStream.close();
                 outputStream.close();

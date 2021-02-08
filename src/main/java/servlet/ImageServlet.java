@@ -1,9 +1,11 @@
 package servlet;
 
 import bll.GeneralUser;
+import bll.Organisation;
 import bll.PasswordImage;
 import com.oracle.tools.packager.IOUtils;
 import dal.AWSImageAccess;
+import dal.AWSOrganisationAccess;
 import dal.AWSPasswordAccess;
 import dal.ImageHash;
 
@@ -59,15 +61,12 @@ public class ImageServlet extends HttpServlet {
 
 
 
-
+    //Called from imageSelection.jsp
     private void uploadImage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // Source of retrieval code below: https://stackoverflow.com/questions/2422468/how-to-upload-files-to-server-using-jsp-servlet
         // inputStream to BufferedImage help: https://stackoverflow.com/questions/6464432/how-do-i-convert-a-inputstream-to-bufferedimage-in-java-groovy
-
-        // Get the user
-        GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
 
         // Get the input file
         Part filePart = request.getPart("file");
@@ -78,17 +77,41 @@ public class ImageServlet extends HttpServlet {
         //convert the input file into an inputStream
         InputStream fileContent = filePart.getInputStream();
 
-        //convert the inputStream to a BufferedImage and pass it to the hashing function
+        //convert the inputStream to a BufferedImage and pass it to the uploading function
         BufferedImage uploadedImage = ImageIO.read(fileContent);
+
+        // Get the current user or admin
+        GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
+        GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
+
+        //Image object
+        PasswordImage passImg = new PasswordImage();
 
         //Save as a BLOB in Remote AWS MySQL Database
         AWSImageAccess awsIA = new AWSImageAccess();
-        awsIA.uploadImageToMySQL(fileName, uploadedImage, user);
+        if(user != null){
 
-        //Get image back from database
-        PasswordImage passImg = new PasswordImage();
-        int userID = user.getUserID();
-        passImg = awsIA.retrieveImageFromMySQL(userID);
+            //upload the users image
+            awsIA.uploadImageToMySQL(fileName, uploadedImage, user);
+
+            //Get image back from database
+            int userID = user.getUserID();
+            passImg = awsIA.retrieveImageFromMySQL(userID);
+
+        }else if (admin != null){
+
+            //upload the admins image
+            awsIA.uploadImageToMySQL(fileName, uploadedImage, admin);
+
+            //Get image back from database
+            int adminID = admin.getUserID();
+            passImg = awsIA.retrieveImageFromMySQL(adminID);
+
+        }else{
+            //Error
+            System.out.println("Error neither available");
+
+        }
 
         request.getSession(true).setAttribute("IMAGEPASS", passImg);
 
@@ -99,12 +122,23 @@ public class ImageServlet extends HttpServlet {
 
 
 
-
+    //normal login (called form AccountServlet)
     protected void retrieveImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // Get the user and their ID number
         GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
-        int userID = user.getUserID();
+        GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
+
+        int userID = 0;
+
+        //check if a user or admin is logging in.
+        if(user != null){
+            userID = user.getUserID();
+
+        }else if(admin != null){
+            userID = admin.getUserID();
+
+        }
 
         //search for their image and return it
         AWSImageAccess imageAccess = new AWSImageAccess();
@@ -119,8 +153,78 @@ public class ImageServlet extends HttpServlet {
 
 
 
+    //Normal Log in: called from password.jsp
+    private void compareImage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //Capture tiles selected by user
+        String tileArray = request.getParameter("tilearray");
+
+        //get the users image
+        PasswordImage passImage = (PasswordImage) request.getSession().getAttribute("IMAGEPASS");
+
+        //Get the User/Admin
+        GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
+        GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
+
+        //Convert Co-ordinates into image segments
+        ImageHash ih = new ImageHash();
+        String generatedHash = ih.generateImageHash(tileArray, passImage);
+
+        //Compare hash to Database
+        AWSPasswordAccess passwordAccess = new AWSPasswordAccess();
+        boolean matching = false;
+
+        //compare the hashes, checking with admin/user
+        if(user != null){
+            matching = passwordAccess.compareHash(user, generatedHash);
+
+        }else if(admin != null){
+            matching = passwordAccess.compareHash(admin, generatedHash);
+
+        }else{
+            matching = false;
+
+        }
+
+        //Strings for if theres an error
+        String destination = "/password.jsp";
+        String errorMessage = "";
+
+        if(matching == true){
+
+            //set destination based on usertype.
+            if(user != null){
+                destination = "/loggedIn.jsp";
+
+            }else if(admin != null){
+                //get the organisation and set it to the session
+                AWSOrganisationAccess awsOA = new AWSOrganisationAccess();
+
+                //Retrieve org details from database
+                Organisation organisation = awsOA.retrieveOrganisation(admin.getOrgID());
+
+                request.getSession(true).setAttribute("ORGANISATION", organisation);
+                destination = "/adminDashboard.jsp";
+
+            }else{
+                //do nothing
+            }
+
+        }else{
+            //return to password.jsp
+            destination = "/password.jsp";
+            errorMessage = "Incorrect tiles selected! Please try again";
+            request.getSession(true).setAttribute("TILEERROR", errorMessage);
+
+        }
+
+        RequestDispatcher rd = request.getRequestDispatcher(destination);
+        rd.forward(request, response);
+    }
 
 
+    //called from createPassword.jsp
     private void openConfirmation(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -135,7 +239,7 @@ public class ImageServlet extends HttpServlet {
 
 
 
-
+    //called from confirmPassword.jsp
     private void confirmPasswords(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -149,10 +253,10 @@ public class ImageServlet extends HttpServlet {
         //get session objects
         PasswordImage passImage = (PasswordImage) request.getSession().getAttribute("IMAGEPASS");
         GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
+        GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
 
-
-        String finalTest = "DIDN'T WORK CHIEF";
-        String destination = "/confirmPassword.jsp"; // default destination
+        // default destination in event sequences don't match
+        String destination = "/confirmPassword.jsp";
 
         //Check if the two sequences of tiles match
         if(tileArray1.equals(tileArray2)){
@@ -164,19 +268,31 @@ public class ImageServlet extends HttpServlet {
 
             //Save hash to Database
             AWSPasswordAccess passwordAccess = new AWSPasswordAccess();
-            passwordAccess.storeHash(user, generatedHash);
 
-            finalTest = "A GREAT SUCCESS!";
-            destination = "/secondPage.jsp";
+            //check if user or admin
+            if(user != null){
+
+                //store hash
+                passwordAccess.storeHash(user, generatedHash);
+                destination = "/loggedIn.jsp";
+
+            }else if (admin != null){
+
+                //store hash
+                passwordAccess.storeHash(admin, generatedHash);
+                destination = "/adminDashboard.jsp";
+
+            }else{
+                //Error
+                System.out.println("Error neither available");
+
+            }
 
         }else{
             //send error message back to confirmPassword.jsp
             //use if statement within HTML to display the error message, changed by setting a seesion attribute true/false.*******************************************
         }
 
-        request.getSession(true).setAttribute("FINALHASHTEST", finalTest);
-
-
         RequestDispatcher rd = request.getRequestDispatcher(destination);
         rd.forward(request, response);
     }
@@ -184,46 +300,7 @@ public class ImageServlet extends HttpServlet {
 
 
 
-    private void compareImage(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
 
-        //Capture tiles selected by user
-        String tileArray = request.getParameter("tilearray");
-
-        //get the users image
-        PasswordImage passImage = (PasswordImage) request.getSession().getAttribute("IMAGEPASS");
-
-        //Get the User
-        GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
-
-        //Convert Co-ordinates into image segments
-        ImageHash ih = new ImageHash();
-        String generatedHash = ih.generateImageHash(tileArray, passImage);
-
-        System.out.println("The generated hash is: " + generatedHash);
-        //Compare hash to Database
-        AWSPasswordAccess passwordAccess = new AWSPasswordAccess();
-        boolean matching = passwordAccess.compareHash(user, generatedHash);
-
-        String destination = "/password.jsp";
-        String errorMessage = "";
-
-        if(matching == true){
-            //open loggedIn.jsp
-            destination = "/loggedIn.jsp";
-
-        }else{
-            //return to password.jsp
-            //use if statement within HTML to display the error message, changed by setting a seesion attribute true/false. *******************************************
-            destination = "/password.jsp";
-            errorMessage = generatedHash;
-            request.getSession(true).setAttribute("TILEERROR", errorMessage);
-        }
-
-
-        RequestDispatcher rd = request.getRequestDispatcher(destination);
-        rd.forward(request, response);
-    }
 
 
 

@@ -31,6 +31,8 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
+            $('#submitbutton').prop("disabled", true)
+
             var $src = $('#grid-source');
             var $wrap = $('<div id="grid-overlay"></div>');
             //var $gsize = 30; //size of each cell in pixels
@@ -100,6 +102,13 @@
                     cellarray.pop();
                 }
 
+                //setting the button disable/enabled.
+                if (cellarray.length < 8) {
+                    $('#submitbutton').prop("disabled", true)
+                } else {
+                    $('#submitbutton').prop("disabled", false)
+                }
+
                 //update the hidden variable in the form.
                 $('input[name=tilearray1]').val(cellarray.join());
             });
@@ -116,7 +125,7 @@
         <div id="grid-source">
             <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}" width="600" height="600"/>
         </div>
-        <button type="submit">Submit This Password?</button>
+        <button id="submitbutton" type="submit">Submit This Password?</button>
     </form>
 
 </body>

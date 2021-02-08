@@ -32,4 +32,14 @@
         <servlet-name>ImageServlet</servlet-name>
         <url-pattern>/ImageServlet</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>OrganisationServlet</servlet-name>
+        <servlet-class>servlet.OrganisationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrganisationServlet</servlet-name>
+        <url-pattern>/OrganisationServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -52,8 +52,20 @@ public class AccountServlet extends HttpServlet {
         AWSUserAccess awsUA = new AWSUserAccess();
         GeneralUser user = awsUA.retrieveUser(emailAddress); //create a user object from the database
 
-        //set session attributes with return data
-        request.getSession(true).setAttribute("USER", user);
+        //set session attribute to an admin or user
+        if(user.getUserType() == 1){
+            //change user to admin
+            GeneralUser admin = awsUA.retrieveAdmin(emailAddress);
+            request.getSession(true).setAttribute("ADMIN", admin);
+            System.out.println("Inside the Admin");
+
+        }else if(user.getUserType() == 4){
+            request.getSession(true).setAttribute("USER", user);
+            System.out.println("Inside the User");
+
+        }else{
+            System.out.println("Error in User Type");
+        }
 
         //Get the users image from the database
         RequestDispatcher rd = request.getRequestDispatcher("ImageServlet?imageaction=retrieve");
@@ -77,9 +89,12 @@ public class AccountServlet extends HttpServlet {
         //concat date of birth
         String dob = year + "/" + month + "/" + day;
 
+        //userType (default 4 for Free Account)
+        int userType = 4;
+
         //instantiate necessary classes
         AWSUserAccess awsUA = new AWSUserAccess();
-        GeneralUser newUser = new GeneralUser(fname, lname, email, dob, 1);
+        GeneralUser newUser = new GeneralUser(fname, lname, email, dob, userType);
 
         //add the new user to the database
         awsUA.insertNewUser(newUser);
@@ -88,7 +103,7 @@ public class AccountServlet extends HttpServlet {
         GeneralUser user = awsUA.retrieveUser(email); //create a user object from the database
         request.getSession(true).setAttribute("USER", user);
 
-        //open the second page
+        //open the upload page
         RequestDispatcher rd = request.getRequestDispatcher("/imageSelection.jsp");
         rd.forward(request, response);
 
@@ -123,13 +138,6 @@ public class AccountServlet extends HttpServlet {
         //open the second page
         RequestDispatcher rd = request.getRequestDispatcher("/secondPage.jsp");
         rd.forward(request, response);
-
-
-
-
-
-
-
     }
 
 

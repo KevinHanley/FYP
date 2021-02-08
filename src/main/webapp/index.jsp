@@ -32,19 +32,18 @@
                 <div class="container-fluid"><a class="navbar-brand" href="#">Pass Pic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav mx-auto">
-                            <li class="nav-item"><a class="nav-link active" href="#">What is PassPic?</a></li>
-                            <li class="nav-item"><a class="nav-link" href="account.jsp">User Account</a></li>
-                            <li class="nav-item"><a class="nav-link" href="test.jsp">Test</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#about-info">What is PassPic?</a></li>
+                            <li class="nav-item"><a class="nav-link" href="pricing.jsp">Pricing</a></li>
                         </ul>
                         <ul class="nav navbar-nav">
-                            <li class="nav-item"><a class="nav-link active" href="account.jsp">Individuals</a></li>
-                            <li class="nav-item"><a class="nav-link" href="companyAccount.jsp">Organisational</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#support-info">Support</a></li>
+                            <li class="nav-item"><a class="nav-link" href="account.jsp">Login</a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
             <h1 id="title" class="text-center">Picturesque.</h1>
-            <h1 id="sutitle" class="text-center">Secure.</h1>
+            <h1 id="subtitle" class="text-center">Secure.</h1>
         </div>
         <div id="hero-bottom">
             <div class="container-fluid">
@@ -54,8 +53,8 @@
                         <!-- leave empty -->
                     </div>
                     <div class="col-2">
-                        <p>Sign up today!</p>
-                        <a href="account.jsp" class="btn btn-outline-primary btn-lg">Sign up</a>
+                        <p>Test</p>
+                        <a href="test.jsp" class="btn btn-outline-primary btn-lg">Sign up</a>
                     </div>
                 </div>
                 <div class="row">
@@ -88,11 +87,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-6" id="info-pic">
-                    <h1>What is PassPic about?</h1>
+                    <h1 id="about-us-header">What is PassPic about?</h1>
                 </div>
 
                 <div class="col-6">
                     <p>Here at PassPic we aim to revolutionise how people authenticate themselves online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="d-flex flex-column justify-content-between" id="support-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-6" id="support-pic">
+                    <h1 id="support-header">Need some support?</h1>
+                </div>
+
+                <div class="col-6">
+                    <p>Contact us today!</p>
                 </div>
             </div>
         </div>

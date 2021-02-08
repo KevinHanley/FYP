@@ -53,7 +53,7 @@ public class AWSPasswordAccess {
         String dbHash = retrieveHash(user);
 
         //compare to input Hash
-        if(dbHash == inputHash){
+        if(dbHash.equals(inputHash)){
             correctMatch = true;
         }
 

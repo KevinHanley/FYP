@@ -99,4 +99,66 @@ public class AWSUserAccess {
         }
         return deletionMessage;
     }
+
+
+
+    //+++++++++
+    // CODE FOR ADMIN ACCOUNTS BELOW
+    //+++++++++
+
+
+    public void insertAdmin(GeneralUser admin){
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        try{
+            Statement st = conn.createStatement();
+            st.execute("insert into User (orgID, firstName, lastName, email, phone, dateOfBirth, gender, userType) values ("+ admin.getOrgID()
+                    +", '"+ admin.getFirstName() +"', '"+ admin.getLastName() +"', '"+ admin.getEmail() +"', '"+ admin.getPhone() +"', '"+ admin.getDateOfBirth()
+                    +"', '"+ admin.getGender() +"', "+ admin.getUserType() +")");
+
+            conn.close();
+
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+    }
+
+
+
+    public GeneralUser retrieveAdmin(String inputEmailAddress){
+        GeneralUser admin = new GeneralUser();
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs;
+
+            rs = st.executeQuery("select * from User where email='"+ inputEmailAddress +"'"); //SQL
+            while (rs.next()){
+                admin.setUserID(rs.getInt("userID"));
+                admin.setOrgID(rs.getInt("orgID"));
+                admin.setFirstName(rs.getString("firstName"));
+                admin.setLastName(rs.getString("lastName"));
+                admin.setEmail(rs.getString("email"));
+                admin.setPhone(rs.getString("phone"));
+                admin.setDateOfBirth(rs.getString("dateOfBirth"));
+                admin.setGender(rs.getString("gender"));
+                admin.setUserType(rs.getInt("userType"));
+            }
+
+            conn.close();
+
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        return admin;
+    }
+
+
+
+
+
 }
