@@ -25,12 +25,6 @@
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/pricing.css" type="text/css"/>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            /* this will include the navbar */
-            $("#navigation-load").load("navbar.jsp");
-        });
-    </script>
 </head>
 <body>
 <!-- navbar will load here -->

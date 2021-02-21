@@ -42,4 +42,9 @@
         <servlet-name>OrganisationServlet</servlet-name>
         <url-pattern>/OrganisationServlet</url-pattern>
     </servlet-mapping>
+
+
+    <error-page>
+        <location>/generalError.jsp</location>
+    </error-page>
 </web-app>

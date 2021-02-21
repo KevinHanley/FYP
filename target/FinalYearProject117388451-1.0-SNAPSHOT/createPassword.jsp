@@ -13,6 +13,9 @@
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/password.css" type="text/css"/>
 
@@ -117,16 +120,25 @@
 </head>
 <body>
 
-    <h2>Select tiles to use as your password: ${IMAGEPASS.getImageName()}</h2>
-
-    <form action="ImageServlet" method="POST">
-        <input type="hidden" name="tilearray1">
-        <input type="hidden" name="imageaction" value="firstpassword">
-        <div id="grid-source">
-            <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}" width="600" height="600"/>
+    <div class="container" style="margin-top: 50px;">
+        <div class="page-header">
+            <h1>Select tiles to use as your password</h1>
         </div>
-        <button id="submitbutton" type="submit">Submit This Password?</button>
-    </form>
+    </div>
+
+    <div class="container" style="margin-top: 50px;">
+        <div id="grid-source">
+            <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}"/>
+        </div>
+    </div>
+
+    <div id="button-form" class="fixed-bottom d-flex justify-content-center">
+        <form action="ImageServlet" method="POST">
+            <input type="hidden" name="tilearray1">
+            <input type="hidden" name="imageaction" value="firstpassword">
+            <button id="submitbutton" class="btn btn-outline-primary" type="submit">Confirm Selection</button>
+        </form>
+    </div>
 
 </body>
 </html>

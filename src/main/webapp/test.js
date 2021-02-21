@@ -42,8 +42,8 @@ function SearchPhotos(){
                 let elem = document.createElement("img");
                 elem.src = link;
                 elem.setAttribute("id", id);
-                elem.setAttribute("height", "400");
-                elem.setAttribute("width", "400");
+                //elem.setAttribute("height", "400");
+                //elem.setAttribute("width", "400");
                 elem.setAttribute("onclick", "DoActions(this.id)");
 
                 //Add the image to the div

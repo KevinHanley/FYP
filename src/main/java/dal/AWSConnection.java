@@ -35,6 +35,16 @@ public class AWSConnection {
     }
 
 
+
+
+
+
+
+
+
+    //OBSOLETE S3 CODE, must be removed
+
+
     //Establish a connection to AWS S3
     public AmazonS3 connectToS3(){
 

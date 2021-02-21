@@ -12,6 +12,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/password.css" type="text/css"/>
 
@@ -114,34 +117,57 @@
                 $('input[name=tilearray]').val(cellarray.join());
             });
         });
+
     </script>
 </head>
 <body>
-<div class="container text-center">
-    <div class="row">
-        <h2>Select your tiles for: ${IMAGEPASS.getImageName()}</h2>
-    </div>
 
-    <div class="d-flex justify-content-center align-items-center container ">
-        <div class="row">
-            <form action="ImageServlet" method="POST">
-                <input type="hidden" name="tilearray">
-                <input type="hidden" name="imageaction" value="compare">
-                <div id="grid-source">
-                    <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}"/>
-                </div>
-
-                <br>
-                <br>
-
-                <button id="submitbutton" class="btn btn-primary btn-outline-primary" type="submit">Submit Tiles</button>
-            </form>
+    <div class="container" style="margin-top: 50px;">
+        <div class="page-header">
+            <h1>Select your tiles</h1>
         </div>
     </div>
+
+    <div class="container" style="margin-top: 50px;">
+        <div id="grid-source">
+            <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}"/>
+        </div>
+    </div>
+
+    <div id="button-form" class="fixed-bottom d-flex justify-content-center">
+        <form action="ImageServlet" method="POST">
+            <input type="hidden" name="tilearray">
+            <input type="hidden" name="imageaction" value="compare">
+            <button id="submitbutton" class="btn btn-outline-primary" type="submit">Submit Tiles</button>
+        </form>
+    </div>
+
+
+<div class="container text-center">
+
+<%--    <div class="d-flex justify-content-center align-items-center container ">--%>
+<%--        <div class="row">--%>
+<%--            <form action="ImageServlet" method="POST">--%>
+<%--                <input type="hidden" name="tilearray">--%>
+<%--                <input type="hidden" name="imageaction" value="compare">--%>
+<%--                <div id="grid-source">--%>
+<%--                    <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}"/>--%>
+<%--                </div>--%>
+
+<%--                <br>--%>
+<%--                <br>--%>
+
+<%--                <button id="submitbutton" class="btn btn-primary btn-outline-primary" type="submit">Submit Tiles</button>--%>
+<%--            </form>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 
     <div class="row">
         <h2>${TILEERROR}</h2>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
 </body>
 </html>

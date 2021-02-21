@@ -29,9 +29,6 @@ public class OrganisationServlet extends HttpServlet {
             case "addAdmin":
                 addAdmin(request, response);
                 break;
-            case "addImage":
-                addImage(request, response);
-                break;
             default:
                 //do nothing if no action
                 break;
@@ -134,28 +131,6 @@ public class OrganisationServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/imageSelection.jsp");
         rd.forward(request, response);
     }
-
-
-
-    protected void addImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //upload an image
-
-
-        //Bring to the image upload page
-
-
-        //set a password for the org
-        //confirm it
-
-
-        //save all details to database
-        //open orgHome.jsp
-    }
-
-
-
-
-
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,11 +1,13 @@
 package dal;
 import bll.GeneralUser;
+import com.sun.tools.javah.Gen;
 import dal.AWSConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class AWSUserAccess {
 
@@ -59,45 +61,28 @@ public class AWSUserAccess {
     }
 
 
-
-    public String editUser(GeneralUser editUser){
+    public void deleteUser(String strUserID){
 
         Connection conn = AWSConnection.establishDatabaseConnection();
-        String completed = "Editing failed";
+
+        int userID = Integer.parseInt(strUserID);
 
         try{
             Statement st = conn.createStatement();
-            st.execute("update User set firstName='" + editUser.getFirstName()+"', lastName='" + editUser.getLastName()
-                    + "', dateOfBirth='" + editUser.getDateOfBirth() + "', userType=" + editUser.getUserType()
-                    + " where email='" + editUser.getEmail() +"'");
+            st.execute("delete from User where userID=" + userID);
 
             conn.close();
-            System.out.println("*********** A GREAT SUCCESS*************");
-            completed = "Editing was a success!";
         }catch(Exception e){
             System.out.println(e);
         }
-        return completed;
-    }
 
+        //Also delete their image from the database
+        AWSImageAccess awsIA = new AWSImageAccess();
+        awsIA.deleteImageFromMySQL(userID);
 
-
-    public String deleteUser(String email){
-
-        Connection conn = AWSConnection.establishDatabaseConnection();
-        String deletionMessage = "Delete didn't work.";
-
-        try{
-            Statement st = conn.createStatement();
-            st.execute("delete from User where email='" + email + "'");
-
-            conn.close();
-            System.out.println("*********** A GREAT SUCCESS*************");
-            deletionMessage = "Deletion was a success!";
-        }catch(Exception e){
-            System.out.println(e);
-        }
-        return deletionMessage;
+        //Also delete their hash from the database
+//        AWSPasswordAccess awsPA = new AWSPasswordAccess();
+//        awsPA.deleteHash(userID);
     }
 
 
@@ -157,6 +142,117 @@ public class AWSUserAccess {
         return admin;
     }
 
+
+
+    public GeneralUser retrieveSingleEmployee(int userID){
+        GeneralUser employee = new GeneralUser();
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs;
+
+            rs = st.executeQuery("select * from User where userID="+ userID); //SQL
+            while (rs.next()){
+                employee.setUserID(rs.getInt("userID"));
+                employee.setOrgID(rs.getInt("orgID"));
+                employee.setFirstName(rs.getString("firstName"));
+                employee.setLastName(rs.getString("lastName"));
+                employee.setEmail(rs.getString("email"));
+                employee.setPhone(rs.getString("phone"));
+                employee.setDateOfBirth(rs.getString("dateOfBirth"));
+                employee.setGender(rs.getString("gender"));
+                employee.setUserType(rs.getInt("userType"));
+            }
+
+            conn.close();
+
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        return employee;
+    }
+
+
+
+    private ArrayList<GeneralUser> retrieveAllUsers(){
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+        ArrayList<GeneralUser> userList = new ArrayList();
+
+        try{
+            Statement st = conn.createStatement();
+            ResultSet rs;
+
+            rs = st.executeQuery("select * from User"); //SQL
+
+            //loop through each user from the database
+            while (rs.next()){
+
+                //blank user
+                GeneralUser user = new GeneralUser();
+
+                //assign attributes
+                user.setUserID(rs.getInt("userID"));
+                user.setOrgID(rs.getInt("orgID"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phone"));
+                user.setDateOfBirth(rs.getString("dateOfBirth"));
+                user.setGender(rs.getString("gender"));
+                user.setUserType(rs.getInt("userType"));
+
+                //add to the array list
+                userList.add(user);
+            }
+
+            conn.close();
+
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        return userList;
+    }
+
+
+    public ArrayList<GeneralUser> getEmployees(int orgID){
+
+        //obtain all users
+        ArrayList<GeneralUser> userList = retrieveAllUsers();
+
+        //array of employees to be returned
+        ArrayList<GeneralUser> employeeList = new ArrayList();
+
+        //loop through all users, and add correct employees to the list
+        for(GeneralUser user : userList){
+            if(user.getOrgID() == orgID){
+                employeeList.add(user);
+            }
+        }
+
+        return employeeList;
+    }
+
+
+
+    public void editEmployee(GeneralUser editUser){
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        try{
+            Statement st = conn.createStatement();
+            st.execute("update User set firstName='" + editUser.getFirstName()+"', lastName='" + editUser.getLastName()
+                    + "', email='" + editUser.getEmail() + "', phone='" + editUser.getPhone() + "', gender='" + editUser.getGender()
+                    + "', dateOfBirth='" + editUser.getDateOfBirth() + "' where userID=" + editUser.getUserID());
+
+            conn.close();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
 
 
 

@@ -23,7 +23,7 @@ public class GeneralUser {
         this.firstName = fname;
         this.lastName = lname;
         this.email = email;
-        this.setDateOfBirth(dob);
+        this.dateOfBirth = dob;
         this.userType = usertype;
     }
 
@@ -94,7 +94,6 @@ public class GeneralUser {
     public String getDateOfBirth() {
         return dateOfBirth;
     }
-
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }

@@ -25,176 +25,161 @@
 
 <body>
 
-<section class="d-flex flex-column justify-content-between" id="hero">
-    <div id="hero-top">
-        <nav class="navbar navbar-light navbar-expand-md">
-            <div class="container-fluid"><a class="navbar-brand" href="index.jsp">Pass Pic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="nav navbar-nav mx-auto">
-                        <li class="nav-item"><a class="nav-link active" href="account.jsp">What is PassPic?</a></li>
-                        <li class="nav-item"><a class="nav-link" href="account.jsp">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="test.jsp">Contact Us</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link active" href="account.jsp">Sign In</a></li>
-                        <li class="nav-item"><a class="nav-link" href="account.jsp">My Account</a></li>
+<div class="container" style="margin-top: 50px;">
+    <div class="page-header">
+        <h1>Register Free Account or Log In.</h1>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 50px;">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+
+                <div class="card-header">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="signup-tab" data-toggle="tab" href="#signup" role="tab" aria-controls="signup" aria-selected="false">Sign Up</a>
+                        </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </div>
 
-    <div class="container">
-        <div class="page-header">
-            <h1>Register Free Account or Log In.</h1>
-        </div>
-    </div>
+                <div class="card-body">
+                    <div class="tab-content" id="myTabContent">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
+                        <!--Log in to account -->
+                        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <h5 class="card-title">Enter Details</h5>
+                            <form action="AccountServlet" method="POST">
+                                <input type="hidden" name="action" value="login">
 
-                    <div class="card-header">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="signup-tab" data-toggle="tab" href="#signup" role="tab" aria-controls="signup" aria-selected="false">Sign Up</a>
-                            </li>
-                        </ul>
-                    </div>
+                                <!-- Email -->
+                                <div class="form-group">
+                                    <label for="loginEmailAddress">Email Address</label>
+                                    <input type="email" class="form-control" id="loginEmailAddress" name="loginEmailAddress" placeholder="Email Address">
+                                </div>
 
-                    <div class="card-body">
-                        <div class="tab-content" id="myTabContent">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Log In</button>
+                                </div>
+                            </form>
+                        </div>
 
-                            <!--Log in to account -->
-                            <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                                <h5 class="card-title">Enter Details</h5>
-                                <form action="AccountServlet" method="POST">
-                                    <input type="hidden" name="action" value="login">
+                        <!--Create a free account -->
+                        <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                            <h5 class="card-title">Create Free Account</h5>
+                            <form action="AccountServlet" method="POST">
+                                <input type="hidden" name="action" value="add">
 
-                                    <!-- Email -->
-                                    <div class="form-group">
-                                        <label for="loginEmailAddress">Email Address</label>
-                                        <input type="email" class="form-control" id="loginEmailAddress" name="loginEmailAddress" placeholder="Email Address">
+                                <!-- First Name -->
+                                <div class="form-group">
+                                    <label for="fname">First Name</label>
+                                    <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name">
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="form-group">
+                                    <label for="lname">Last Name</label>
+                                    <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name">
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                </div>
+
+                                <!-- Date of Birth -->
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="day">Date</label>
+                                        <select class="form-control" name="day" id="day">
+                                            <option value='01'>1</option>
+                                            <option value='02'>2</option>
+                                            <option value='03'>3</option>
+                                            <option value='04'>4</option>
+                                            <option value='05'>5</option>
+                                            <option value='06'>6</option>
+                                            <option value='07'>7</option>
+                                            <option value='08'>8</option>
+                                            <option value='09'>9</option>
+                                            <option value='10'>10</option>
+                                            <option value='11'>11</option>
+                                            <option value='12'>12</option>
+                                            <option value='13'>13</option>
+                                            <option value='14'>14</option>
+                                            <option value='15'>15</option>
+                                            <option value='16'>16</option>
+                                            <option value='17'>17</option>
+                                            <option value='18'>18</option>
+                                            <option value='19'>19</option>
+                                            <option value='20'>20</option>
+                                            <option value='21'>21</option>
+                                            <option value='22'>22</option>
+                                            <option value='23'>23</option>
+                                            <option value='24'>24</option>
+                                            <option value='25'>25</option>
+                                            <option value='26'>26</option>
+                                            <option value='27'>27</option>
+                                            <option value='28'>28</option>
+                                            <option value='29'>29</option>
+                                            <option value='30'>30</option>
+                                            <option value='31'>31</option>
+
+                                        </select>
                                     </div>
-
-                                    <button class="btn btn-primary" type="submit">Add Administrator</button>
-                                </form>
-                            </div>
-
-                            <!--Create a free account -->
-                            <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
-                                <h5 class="card-title">Create Free Account</h5>
-                                <form action="AccountServlet" method="POST">
-                                    <input type="hidden" name="action" value="add">
-
-                                    <!-- First Name -->
-                                    <div class="form-group">
-                                        <label for="fname">First Name</label>
-                                        <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name">
+                                    <div class="col">
+                                        <label for="month">Month</label>
+                                        <select class="form-control" name="month" id="month">
+                                            <option value='01'>January</option>
+                                            <option value='02'>February</option>
+                                            <option value='03'>March</option>
+                                            <option value='04'>April</option>
+                                            <option value='05'>May</option>
+                                            <option value='06'>June</option>
+                                            <option value='07'>July</option>
+                                            <option value='08'>August</option>
+                                            <option value='09'>September</option>
+                                            <option value='10'>October</option>
+                                            <option value='11'>November</option>
+                                            <option value='12'>December</option>
+                                        </select>
                                     </div>
-
-                                    <!-- Last Name -->
-                                    <div class="form-group">
-                                        <label for="lname">Last Name</label>
-                                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name">
+                                    <div class="col">
+                                        <label for="year">Year</label>
+                                        <select class="form-control" name="year" id="year">
+                                            <option value='2003'>2003</option>
+                                            <option value='2002'>2002</option>
+                                            <option value='2001'>2001</option>
+                                            <option value='2000'>2000</option>
+                                            <option value='1999'>1999</option>
+                                            <option value='1998'>1998</option>
+                                            <option value='1997'>1997</option>
+                                            <option value='1996'>1996</option>
+                                            <option value='1995'>1995</option>
+                                            <option value='1994'>1994</option>
+                                            <option value='1993'>1993</option>
+                                            <option value='1992'>1992</option>
+                                            <option value='1991'>1991</option>
+                                            <option value='1990'>1990</option>
+                                        </select>
                                     </div>
+                                </div>
 
-                                    <!-- Email -->
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                                    </div>
-
-                                    <!-- Date of Birth -->
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <label for="date">Date</label>
-                                            <select class="form-control" name="date" id="date">
-                                                <option value='01'>1</option>
-                                                <option value='02'>2</option>
-                                                <option value='03'>3</option>
-                                                <option value='04'>4</option>
-                                                <option value='05'>5</option>
-                                                <option value='06'>6</option>
-                                                <option value='07'>7</option>
-                                                <option value='08'>8</option>
-                                                <option value='09'>9</option>
-                                                <option value='10'>10</option>
-                                                <option value='11'>11</option>
-                                                <option value='12'>12</option>
-                                                <option value='13'>13</option>
-                                                <option value='14'>14</option>
-                                                <option value='15'>15</option>
-                                                <option value='16'>16</option>
-                                                <option value='17'>17</option>
-                                                <option value='18'>18</option>
-                                                <option value='19'>19</option>
-                                                <option value='20'>20</option>
-                                                <option value='21'>21</option>
-                                                <option value='22'>22</option>
-                                                <option value='23'>23</option>
-                                                <option value='24'>24</option>
-                                                <option value='25'>25</option>
-                                                <option value='26'>26</option>
-                                                <option value='27'>27</option>
-                                                <option value='28'>28</option>
-                                                <option value='29'>29</option>
-                                                <option value='30'>30</option>
-                                                <option value='31'>31</option>
-
-                                            </select>
-                                        </div>
-                                        <div class="col">
-                                            <label for="month">Month</label>
-                                            <select class="form-control" name="month" id="month">
-                                                <option value='01'>January</option>
-                                                <option value='02'>February</option>
-                                                <option value='03'>March</option>
-                                                <option value='04'>April</option>
-                                                <option value='05'>May</option>
-                                                <option value='06'>June</option>
-                                                <option value='07'>July</option>
-                                                <option value='08'>August</option>
-                                                <option value='09'>September</option>
-                                                <option value='10'>October</option>
-                                                <option value='11'>November</option>
-                                                <option value='12'>December</option>
-                                            </select>
-                                        </div>
-                                        <div class="col">
-                                            <label for="year">Year</label>
-                                            <select class="form-control" name="year" id="year">
-                                                <option value='2003'>2003</option>
-                                                <option value='2002'>2002</option>
-                                                <option value='2001'>2001</option>
-                                                <option value='2000'>2000</option>
-                                                <option value='1999'>1999</option>
-                                                <option value='1998'>1998</option>
-                                                <option value='1997'>1997</option>
-                                                <option value='1996'>1996</option>
-                                                <option value='1995'>1995</option>
-                                                <option value='1994'>1994</option>
-                                                <option value='1993'>1993</option>
-                                                <option value='1992'>1992</option>
-                                                <option value='1991'>1991</option>
-                                                <option value='1990'>1990</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
+                                <div class="form-group">
                                     <button class="btn btn-primary" type="submit">Create Free Account</button>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 <%--    --%>
 <%--            <div class="row item-margin-top">--%>
@@ -257,7 +242,7 @@
 <%--                    </div>--%>
 <%--                </div>--%>
 <%--            </div>--%>
-</section>
+
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

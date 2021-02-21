@@ -22,9 +22,9 @@ public class ImageHash {
     //******************************************************************************
 
     // This code was adapted from these sources:
-    // https://howtodoinjava.com/java/java-security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
-    // https://www.tutorialspoint.com/How-to-convert-Image-to-Byte-Array-in-java
-    // https://stackoverflow.com/questions/18309868/imageio-iioexception-cant-read-input-file
+    // Hashing Creation: https://howtodoinjava.com/java/java-security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
+    // Image to Byte Array: https://www.tutorialspoint.com/How-to-convert-Image-to-Byte-Array-in-java
+    // IO Error Handling: https://stackoverflow.com/questions/18309868/imageio-iioexception-cant-read-input-file
     //Convert to bufferedImage: https://stackoverflow.com/questions/30751964/how-to-convert-blob-to-image-to-display-it-on-a-jlabel-in-java
     //Image 'cutting' code adapted from: https://gist.github.com/madan712/3672616
     //Combining images in Array: http://jens-na.github.io/2013/11/06/java-how-to-concat-buffered-images/

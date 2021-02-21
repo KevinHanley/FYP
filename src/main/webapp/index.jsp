@@ -29,7 +29,7 @@
     <section class="d-flex flex-column justify-content-between" id="hero">
         <div id="hero-top">
             <nav class="navbar navbar-light navbar-expand-md">
-                <div class="container-fluid"><a class="navbar-brand" href="#">Pass Pic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="container-fluid"><a class="navbar-brand" href="test.jsp">Pass Pic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav mx-auto">
                             <li class="nav-item"><a class="nav-link active" href="#about-info">What is PassPic?</a></li>
@@ -46,28 +46,6 @@
             <h1 id="subtitle" class="text-center">Secure.</h1>
         </div>
         <div id="hero-bottom">
-            <div class="container-fluid">
-                <!--test row-->
-                <div class="row">
-                    <div class="col-10">
-                        <!-- leave empty -->
-                    </div>
-                    <div class="col-2">
-                        <p>Test</p>
-                        <a href="test.jsp" class="btn btn-outline-primary btn-lg">Sign up</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-10">
-                        <!-- leave empty -->
-                    </div>
-                    <div class="col-2">
-                        <p>Already signed up?</p>
-                        <a href="account.jsp" class="btn btn-outline-primary btn-lg">Log In</a>
-                    </div>
-                </div>
-            </div>
-
             <div class="container">
                 <!--old row-->
                 <div class="row">

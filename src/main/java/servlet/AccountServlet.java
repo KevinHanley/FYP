@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "AccountServlet")
 public class AccountServlet extends HttpServlet {
@@ -27,8 +28,14 @@ public class AccountServlet extends HttpServlet {
             case "add":
                 addUser(request, response);
                 break;
-            case "edit":
-                editUser(request, response);
+            case "addEmployee":
+                addEmployee(request, response);
+                break;
+            case "openedit":
+                openEditEmployee(request, response);
+                break;
+            case "editEmployee":
+                editEmployee(request, response);
                 break;
             case "delete":
                 deleteUser(request, response);
@@ -57,11 +64,9 @@ public class AccountServlet extends HttpServlet {
             //change user to admin
             GeneralUser admin = awsUA.retrieveAdmin(emailAddress);
             request.getSession(true).setAttribute("ADMIN", admin);
-            System.out.println("Inside the Admin");
 
         }else if(user.getUserType() == 4){
             request.getSession(true).setAttribute("USER", user);
-            System.out.println("Inside the User");
 
         }else{
             System.out.println("Error in User Type");
@@ -96,6 +101,8 @@ public class AccountServlet extends HttpServlet {
         AWSUserAccess awsUA = new AWSUserAccess();
         GeneralUser newUser = new GeneralUser(fname, lname, email, dob, userType);
 
+        System.out.println();
+
         //add the new user to the database
         awsUA.insertNewUser(newUser);
 
@@ -111,32 +118,106 @@ public class AccountServlet extends HttpServlet {
 
 
 
-    private void editUser(HttpServletRequest request, HttpServletResponse response)
+    private void addEmployee(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //get inputs from the request
-        String fname = request.getParameter("editfname");
-        String lname = request.getParameter("editlname");
-        String email = request.getParameter("editemail");
-        String day = request.getParameter("editday");
-        String month = request.getParameter("editmonth");
-        String year = request.getParameter("edityear");
+        //Get admin details
+        GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
+
+        //New object for employee details
+        GeneralUser newEmployee = new GeneralUser();
 
         //concat date of birth
+        String day = request.getParameter("date");
+        String month = request.getParameter("month");
+        String year = request.getParameter("year");
         String dob = year + "/" + month + "/" + day;
 
-        //instantiate necessary classes
+        //Assign new attributes
+        newEmployee.setFirstName(request.getParameter("firstname"));
+        newEmployee.setLastName(request.getParameter("lastname"));
+        newEmployee.setEmail(request.getParameter("email"));
+        newEmployee.setGender(request.getParameter("gender"));
+        newEmployee.setPhone(request.getParameter("phonenumber"));
+        newEmployee.setDateOfBirth(dob);
+        newEmployee.setUserType(4);
+        newEmployee.setOrgID(admin.getOrgID());
+
+        //add them to database
         AWSUserAccess awsUA = new AWSUserAccess();
-        GeneralUser editUser = new GeneralUser(fname, lname, email, dob, 1);
+        awsUA.insertAdmin(newEmployee); //This method is used as its the same for both employees/admins
 
-        //add the new user to the database
-        String editsCompleted = awsUA.editUser(editUser);
+        //retrieve the new user and assign it to the session
+        GeneralUser addedEmployee = awsUA.retrieveAdmin(newEmployee.getEmail()); //create a user object from the database
+        request.getSession(true).setAttribute("NEWEMPLOYEE", addedEmployee);
 
-        //set session attributes with return data
-        request.getSession(true).setAttribute("EDITRESULT", editsCompleted);
+        //open the upload page
+        RequestDispatcher rd = request.getRequestDispatcher("/imageSelection.jsp");
+        rd.forward(request, response);
+
+        //enter passwords
+        //save and return to dashboard
+
+    }
+
+
+    private void openEditEmployee(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //get input from the request and store it
+        int userID = Integer.parseInt(request.getParameter("userid"));
+
+        //Get all the employees
+        ArrayList<GeneralUser> employees = (ArrayList<GeneralUser>) request.getSession().getAttribute("EMPLOYEES");
+        GeneralUser returnEmployee = null;
+
+        //Loop through list and find the employee to be edited by the admin
+        for(GeneralUser employee : employees){
+            if(employee.getUserID() == userID){
+                returnEmployee = employee;
+                break;
+            }
+        }
+
+        //Set session Attribute
+        request.getSession(true).setAttribute("SINGLEEMPLOYEE", returnEmployee);
+
+        //open the editing page
+        RequestDispatcher rd = request.getRequestDispatcher("/editEmployees.jsp");
+        rd.forward(request, response);
+    }
+
+
+
+    private void editEmployee(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //Get the unedited employee
+        GeneralUser singleEmployee = (GeneralUser) request.getSession().getAttribute("SINGLEEMPLOYEE");
+
+        //Assign new attributes
+        singleEmployee.setFirstName(request.getParameter("firstname"));
+        singleEmployee.setLastName(request.getParameter("lastname"));
+        singleEmployee.setEmail(request.getParameter("email"));
+        singleEmployee.setGender(request.getParameter("gender"));
+        singleEmployee.setPhone(request.getParameter("phonenumber"));
+
+        String day = request.getParameter("date");
+        String month = request.getParameter("month");
+        String year = request.getParameter("year");
+        String dob = year + "/" + month + "/" + day; //concat date of birth
+
+        singleEmployee.setDateOfBirth(dob);
+
+        //Update the database
+        AWSUserAccess awsUA = new AWSUserAccess();
+        awsUA.editEmployee(singleEmployee);
+
+        //Clear session attribute
+        request.getSession().removeAttribute("SINGLEEMPLOYEE");
 
         //open the second page
-        RequestDispatcher rd = request.getRequestDispatcher("/secondPage.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/adminDashboard.jsp");
         rd.forward(request, response);
     }
 
@@ -146,17 +227,21 @@ public class AccountServlet extends HttpServlet {
             throws ServletException, IOException {
 
         //get input from the request
-        String emailAddress = request.getParameter("deleteUserEmailAddress");
+        String userID = request.getParameter("userid");
+
+        //Get admin details
+        GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
 
         //instantiate necessary classes
         AWSUserAccess awsUA = new AWSUserAccess();
-        String deletionMessage = awsUA.deleteUser(emailAddress);
+        awsUA.deleteUser(userID); //This cascades to the User, Image and Password tables
 
-        //set session attributes with return data
-        request.getSession(true).setAttribute("DELETERESULT", deletionMessage);
+        //Remake the employee list
+        ArrayList<GeneralUser> employees = awsUA.getEmployees(admin.getOrgID());
+        request.getSession(true).setAttribute("EMPLOYEES", employees);
 
-        //open the second page
-        RequestDispatcher rd = request.getRequestDispatcher("/secondPage.jsp");
+        //reopen the dashboard
+        RequestDispatcher rd = request.getRequestDispatcher("/adminDashboard.jsp");
         rd.forward(request, response);
     }
 

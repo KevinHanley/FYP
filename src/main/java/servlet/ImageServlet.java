@@ -4,10 +4,7 @@ import bll.GeneralUser;
 import bll.Organisation;
 import bll.PasswordImage;
 import com.oracle.tools.packager.IOUtils;
-import dal.AWSImageAccess;
-import dal.AWSOrganisationAccess;
-import dal.AWSPasswordAccess;
-import dal.ImageHash;
+import dal.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -26,6 +23,7 @@ import java.io.OutputStream;
 import java.nio.file.Paths;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Base64;
 
 @WebServlet(name = "ImageServlet")
@@ -50,6 +48,9 @@ public class ImageServlet extends HttpServlet {
                 break;
             case "secondpassword":
                 confirmPasswords(request, response);
+                break;
+            case "editpassword":
+                editImage(request, response);
                 break;
             default:
                 //do nothing
@@ -83,22 +84,33 @@ public class ImageServlet extends HttpServlet {
         // Get the current user or admin
         GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
         GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
+        GeneralUser newEmployee = (GeneralUser) request.getSession().getAttribute("NEWEMPLOYEE");
+        GeneralUser singleEmployee = (GeneralUser) request.getSession().getAttribute("SINGLEEMPLOYEE");
 
         //Image object
         PasswordImage passImg = new PasswordImage();
 
         //Save as a BLOB in Remote AWS MySQL Database
         AWSImageAccess awsIA = new AWSImageAccess();
-        if(user != null){
+        if(newEmployee != null){
 
-            //upload the users image
-            awsIA.uploadImageToMySQL(fileName, uploadedImage, user);
+            //upload the admins image
+            awsIA.uploadImageToMySQL(fileName, uploadedImage, newEmployee);
 
             //Get image back from database
-            int userID = user.getUserID();
-            passImg = awsIA.retrieveImageFromMySQL(userID);
+            int empID = newEmployee.getUserID();
+            passImg = awsIA.retrieveImageFromMySQL(empID);
 
-        }else if (admin != null){
+        } else if (singleEmployee != null){
+
+            //upload the admins image
+            awsIA.uploadImageToMySQL(fileName, uploadedImage, singleEmployee);
+
+            //Get image back from database
+            int editingID = singleEmployee.getUserID();
+            passImg = awsIA.retrieveImageFromMySQL(editingID);
+
+        } else if (admin != null){
 
             //upload the admins image
             awsIA.uploadImageToMySQL(fileName, uploadedImage, admin);
@@ -107,9 +119,18 @@ public class ImageServlet extends HttpServlet {
             int adminID = admin.getUserID();
             passImg = awsIA.retrieveImageFromMySQL(adminID);
 
+        }else if (user != null){
+
+            //upload the users image
+            awsIA.uploadImageToMySQL(fileName, uploadedImage, user);
+
+            //Get image back from database
+            int userID = user.getUserID();
+            passImg = awsIA.retrieveImageFromMySQL(userID);
+
         }else{
             //Error
-            System.out.println("Error neither available");
+            System.out.println("Error no users available");
 
         }
 
@@ -184,7 +205,6 @@ public class ImageServlet extends HttpServlet {
 
         }else{
             matching = false;
-
         }
 
         //Strings for if theres an error
@@ -192,19 +212,21 @@ public class ImageServlet extends HttpServlet {
         String errorMessage = "";
 
         if(matching == true){
-
             //set destination based on usertype.
             if(user != null){
                 destination = "/loggedIn.jsp";
 
             }else if(admin != null){
-                //get the organisation and set it to the session
+                //instantiate classes
                 AWSOrganisationAccess awsOA = new AWSOrganisationAccess();
+                AWSUserAccess awsUA = new AWSUserAccess();
 
-                //Retrieve org details from database
+                //Retrieve organisation and employee details from database
                 Organisation organisation = awsOA.retrieveOrganisation(admin.getOrgID());
+                ArrayList<GeneralUser> employees = awsUA.getEmployees(admin.getOrgID());
 
                 request.getSession(true).setAttribute("ORGANISATION", organisation);
+                request.getSession(true).setAttribute("EMPLOYEES", employees);
                 destination = "/adminDashboard.jsp";
 
             }else{
@@ -254,6 +276,8 @@ public class ImageServlet extends HttpServlet {
         PasswordImage passImage = (PasswordImage) request.getSession().getAttribute("IMAGEPASS");
         GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
         GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
+        GeneralUser newEmployee = (GeneralUser) request.getSession().getAttribute("NEWEMPLOYEE");
+        GeneralUser singleEmployee = (GeneralUser) request.getSession().getAttribute("SINGLEEMPLOYEE");
 
         // default destination in event sequences don't match
         String destination = "/confirmPassword.jsp";
@@ -270,7 +294,30 @@ public class ImageServlet extends HttpServlet {
             AWSPasswordAccess passwordAccess = new AWSPasswordAccess();
 
             //check if user or admin
-            if(user != null){
+            if(newEmployee != null){
+
+                //store hash
+                passwordAccess.storeHash(newEmployee, generatedHash);
+                destination = "/adminDashboard.jsp";
+
+                //refresh employee list
+                AWSUserAccess awsUA = new AWSUserAccess();
+                ArrayList<GeneralUser> employees = awsUA.getEmployees(admin.getOrgID());
+                request.getSession(true).setAttribute("EMPLOYEES", employees);
+
+            } else if (singleEmployee != null){
+
+                //store hash
+                passwordAccess.storeHash(singleEmployee, generatedHash);
+                destination = "/adminDashboard.jsp";
+
+                //refresh employee list
+                AWSUserAccess awsUA = new AWSUserAccess();
+                ArrayList<GeneralUser> employees = awsUA.getEmployees(admin.getOrgID());
+                request.getSession(true).setAttribute("EMPLOYEES", employees);
+
+
+            } else if (user != null){
 
                 //store hash
                 passwordAccess.storeHash(user, generatedHash);
@@ -293,6 +340,14 @@ public class ImageServlet extends HttpServlet {
             //use if statement within HTML to display the error message, changed by setting a seesion attribute true/false.*******************************************
         }
 
+        //clear session variables
+        request.getSession().removeAttribute("IMAGEPASS");
+        request.getSession().removeAttribute("NEWEMPLOYEE");
+        request.getSession().removeAttribute("TILEARRAY1");
+        request.getSession().removeAttribute("TILEARRAY2");
+        request.getSession().removeAttribute("SINGLEEMPLOYEE");
+
+        //Open the destination
         RequestDispatcher rd = request.getRequestDispatcher(destination);
         rd.forward(request, response);
     }
@@ -300,8 +355,18 @@ public class ImageServlet extends HttpServlet {
 
 
 
+    //Called from Edit Employees in Admin Dashboard
+    protected void editImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        //open create password
+        //open confirm password
+        //return to admin dashboard
 
+        //Open the destination
+        RequestDispatcher rd = request.getRequestDispatcher("/imageSelection.jsp");
+        rd.forward(request, response);
+
+    }
 
 
 
@@ -314,8 +379,3 @@ public class ImageServlet extends HttpServlet {
         processRequest(request, response);
     }
 }
-
-//Good CODE
-//  https://stackoverflow.com/questions/1264709/convert-inputstream-to-byte-array-in-java
-//half way down, had 19 votes
-//this concerns getting pixel data, relevant for iteration 3

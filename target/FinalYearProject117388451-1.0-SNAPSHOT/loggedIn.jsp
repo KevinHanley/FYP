@@ -16,7 +16,21 @@
 </head>
 <body>
 
-<h1>You are logged in.</h1>
+    <div class="container" style="margin-top: 50px;">
+        <div class="page-header">
+            <h1>Test Output Page</h1>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 50px;">
+        <h4>Log in was a success!</h4>
+    </div>
+
+    <div class="container" style="margin-top: 50px;">
+        <h4>Your chosen image was:</h4>
+        <img src="${BASE64TEST}"/>
+    </div>
+
 
 <!--
 <h2>Name: ${IMAGEPASSTEST.getImageName()}</h2>
@@ -24,13 +38,6 @@
 <img src="data:image/jpg;base64,${IMAGEPASSTEST.getBase64Image()}" width="600" height="600"/>
 
 -->
-
-<h2>Test Number 2 Kev:</h2>
-
-<img src="${BASE64TEST}"/>
-
-
-
 
 
 <!-- Option 2: Separate Popper and Bootstrap JS -->

@@ -61,4 +61,19 @@ public class AWSPasswordAccess {
         return correctMatch;
     }
 
+
+    public void deleteHash(int userID){
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        try{
+            Statement st = conn.createStatement();
+            st.execute("delete from Password where userID=" + userID);
+
+            conn.close();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
 }
