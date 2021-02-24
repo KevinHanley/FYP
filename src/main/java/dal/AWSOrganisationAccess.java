@@ -8,8 +8,6 @@ import java.sql.Statement;
 
 public class AWSOrganisationAccess {
 
-
-
     public void insertNewOrganisation(Organisation newOrg){
 
         Connection conn = AWSConnection.establishDatabaseConnection();
@@ -27,7 +25,6 @@ public class AWSOrganisationAccess {
             System.out.println(e.toString());
         }
     }
-
 
 
     public Organisation retrieveNewestOrganisation(){
@@ -53,7 +50,6 @@ public class AWSOrganisationAccess {
                 thisOrg.setCardNum(rs.getString("cardnum"));
                 thisOrg.setCardExpiry(rs.getString("expiry"));
                 thisOrg.setCardCVV(rs.getString("cvv"));
-
             }
 
             conn.close();
@@ -61,7 +57,6 @@ public class AWSOrganisationAccess {
         }catch(Exception e){
             System.out.println(e);
         }
-
 
         return thisOrg;
     }

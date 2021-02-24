@@ -5,7 +5,14 @@
   Time: 4:33 p.m.
   To change this template use File | Settings | File Templates.
 --%>
+
+<!-- References -->
 <!-- installing jstl library: https://stackoverflow.com/questions/31043869/intellij-and-jsp-jstl-cannot-resolve-taglib-for-jstl-in-tomcat7 -->
+<%--jQuery Not Working Resolution: https://stackoverflow.com/questions/19830689/why-is-the-jquery-script-not-working--%>
+<%--Bootstrap Modal Not Working: https://stackoverflow.com/questions/28388524/bootstrap-modal-not-popping-up/28388839--%>
+<%--Bootstrap show.bs / shown.bs Errors: https://stackoverflow.com/questions/19279629/bootstrap-jquery-show-bs-modal-event-wont-fire--%>
+<%--Bootstrap List Group: https://getbootstrap.com/docs/4.6/components/list-group/--%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>

@@ -154,12 +154,7 @@ public class AccountServlet extends HttpServlet {
         //open the upload page
         RequestDispatcher rd = request.getRequestDispatcher("/imageSelection.jsp");
         rd.forward(request, response);
-
-        //enter passwords
-        //save and return to dashboard
-
     }
-
 
     private void openEditEmployee(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

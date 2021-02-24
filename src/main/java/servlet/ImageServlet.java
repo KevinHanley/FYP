@@ -341,6 +341,9 @@ public class ImageServlet extends HttpServlet {
         }
 
         //clear session variables
+        //Clear Session: https://stackoverflow.com/questions/13963720/how-to-effectively-destroy-session-in-java-servlet
+        //Clear Session Attributes: https://stackoverflow.com/questions/23476619/removing-all-session-attributes-with-one-command-in-java-web
+
         request.getSession().removeAttribute("IMAGEPASS");
         request.getSession().removeAttribute("NEWEMPLOYEE");
         request.getSession().removeAttribute("TILEARRAY1");
