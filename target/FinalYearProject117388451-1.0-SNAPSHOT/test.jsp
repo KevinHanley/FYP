@@ -50,6 +50,7 @@
         <form action="MyServlet" method="POST">
             <input type="hidden" name="action" value="base">
             <input type="hidden" id="basestring" name="basestring" value="">
+            <input type="hidden" id="imageid" name="imageid" value="">
 
             <button class="btn btn-primary" type="submit">Select after choosing image</button>
         </form>

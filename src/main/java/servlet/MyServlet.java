@@ -23,6 +23,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Base64;
 
 @WebServlet(name = "MyServlet")
 @MultipartConfig
@@ -54,7 +55,18 @@ public class MyServlet extends HttpServlet {
 
     protected void base64Test(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        //Substring: https://stackoverflow.com/questions/5131867/removing-the-first-3-characters-from-a-string/15919281
+
         String base64string = request.getParameter("basestring");
+        String imageID = request.getParameter("imageid");
+
+        String newBase64String = base64string.substring(23); //substring of original
+
+        GeneralUser user = new GeneralUser();
+
+        AWSImageAccess awsIA = new AWSImageAccess();
+        awsIA.uploadUnsplashImageToMySQL(imageID, newBase64String, user);
+
         request.getSession(true).setAttribute("BASE64TEST", base64string);
 
         RequestDispatcher rd = request.getRequestDispatcher("/loggedIn.jsp");

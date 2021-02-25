@@ -37,6 +37,9 @@ public class ImageServlet extends HttpServlet {
             case "upload":
                 uploadImage(request, response);
                 break;
+            case "apiUpload":
+                apiUpload(request, response);
+                break;
             case "retrieve":
                 retrieveImage(request, response);
                 break;
@@ -139,6 +142,22 @@ public class ImageServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/createPassword.jsp");
         rd.forward(request, response);
     }
+
+
+
+
+
+
+
+    //Called from imageSelection.jsp
+    private void apiUpload(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+
+    }
+
+
+
 
 
 

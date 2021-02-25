@@ -31,6 +31,8 @@ function SearchPhotos(){
         })
         .then(function(data){
 
+            console.log(data);
+
             //loop through each "photo"
             data.results.forEach(photo =>{
 
@@ -86,7 +88,10 @@ function DoActions(id){
             reader.onloadend = function() {
                 var base64data = reader.result;
                 console.log(base64data);
+
+                //Assign this Base64 String to the hidden field in the form.
                 document.getElementById("basestring").value = base64data;
+                document.getElementById("imageid").value = id;
             }
 
 
