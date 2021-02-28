@@ -10,9 +10,6 @@
 <head>
     <title>Test Page</title>
 
-    <!-- style sheets -->
-    <link rel="stylesheet" href="styles/test.css" type="text/css"/>
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
@@ -42,6 +39,10 @@
 
     <div class="container" style="margin-top: 50px;">
         <button class="btn btn-outline-primary" onclick="ClearPhotos()">Clear Photos</button>
+    </div>
+
+    <div class="container" style="margin-top: 50px;">
+        <a href="imageSelection.jsp">Go To Image Selection </a>
     </div>
 
 

@@ -31,8 +31,6 @@ function SearchPhotos(){
         })
         .then(function(data){
 
-            console.log(data);
-
             //loop through each "photo"
             data.results.forEach(photo =>{
 
@@ -44,8 +42,9 @@ function SearchPhotos(){
                 let elem = document.createElement("img");
                 elem.src = link;
                 elem.setAttribute("id", id);
-                //elem.setAttribute("height", "400");
+                elem.setAttribute("height", "200");
                 //elem.setAttribute("width", "400");
+                elem.style.margin = "5px";
                 elem.setAttribute("onclick", "DoActions(this.id)");
 
                 //Add the image to the div
@@ -62,8 +61,18 @@ function ClearPhotos(){
 
 function DoActions(id){
 
+    //Remove ".imageSelected" from previously selected images
+    var elems = document.querySelectorAll(".imageSelected");
+    [].forEach.call(elems, function(el) {
+        el.classList.remove("imageselected");
+    });
+
+    var element = document.getElementById(id);
+    element.classList.add("imageselected");
+
     //border
-    document.getElementById(id).style.border="2px solid orange";
+    // document.getElementById(id).style.border="5px solid orange";
+    // document.getElementById(id).style.opacity=0.5;
 
     //SRC TEST
     // let imageSource = document.getElementById(id).src;
@@ -87,16 +96,36 @@ function DoActions(id){
             reader.readAsDataURL(myBlob);
             reader.onloadend = function() {
                 var base64data = reader.result;
-                console.log(base64data);
 
                 //Assign this Base64 String to the hidden field in the form.
                 document.getElementById("basestring").value = base64data;
                 document.getElementById("imageid").value = id;
+                document.getElementById("searchUpload").disabled = false;
             }
 
 
         })
         .catch(error => {
-            console.error('There has been a problem with the fetch operation:', error);
+            console.error('There has been a problem with the fetch operation1:', error);
+        });
+
+
+    //Hit the download API
+    //Triggering a download: https://help.unsplash.com/en/articles/2511258-guideline-triggering-a-download
+    //How to make requests: https://www.freecodecamp.org/news/here-is-the-most-popular-ways-to-make-an-http-request-in-javascript-954ce8c95aaa/
+
+    //my access key
+    let key = "_Gu7_21w9rctJAQ37rrgNIRG8cQ0BVe6mhArJLFgcH4";
+    let download_url = "https://api.unsplash.com/photos/" + id + "/download?client_id=" + key;
+
+    fetch(download_url)
+        .then(data => {
+            return data.json();
+        })
+        .then(rdata => {
+            console.log(rdata)
+        })
+        .catch(error => {
+            console.error('There has been a problem with the fetch operation2:', error);
         });
 }

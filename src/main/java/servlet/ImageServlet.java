@@ -154,6 +154,72 @@ public class ImageServlet extends HttpServlet {
             throws ServletException, IOException {
 
 
+        //Substring: https://stackoverflow.com/questions/5131867/removing-the-first-3-characters-from-a-string/15919281
+
+        //Get the request parameters
+        String base64string = request.getParameter("basestring");
+        String imageID = request.getParameter("imageid");
+
+        String newBase64String = base64string.substring(23); //substring of original
+
+        // Get the current user or admin
+        GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
+        GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
+        GeneralUser newEmployee = (GeneralUser) request.getSession().getAttribute("NEWEMPLOYEE");
+        GeneralUser singleEmployee = (GeneralUser) request.getSession().getAttribute("SINGLEEMPLOYEE");
+
+        //Image object
+        PasswordImage passImg = new PasswordImage();
+
+        //Save as a BLOB in Remote AWS MySQL Database
+        AWSImageAccess awsIA = new AWSImageAccess();
+        if(newEmployee != null){
+
+            //upload the new employees image
+            awsIA.uploadUnsplashImageToMySQL(imageID, newBase64String, newEmployee);
+
+            //Get image back from database
+            int empID = newEmployee.getUserID();
+            passImg = awsIA.retrieveImageFromMySQL(empID);
+
+        } else if (singleEmployee != null){
+
+            //upload the editing employees image
+            awsIA.uploadUnsplashImageToMySQL(imageID, newBase64String, singleEmployee);
+
+            //Get image back from database
+            int editingID = singleEmployee.getUserID();
+            passImg = awsIA.retrieveImageFromMySQL(editingID);
+
+        } else if (admin != null){
+
+            //upload the admins image
+            awsIA.uploadUnsplashImageToMySQL(imageID, newBase64String, admin);
+
+            //Get image back from database
+            int adminID = admin.getUserID();
+            passImg = awsIA.retrieveImageFromMySQL(adminID);
+
+        }else if (user != null){
+
+            //upload the users image
+            awsIA.uploadUnsplashImageToMySQL(imageID, newBase64String, user);
+
+            //Get image back from database
+            int userID = user.getUserID();
+            passImg = awsIA.retrieveImageFromMySQL(userID);
+
+        }else{
+            //Error
+            System.out.println("Error no users available");
+
+        }
+
+        request.getSession(true).setAttribute("IMAGEPASS", passImg);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/createPassword.jsp");
+        rd.forward(request, response);
+
     }
 
 
