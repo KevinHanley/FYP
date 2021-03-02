@@ -9,95 +9,81 @@
 <html>
 <head>
     <title>Home</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <!-- Bootstrap, fonts and icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/home.css" type="text/css"/>
-    <link rel="stylesheet" href="styles/navbar.css" type="text/css"/>
+
 </head>
-
 <body>
-<!-- Background image -->
-<!-- <span>Photo by <a href="https://unsplash.com/@iwnph?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Iwan Shimko</a> on <a href="https://unsplash.com/s/photos/polaroid?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span> -->
-    <section class="d-flex flex-column justify-content-between" id="hero">
-        <div id="hero-top">
-            <nav class="navbar navbar-light navbar-expand-md">
-                <div class="container-fluid"><a class="navbar-brand" href="loggedIn.jsp">Pass Pic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navcol-1">
-                        <ul class="nav navbar-nav mx-auto">
-                            <li class="nav-item"><a class="nav-link active" href="#about-info">What is PassPic?</a></li>
-                            <li class="nav-item"><a class="nav-link" href="pricing.jsp">Pricing</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item"><a class="nav-link active" href="#support-info">Support</a></li>
-                            <li class="nav-item"><a class="nav-link" href="account.jsp">Login</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <h1 id="title" class="text-center">Picturesque.</h1>
-            <h1 id="subtitle" class="text-center">Secure.</h1>
-        </div>
-        <div id="hero-bottom">
+
+<!-- Links:
+    StartBootstrap Video Header Template: https://startbootstrap.com/snippets/video-header
+    Video by fauxels on Pexels: https://www.pexels.com/video/person-looking-at-pictures-in-his-phone-while-making-notes-3251809/
+-->
+
+<header>
+    <div class="overlay">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: transparent;">
             <div class="container">
-                <!--old row-->
-                <div class="row">
-                    <div class="col">
-                        <p>Authentication taken seriously.</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col"><button class="btn btn-primary info-button" type="button">More Info</button></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="d-flex flex-column justify-content-between" id="about-info">
-        <div class="container">
-            <div class="row">
-                <div class="col-6" id="info-pic">
-                    <h1 id="about-us-header">What is PassPic about?</h1>
-                </div>
-
-                <div class="col-6">
-                    <p>Here at PassPic we aim to revolutionise how people authenticate themselves online.</p>
+                <a class="navbar-brand" href="loggedIn.jsp">
+                    <img src="images/logo4.png" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.jsp">Home
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pricing.jsp">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="account.jsp">Login</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="d-flex flex-column justify-content-between" id="support-info">
-        <div class="container">
-            <div class="row">
-                <div class="col-6" id="support-pic">
-                    <h1 id="support-header">Need some support?</h1>
-                </div>
-
-                <div class="col-6">
-                    <p>Contact us today!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
-    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-
-    <div class="side-menu-overlay" style="display: none;"></div>
-    <div id="side-menu" style="display: none;"><button class="close">
-        <span aria-hidden="true">×</span></button>
-        <div class="contents"></div>
+        </nav>
     </div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="videos/phone.mp4" type="video/mp4">
+    </video>
+
+    <div class="container h-50">
+        <div class="d-flex h-100 text-center align-items-center">
+            <div class="w-100">
+                <h1 class="display-3">Picturesque. Secure.</h1>
+                <p class="lead mb-0">A new type of authentication.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <p>The HTML5 video element uses an mp4 video as a source. Change the source video to add in your own background! The header text is vertically centered using flex utilities that are build into Bootstrap 4.</p>
+                <p>The overlay color can be changed by changing the <code>background-color</code> of the <code>.overlay</code> class in the CSS.</p>
+                <p>Set the mobile fallback image in the CSS by changing the background image of the header element within the media query at the bottom of the CSS snippet.</p>
+                <p class="mb-0">
+                    Created by <a href="https://startbootstrap.com">Start Bootstrap</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 </body>
 </html>
