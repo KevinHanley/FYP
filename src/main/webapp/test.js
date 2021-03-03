@@ -7,6 +7,8 @@ function SearchPhotos(){
     //border around image: https://stackoverflow.com/questions/47338068/create-border-around-image-when-clicked-in-javascript/47339609
     //convert blob to base64 string: https://stackoverflow.com/questions/18650168/convert-blob-to-base64
     //fetching url to get BLOB: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#checking_that_the_fetch_was_successful
+    //Loading image when results are fetched :https://stackoverflow.com/questions/53799108/how-to-add-a-loading-animation-while-fetch-data-from-api-vanilla-js
+    //Bootstrap Spinner: https://getbootstrap.com/docs/4.4/components/spinners/
 
 
     //clear the current photos in the div
@@ -19,10 +21,18 @@ function SearchPhotos(){
     let query = document.getElementById("imagesearch").value;
 
     //number of results to be returned
-    let perpage = "20";
+    let perpage = "30";
 
     //the url where data will be fetched from
     let url = "https://api.unsplash.com/search/photos?client_id=" + key + "&query=" + query + "&per_page=" + perpage;
+
+    //Set a spinner to display when results are being fetched
+    let loader = `<div class="d-flex justify-content-center">
+                      <div class="spinner-border m-5" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>`;
+    document.getElementById('outputimage').innerHTML = loader;
 
     //get the image data and display the results
     fetch(url)
@@ -31,8 +41,13 @@ function SearchPhotos(){
         })
         .then(function(data){
 
+            document.getElementById("outputimage").innerHTML = "";
+
             //loop through each "photo"
             data.results.forEach(photo =>{
+
+                // let mydiv = document.createElement("div");
+                // mydiv.classList.add("kevinhover");
 
                 //get the path to the "small" size image from the data set
                 let link = photo.urls.small;
@@ -45,9 +60,15 @@ function SearchPhotos(){
                 elem.setAttribute("height", "200");
                 //elem.setAttribute("width", "400");
                 elem.style.margin = "5px";
+                elem.classList.add("image-hover");
                 elem.setAttribute("onclick", "DoActions(this.id)");
 
+
+                // mydiv.appendChild(elem);
+
+
                 //Add the image to the div
+                //document.getElementById("outputimage").appendChild(mydiv);
                 document.getElementById("outputimage").appendChild(elem);
             })
         })
@@ -128,4 +149,54 @@ function DoActions(id){
         .catch(error => {
             console.error('There has been a problem with the fetch operation2:', error);
         });
+}
+
+
+
+function uploadForms(){
+
+    //submit outisde of form: https://stackoverflow.com/questions/7020659/submit-form-using-a-button-outside-the-form-tag/12567605#12567605
+    //check form empty: https://stackoverflow.com/questions/25793880/how-to-check-if-input-file-is-empty-in-jquery
+
+    //check if a file was uploaded.
+    if( document.getElementById("upload").files.length == 0 ){
+
+        //check if an image was searched for instead
+        if( document.getElementById("imageid").value.length == 0 ){
+            //do nothing
+
+        }else{
+            //submit the form
+            document.getElementById("searchForm").submit();
+
+        }
+
+    }else{
+        //submit the form
+        document.getElementById("uploadForm").submit();
+
+    }
+
+}
+
+
+function checkPassword(){
+
+    //Submit the form
+    document.getElementById("tileForm").submit();
+
+}
+
+function createPassword(){
+
+    //Submit the form
+    document.getElementById("tileForm2").submit();
+
+}
+
+function confirmPassword(){
+
+    //Submit the form
+    document.getElementById("tileForm3").submit();
+
 }

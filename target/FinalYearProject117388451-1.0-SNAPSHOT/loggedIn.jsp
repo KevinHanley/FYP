@@ -5,10 +5,11 @@
   Time: 4:06 p.m.
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Logged In - Image Selection</title>
+    <title>Logged In - Dash Board</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -19,231 +20,263 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/8e47f0960d.js" crossorigin="anonymous"></script>
 
-    <!-- JavaScript for the Unsplash API -->
-    <script type="text/javascript" src="test.js"></script>
-
     <!-- style sheets -->
-    <link rel="stylesheet" href="styles/test.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/random.css" type="text/css"/>
 
+    <!-- toggle the side bar -->
     <script type="text/javascript">
         $(document).ready(function(){
 
-            //close the other collapsible div, when one is clicked.
-            $('#listBrowse').click(function (e){
-                $('.collapse').collapse('hide');
-                $(this).addClass('active bg-primary text-white shadow-sm');
-                $('#listSearch').removeClass('active bg-primary text-white shadow-sm');
+            $("#sidebarToggle").on("click", function(e) {
+                e.preventDefault();
+                $("body").toggleClass("sb-sidenav-toggled");
             });
 
-            $('#listSearch').click(function (e){
-                $('.collapse').collapse('hide');
-                $(this).addClass('active bg-primary text-white shadow-sm');
-                $('#listBrowse').removeClass('active bg-primary text-white shadow-sm');
-            });
-
-
-
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $('#imageResult')
-                            .attr('src', e.target.result);
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-
-            $(function () {
-                $('#upload').on('change', function () {
-                    readURL(input);
-                });
-            });
-
-            /*  ==========================================
-                SHOW UPLOADED IMAGE NAME
-            * ========================================== */
-            var input = document.getElementById( 'upload' );
-            var infoArea = document.getElementById( 'upload-label' );
-
-            input.addEventListener( 'change', showFileName );
-            function showFileName( event ) {
-                var input = event.srcElement;
-                var fileName = input.files[0].name;
-                infoArea.textContent = 'File name: ' + fileName;
-            }
         });
     </script>
-
-
-
 </head>
 <body>
 
-<!-- Links:
-    Collapse Buttons: https://getbootstrap.com/docs/4.0/components/collapse/
-    Side Bar Nav: https://bootstrapious.com/p/bootstrap-vertical-menu
-    Image Upload: https://bootstrapious.com/p/bootstrap-image-upload
-    Quotes in placeholder: https://stackoverflow.com/questions/53582916/quotation-marks-in-textarea-placeholder
--->
+<!-- NAVBAR -->
 
-<header>
-    <div class="overlay">
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: transparent;">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <button class="btn btn-lg btn-primary btn-block btn-upload text-uppercase font-weight-bold mb-2">Upload  <i class="fas fa-upload"></i></button>
-                        </li>
-                    </ul>
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark justify-content-between">
+    <div>
+        <a class="navbar-brand" href="#"><img src="images/logo-admin.png" alt=""></a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+    </div>
+
+    <!-- Dropdown Navbar-->
+    <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#"><i class="fas fa-user"></i> ${ADMIN.getFirstName()}</a>
+                <a class="dropdown-item" href="#">Activity Log</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="AccountServlet?action=logout">Logout</a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<!-- PAGE CONTENT -->
+
+<div id="layoutSidenav">
+
+    <!-- Left Panel -->
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Core</div>
+                    <a class="nav-link" href="adminDashboard.jsp">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    </a>
+                    <div class="sb-sidenav-menu-heading">Actions</div>
+                    <a class="nav-link" href="adminDashboard.jsp">
+                        <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                        View Employees
+                    </a>
+                    <a class="nav-link" href="adminDashboard.jsp">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-plus"></i></div>
+                        Add New Employee
+                    </a>
+                    <div class="sb-sidenav-menu-heading">General</div>
+                    <a class="nav-link" href="adminDashboard.jsp">
+                        <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
+                        Settings
+                    </a>
                 </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Logged in as:</div>
+                ${ADMIN.getFirstName()}
             </div>
         </nav>
     </div>
-</header>
 
 
-<section>
-    <div class="container-fluid">
-        <div class="rounded">
-            <div class="row h-100">
-                <div class="col-lg-3 mb-3 mb-lg-0">
-                    <div class="align-items-center">
-                        <nav class="nav flex-column align-self-center bg-light shadow-sm font-italic rounded p-3">
-                            <h3 class="login-heading mb-4">Upload an image:</h3>
-                            <a id="listBrowse" class="nav-link px-4 rounded-pill" data-toggle="collapse" href="#browseSection" role="button" aria-expanded="false" aria-controls="browseSection">
-                                <i class="fas fa-desktop mr-2"></i>
-                                Browse Your Device
-                            </a>
-                            <a id="listSearch" class="nav-link px-4 rounded-pill" data-toggle="collapse" href="#searchSection" role="button" aria-expanded="false" aria-controls="searchSection">
-                                <i class="fas fa-search mr-2"></i>
-                                Find Online
-                            </a>
-                        </nav>
+
+    <!-- Main Content -->
+    <div id="layoutSidenav_content">
+
+        <!-- Main Body -->
+        <main>
+            <div class="container-fluid">
+
+                <!-- New Employee Tab -->
+                <h1 class="mt-4"> ${ORGANISATION.getOrgName()} Dashboard</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active">Edit Employee Details</li>
+                </ol>
+
+                <!-- NEW EMPLOYEE FORM -->
+                <h3 class="login-heading mb-4">Edit Employee Details</h3>
+
+
+                <!-- old template form -->
+                <form action="AccountServlet" method="POST">
+                    <input type="hidden" name="action" value="editEmployee">
+
+                    <!-- ROW -->
+                    <div class="form-row">
+                        <!-- First Name -->
+                        <div class="form-label-group col-md-6">
+                            <input type="text" id="firstname" name="firstname" class="form-control" placeholder="First Name" value="${SINGLEEMPLOYEE.getFirstName()}" required autofocus>
+                            <label for="firstname">First Name</label>
+                        </div>
+                        <!-- Last Name -->
+                        <div class="form-label-group col-md-6">
+                            <input type="text" id="lastname" name="lastname" class="form-control" placeholder="First Name" value="${SINGLEEMPLOYEE.getLastName()}" required autofocus>
+                            <label for="lastname">Last Name</label>
+                        </div>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-label-group">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="${SINGLEEMPLOYEE.getEmail()}" required autofocus>
+                        <label for="email">Email</label>
+                    </div>
+
+
+                    <!-- ROW -->
+                    <div class="form-row">
+                        <!-- Phone -->
+                        <div class="form-label-group col-md-6">
+                            <input type="number" id="phonenumber" name="phonenumber" class="form-control" placeholder="Phone" value="${SINGLEEMPLOYEE.getPhone()}" required autofocus>
+                            <label for="phonenumber">Phone</label>
+                        </div>
+                        <!-- Gender -->
+                        <div class="form-label-group col-md-6">
+                            <select class="form-control" name="gender" id="gender">
+                                <option value='male'>Male</option>
+                                <option value='female'>Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ROW -->
+                    <div class="form-row">
+                        <!-- Date -->
+                        <div class="form-label-group col-md-4">
+                            <select class="form-control" name="date" id="date">
+                                <option value='01'>1</option>
+                                <option value='02'>2</option>
+                                <option value='03'>3</option>
+                                <option value='04'>4</option>
+                                <option value='05'>5</option>
+                                <option value='06'>6</option>
+                                <option value='07'>7</option>
+                                <option value='08'>8</option>
+                                <option value='09'>9</option>
+                                <option value='10'>10</option>
+                                <option value='11'>11</option>
+                                <option value='12'>12</option>
+                                <option value='13'>13</option>
+                                <option value='14'>14</option>
+                                <option value='15'>15</option>
+                                <option value='16'>16</option>
+                                <option value='17'>17</option>
+                                <option value='18'>18</option>
+                                <option value='19'>19</option>
+                                <option value='20'>20</option>
+                                <option value='21'>21</option>
+                                <option value='22'>22</option>
+                                <option value='23'>23</option>
+                                <option value='24'>24</option>
+                                <option value='25'>25</option>
+                                <option value='26'>26</option>
+                                <option value='27'>27</option>
+                                <option value='28'>28</option>
+                                <option value='29'>29</option>
+                                <option value='30'>30</option>
+                                <option value='31'>31</option>
+                            </select>
+                        </div>
+                        <!-- Month -->
+                        <div class="form-label-group col-md-4">
+                            <select class="form-control" name="month" id="month">
+                                <option value='01'>January</option>
+                                <option value='02'>February</option>
+                                <option value='03'>March</option>
+                                <option value='04'>April</option>
+                                <option value='05'>May</option>
+                                <option value='06'>June</option>
+                                <option value='07'>July</option>
+                                <option value='08'>August</option>
+                                <option value='09'>September</option>
+                                <option value='10'>October</option>
+                                <option value='11'>November</option>
+                                <option value='12'>December</option>
+                            </select>
+                        </div>
+                        <!-- Year -->
+                        <div class="form-label-group col-md-4">
+                            <select class="form-control" name="year" id="year">
+                                <option value='2003'>2003</option>
+                                <option value='2002'>2002</option>
+                                <option value='2001'>2001</option>
+                                <option value='2000'>2000</option>
+                                <option value='1999'>1999</option>
+                                <option value='1998'>1998</option>
+                                <option value='1997'>1997</option>
+                                <option value='1996'>1996</option>
+                                <option value='1995'>1995</option>
+                                <option value='1994'>1994</option>
+                                <option value='1993'>1993</option>
+                                <option value='1992'>1992</option>
+                                <option value='1991'>1991</option>
+                                <option value='1990'>1990</option>
+                                <option value='1989'>1989</option>
+                                <option value='1988'>1988</option>
+                                <option value='1987'>1987</option>
+                                <option value='1986'>1986</option>
+                                <option value='1985'>1985</option>
+                                <option value='1984'>1984</option>
+                                <option value='1983'>1983</option>
+                                <option value='1982'>1982</option>
+                                <option value='1981'>1981</option>
+                                <option value='1980'>1980</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Confirm Edits <i class="fas fa-long-arrow-alt-right"></i></button>
+                </form> <!-- end of edit employee -->
+
+
+                <!-- NEW EMPLOYEE FORM -->
+                <h3 class="login-heading mb-4">Change Employee's Picture Password</h3>
+
+                <form action="ImageServlet" method="POST">
+                    <input type="hidden" name="action" value="editpassword">
+                    <input type="hidden" name="editpassworduserid" value="editpassword">
+
+                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Change Employee Picture Password <i class="fas fa-long-arrow-alt-right"></i></button>
+                </form>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; PassPic 2021</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
                     </div>
                 </div>
-
-                <div class="col-lg-9 mb-6">
-                    <div class="collapse" id="browseSection">
-<%--                        <form action="ImageServlet" method="POST" enctype="multipart/form-data">--%>
-<%--                            <input type="hidden" name="imageaction" value="upload">--%>
-
-<%--                            <div class="input-group mb-3">--%>
-<%--                                <div class="custom-file">--%>
-<%--                                    <input type="file" class="custom-file-input" id="myFile" name="file" accept="image/jpeg" onchange="document.getElementById('display').src = window.URL.createObjectURL(this.files[0]); document.getElementById('deviceUpload').disabled = false">--%>
-<%--                                    <label class="custom-file-label" for="myFile" aria-describedby="myFile">Choose file</label>--%>
-<%--                                </div>--%>
-<%--                                <div class="input-group-append">--%>
-<%--                                    <button class="btn btn-primary" type="submit" id="deviceUpload" disabled>Upload</button>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-
-
-<%--                        </form>--%>
-
-<%--                        <h5>Preview of your image:</h5>--%>
-<%--                        <img id="display" alt="Image Preview" width="500" height="500" style="margin-bottom: 50px;" />--%>
-
-
-                        <!-- Upload image input-->
-                        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                            <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
-                            <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                            <div class="input-group-append">
-                                <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                            </div>
-                        </div>
-
-                        <!-- Uploaded image area-->
-                        <p class="font-italic text-center">The image uploaded will be rendered inside the box below.</p>
-                        <div id="image-area" class="mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-                    </div>
-
-
-
-                    <div class="collapse" id="searchSection">
-
-
-<%--                        <div class="container">--%>
-<%--                            <div class="input-group mb-3">--%>
-<%--                                <input id="imagesearch" type="text" class="form-control" placeholder="Search Query" aria-label="Search Query" aria-describedby="basic-addon2">--%>
-<%--                                <div class="input-group-append">--%>
-<%--                                    <button onclick="SearchPhotos()" class="btn btn-outline-primary" type="button">Search</button>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                        <div class="container" style="margin-top: 50px;">--%>
-<%--                            <form action="ImageServlet" method="POST">--%>
-<%--                                <input type="hidden" name="imageaction" value="apiUpload">--%>
-<%--                                <input type="hidden" id="basestring" name="basestring" value="">--%>
-<%--                                <input type="hidden" id="imageid" name="imageid" value="">--%>
-
-<%--                                <button class="btn btn-primary" type="submit" id="searchUpload" disabled>Upload</button>--%>
-<%--                            </form>--%>
-<%--                        </div>--%>
-
-<%--                        <div class="container-fluid" style="margin-top: 50px; margin-bottom: 50px;">--%>
-<%--                            <h3>Search Results</h3>--%>
-<%--                            <div id="outputimage">--%>
-<%--                                <!-- images displayed here -->--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-
-                        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
-                            <div class="input-group">
-                                <input type="search" placeholder="Try searching for &quot;Mountains&quot; or &quot;Summer&quot;" aria-describedby="button-addon1" class="form-control border-0 bg-light" id="imagesearch">
-                                <div class="input-group-append">
-                                    <button id="button-addon1" type="button" class="btn btn-link text-primary" onclick="SearchPhotos()"><i class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="container-fluid" style="margin-top: 50px; margin-bottom: 50px;">
-                            <h3>Search Results</h3>
-                            <div id="outputimage">
-                                <!-- images displayed here -->
-                            </div>
-                        </div>
-
-
-                    </div> <!-- end of collapse -->
-
-
-
-
-
-
-
-
-
-
-<%--                    <!-- Demo Content-->--%>
-<%--                    <div class="p-5 bg-white d-flex align-items-center shadow-sm rounded h-100">--%>
-<%--                        <div class="demo-content">--%>
-<%--                            <p class="lead font-italic">- Demo content:</p>--%>
-<%--                            <p class="lead font-italic mb-0">"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat consectetur--%>
-<%--                                adipisicing eli exercitation ullamco laboris nisi."</p>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-
-
-
-
-                </div> <!-- end -->
             </div>
-        </div>
+        </footer>
     </div>
-</section>
 
-
-
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

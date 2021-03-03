@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -39,6 +40,9 @@ public class AccountServlet extends HttpServlet {
                 break;
             case "delete":
                 deleteUser(request, response);
+                break;
+            case "logout":
+                logoutUser(request, response);
                 break;
             default:
                 //do nothing if no action
@@ -151,6 +155,14 @@ public class AccountServlet extends HttpServlet {
         GeneralUser addedEmployee = awsUA.retrieveAdmin(newEmployee.getEmail()); //create a user object from the database
         request.getSession(true).setAttribute("NEWEMPLOYEE", addedEmployee);
 
+        String adminMessage = "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">\n" +
+                "                            <strong>Creation Successful:</strong> A new employee was added to your team.\n" +
+                "                            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+                "                                <span aria-hidden=\"true\">&times;</span>\n" +
+                "                            </button>\n" +
+                "                        </div>";
+        request.getSession(true).setAttribute("ADMINMESSAGE", adminMessage);
+
         //open the upload page
         RequestDispatcher rd = request.getRequestDispatcher("/imageSelection.jsp");
         rd.forward(request, response);
@@ -211,6 +223,14 @@ public class AccountServlet extends HttpServlet {
         //Clear session attribute
         request.getSession().removeAttribute("SINGLEEMPLOYEE");
 
+        String adminMessage = "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">\n" +
+                "                            <strong>Editing Successful:</strong> The employee's details were changed.\n" +
+                "                            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+                "                                <span aria-hidden=\"true\">&times;</span>\n" +
+                "                            </button>\n" +
+                "                        </div>";
+        request.getSession(true).setAttribute("ADMINMESSAGE", adminMessage);
+
         //open the second page
         RequestDispatcher rd = request.getRequestDispatcher("/adminDashboard.jsp");
         rd.forward(request, response);
@@ -235,8 +255,30 @@ public class AccountServlet extends HttpServlet {
         ArrayList<GeneralUser> employees = awsUA.getEmployees(admin.getOrgID());
         request.getSession(true).setAttribute("EMPLOYEES", employees);
 
+        String adminMessage = "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">\n" +
+                "                            <strong>Deletion Successful:</strong> The employee was removed.\n" +
+                "                            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+                "                                <span aria-hidden=\"true\">&times;</span>\n" +
+                "                            </button>\n" +
+                "                        </div>";
+        request.getSession(true).setAttribute("ADMINMESSAGE", adminMessage);
+
         //reopen the dashboard
         RequestDispatcher rd = request.getRequestDispatcher("/adminDashboard.jsp");
+        rd.forward(request, response);
+    }
+
+
+
+
+    private void logoutUser(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //Clear Session: https://kodejava.org/how-do-i-invalidate-users-session/
+        HttpSession session=request.getSession();
+        session.invalidate();
+
+        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
         rd.forward(request, response);
     }
 

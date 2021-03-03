@@ -13,168 +13,242 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<html>
 <head>
-    <title>Upload Image</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Choose Image</title>
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <!-- jQuery that works -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <!-- Bootstrap, fonts and icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/8e47f0960d.js" crossorigin="anonymous"></script>
 
     <!-- JavaScript for the Unsplash API -->
     <script type="text/javascript" src="test.js"></script>
 
     <!-- style sheets -->
-    <link rel="stylesheet" href="styles/navbar.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/image.css" type="text/css"/>
 
     <script type="text/javascript">
         $(document).ready(function(){
 
+            $('#listBrowse').addClass('active bg-primary text-white shadow-sm');
+            $('#browseSection').collapse('show');
+
             //close the other collapsible div, when one is clicked.
-            $('#btnFileUpload').click(function (e){
+            $('#listBrowse').click(function (e){
                 $('.collapse').collapse('hide');
+                $(this).addClass('active bg-primary text-white shadow-sm');
+                $('#listSearch').removeClass('active bg-primary text-white shadow-sm');
             });
 
-            $('#btnOnline').click(function (e){
+            $('#listSearch').click(function (e){
                 $('.collapse').collapse('hide');
+                $(this).addClass('active bg-primary text-white shadow-sm');
+                $('#listBrowse').removeClass('active bg-primary text-white shadow-sm');
             });
+
+
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#imageResult')
+                            .attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(function () {
+                $('#upload').on('change', function () {
+                    readURL(input);
+                });
+            });
+
+            /*  ==========================================
+                SHOW UPLOADED IMAGE NAME
+            * ========================================== */
+            var input = document.getElementById( 'upload' );
+            var infoArea = document.getElementById( 'upload-label' );
+
+            input.addEventListener( 'change', showFileName );
+            function showFileName( event ) {
+                var input = event.srcElement;
+                var fileName = input.files[0].name;
+                infoArea.textContent = 'File name: ' + fileName;
+            }
         });
     </script>
 
+
+
 </head>
-
 <body>
-    <section class="d-flex flex-column justify-content-between">
-        <div id="hero-top">
-            <nav class="navbar navbar-light navbar-expand-md">
-                <div class="container-fluid"><a class="navbar-brand" href="index.jsp">Pass Pic</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navcol-1">
-                        <ul class="nav navbar-nav mx-auto">
-                            <li class="nav-item"><a class="nav-link active" href="account.jsp">What is PassPic?</a></li>
-                            <li class="nav-item"><a class="nav-link" href="account.jsp">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="account.jsp">Contact Us</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item"><a class="nav-link active" href="account.jsp">Sign In</a></li>
-                            <li class="nav-item"><a class="nav-link" href="account.jsp">My Account</a></li>
-                        </ul>
-                    </div>
+
+<!-- Links:
+    Collapse Buttons: https://getbootstrap.com/docs/4.0/components/collapse/
+    Side Bar Nav: https://bootstrapious.com/p/bootstrap-vertical-menu
+    Image Upload: https://bootstrapious.com/p/bootstrap-image-upload
+    Quotes in placeholder: https://stackoverflow.com/questions/53582916/quotation-marks-in-textarea-placeholder
+-->
+
+<header>
+    <div class="overlay">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: transparent;">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <button class="btn btn-lg btn-primary btn-block btn-upload text-uppercase font-weight-bold mb-2" onclick="uploadForms()" type="button" >Upload  <i class="fas fa-upload"></i></button>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-        </div>
-    </section>
-
-    <div class="container">
-        <div class="jumbotron text-center">
-            <h1 class="display-4">Select an Image!</h1>
-            <p class="lead">Choose an image from your device or online.</p>
-
-            <hr class="my-4">
-        </div>
+            </div>
+        </nav>
     </div>
-
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <button id="btnFileUpload" type="button" class="btn btn-outline-primary" data-toggle="collapse" data-target="#uploadSection" aria-expanded="false" aria-controls="uploadSection">Browse Your Device</button>
-                <button id="btnOnline" type="button" class="btn btn-outline-primary" data-toggle="collapse" data-target="#onlineSection" aria-expanded="false" aria-controls="onlineSection">Search Online</button>
-            </div>
-        </div>
-        <div class="row" style="margin-top: 50px;">
-            <div class="col-md-8 offset-md-2">
-                <div class="collapse" id="uploadSection">
-
-                    <form action="ImageServlet" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="imageaction" value="upload">
-
-<%--                            <!-- old -->--%>
-<%--                            <input class="btn btn-primary" type="file" name="file" accept="image/jpeg" onchange="document.getElementById('display').src = window.URL.createObjectURL(this.files[0])">--%>
-
-<%--                            <p>Upload your selected image?</p>--%>
-<%--                            <button class="btn btn-primary" type="submit">Upload</button>--%>
-
-                        <!-- new -->
-                        <div class="input-group mb-3">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="myFile" name="file" accept="image/jpeg" onchange="document.getElementById('display').src = window.URL.createObjectURL(this.files[0]); document.getElementById('deviceUpload').disabled = false">
-                                <label class="custom-file-label" for="myFile" aria-describedby="myFile">Choose file</label>
-                            </div>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" id="deviceUpload" disabled>Upload</button>
-                            </div>
-                        </div>
+</header>
 
 
-                    </form>
-
-                    <h5>Preview of your image:</h5>
-                    <img id="display" alt="Image Preview" width="500" height="500" style="margin-bottom: 50px;" />
-
+<section>
+    <div class="container-fluid">
+        <div class="rounded">
+            <div class="row h-100">
+                <div class="col-lg-3 mb-3 mb-lg-0">
+                    <div class="align-items-center">
+                        <nav class="nav flex-column align-self-center bg-light shadow-sm font-italic rounded p-3">
+                            <h3 class="login-heading mb-4">Upload an image:</h3>
+                            <a id="listBrowse" class="nav-link px-4 rounded-pill" data-toggle="collapse" href="#browseSection" role="button" aria-expanded="false" aria-controls="browseSection">
+                                <i class="fas fa-desktop mr-2"></i>
+                                Browse Your Device
+                            </a>
+                            <a id="listSearch" class="nav-link px-4 rounded-pill" data-toggle="collapse" href="#searchSection" role="button" aria-expanded="false" aria-controls="searchSection">
+                                <i class="fas fa-search mr-2"></i>
+                                Find Online
+                            </a>
+                        </nav>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="collapse" id="onlineSection">
-                    <div class="container">
-                        <div class="input-group mb-3">
-                            <input id="imagesearch" type="text" class="form-control" placeholder="Search Query" aria-label="Search Query" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button onclick="SearchPhotos()" class="btn btn-outline-primary" type="button">Search</button>
+
+                <div class="col-lg-9 mb-6">
+
+                    <!-- ********** -->
+                    <!-- Browse Section-->
+                    <!-- ********** -->
+
+                    <div class="collapse" id="browseSection">
+                        <%--                        <form action="ImageServlet" method="POST" enctype="multipart/form-data">--%>
+                        <%--                            <input type="hidden" name="imageaction" value="upload">--%>
+
+                        <%--                            <div class="input-group mb-3">--%>
+                        <%--                                <div class="custom-file">--%>
+                        <%--                                    <input type="file" class="custom-file-input" id="myFile" name="file" accept="image/jpeg" onchange="document.getElementById('display').src = window.URL.createObjectURL(this.files[0]); document.getElementById('deviceUpload').disabled = false">--%>
+                        <%--                                    <label class="custom-file-label" for="myFile" aria-describedby="myFile">Choose file</label>--%>
+                        <%--                                </div>--%>
+                        <%--                                <div class="input-group-append">--%>
+                        <%--                                    <button class="btn btn-primary" type="submit" id="deviceUpload" disabled>Upload</button>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+
+
+                        <%--                        </form>--%>
+
+                        <%--                        <h5>Preview of your image:</h5>--%>
+                        <%--                        <img id="display" alt="Image Preview" width="500" height="500" style="margin-bottom: 50px;" />--%>
+
+
+                        <!-- Upload image input-->
+                        <form id="uploadForm" action="ImageServlet" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="imageaction" value="upload">
+
+                            <!-- upload box -->
+                            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                                <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0" name="file" accept="image/jpeg">
+                                <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+                                <div class="input-group-append">
+                                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+
+
+                        <!-- Uploaded image area-->
+                        <p class="font-italic text-center">The image uploaded will be rendered inside the box below.</p>
+                        <div id="image-area" class="mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                     </div>
 
-                    <div class="container" style="margin-top: 50px;">
-                        <form action="ImageServlet" method="POST">
+
+                    <!-- ********** -->
+                    <!-- Search Section-->
+                    <!-- ********** -->
+
+                    <div class="collapse" id="searchSection">
+
+                        <%--                        <div class="container">--%>
+                        <%--                            <div class="input-group mb-3">--%>
+                        <%--                                <input id="imagesearch" type="text" class="form-control" placeholder="Search Query" aria-label="Search Query" aria-describedby="basic-addon2">--%>
+                        <%--                                <div class="input-group-append">--%>
+                        <%--                                    <button onclick="SearchPhotos()" class="btn btn-outline-primary" type="button">Search</button>--%>
+                        <%--                                </div>--%>
+                        <%--                            </div>--%>
+                        <%--                        </div>--%>
+
+                        <%--                        <div class="container" style="margin-top: 50px;">--%>
+                        <%--                            <form action="ImageServlet" method="POST">--%>
+                        <%--                                <input type="hidden" name="imageaction" value="apiUpload">--%>
+                        <%--                                <input type="hidden" id="basestring" name="basestring" value="">--%>
+                        <%--                                <input type="hidden" id="imageid" name="imageid" value="">--%>
+
+                        <%--                                <button class="btn btn-primary" type="submit" id="searchUpload" disabled>Upload</button>--%>
+                        <%--                            </form>--%>
+                        <%--                        </div>--%>
+
+                        <%--                        <div class="container-fluid" style="margin-top: 50px; margin-bottom: 50px;">--%>
+                        <%--                            <h3>Search Results</h3>--%>
+                        <%--                            <div id="outputimage">--%>
+                        <%--                                <!-- images displayed here -->--%>
+                        <%--                            </div>--%>
+                        <%--                        </div>--%>
+
+                        <form id="searchForm" action="ImageServlet" method="POST">
                             <input type="hidden" name="imageaction" value="apiUpload">
                             <input type="hidden" id="basestring" name="basestring" value="">
                             <input type="hidden" id="imageid" name="imageid" value="">
 
-                            <button class="btn btn-primary" type="submit" id="searchUpload" disabled>Upload</button>
+                            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                                <div class="input-group">
+                                    <input type="search" placeholder="Try searching for &quot;Mountains&quot; or &quot;Summer&quot;" aria-describedby="button-addon1" class="form-control border-0 bg-light" id="imagesearch">
+                                    <div class="input-group-append">
+                                        <button id="button-addon1" type="button" class="btn btn-link text-primary" onclick="SearchPhotos()"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
-                    </div>
 
-                    <div class="container-fluid" style="margin-top: 50px; margin-bottom: 50px;">
-                        <h3>Search Results</h3>
-                        <div id="outputimage">
-                            <!-- images displayed here -->
+                        <div class="container-fluid" style="margin-top: 50px; margin-bottom: 50px;">
+                            <h3>Search Results</h3>
+                            <div id="outputimage">
+                                <!-- images displayed here -->
+                            </div>
                         </div>
-                    </div>
 
-                </div>
+                    </div> <!-- end of collapse -->
+
+                </div> <!-- end -->
             </div>
         </div>
     </div>
-
-
-
-
-
-
-<!--
-
-    USE THIS:
-
-    -->
-
-
-
+</section>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
-<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-
-<div class="side-menu-overlay" style="display: none;"></div>
-<div id="side-menu" style="display: none;"><button class="close">
-    <span aria-hidden="true">×</span></button>
-    <div class="contents"></div>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -81,8 +81,8 @@ public class AWSUserAccess {
         awsIA.deleteImageFromMySQL(userID);
 
         //Also delete their hash from the database
-//        AWSPasswordAccess awsPA = new AWSPasswordAccess();
-//        awsPA.deleteHash(userID);
+        AWSPasswordAccess awsPA = new AWSPasswordAccess();
+        awsPA.deleteHash(userID);
     }
 
 

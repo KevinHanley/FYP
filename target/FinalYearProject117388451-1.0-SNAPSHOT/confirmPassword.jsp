@@ -10,26 +10,20 @@
 <head>
     <title>Confirm Password</title>
 
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
+    <!-- jQuery that works -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/8e47f0960d.js" crossorigin="anonymous"></script>
+
+    <!-- JavaScript for the Unsplash API -->
+    <script type="text/javascript" src="test.js"></script>
+
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/password.css" type="text/css"/>
-
-    <!--
-    ***************************************
-    Displaying image from servlet: https://mail.codejava.net/coding/how-to-display-images-from-database-in-jsp-page-with-java-servlet
-    Clickable grid code: https://stackoverflow.com/questions/6010615/clickable-grid-over-image-in-javascript-and-jquery
-    If HasClass: https://stackoverflow.com/questions/4565075/jquery-if-element-has-class-do-this
-    Array 'pop': https://stackoverflow.com/questions/19544452/remove-last-item-from-array
-    Add array to hidden field: https://stackoverflow.com/questions/40225171/add-array-values-to-hidden-form-field
-    Array.join: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
-    Table Padding Issues: https://stackoverflow.com/questions/16427903/remove-all-padding-and-margin-table-html-and-css
-    ***************************************
-    -->
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -105,6 +99,7 @@
                     cellarray.pop();
                 }
 
+
                 //setting the button disable/enabled.
                 if (cellarray.length < 8) {
                     $('#submitbutton').prop("disabled", true)
@@ -116,30 +111,75 @@
                 $('input[name=tilearray2]').val(cellarray.join());
             });
         });
+
     </script>
+
+
 </head>
 <body>
 
-    <div class="container" style="margin-top: 50px;">
-        <div class="page-header">
-            <h1>Confirm your tile selection</h1>
+<!--
+    ***************************************
+    Displaying image from servlet: https://mail.codejava.net/coding/how-to-display-images-from-database-in-jsp-page-with-java-servlet
+    Displaying image from servlet: https://stackoverflow.com/questions/2438375/how-to-convert-bufferedimage-to-image-to-display-on-jsp
+    Clickable grid code: https://stackoverflow.com/questions/6010615/clickable-grid-over-image-in-javascript-and-jquery
+    If HasClass: https://stackoverflow.com/questions/4565075/jquery-if-element-has-class-do-this
+    Array 'pop': https://stackoverflow.com/questions/19544452/remove-last-item-from-array
+    Add array to hidden field: https://stackoverflow.com/questions/40225171/add-array-values-to-hidden-form-field
+    Array.join: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
+    Table Padding Issues: https://stackoverflow.com/questions/16427903/remove-all-padding-and-margin-table-html-and-css
+    ***************************************
+    -->
+
+<section>
+    <div class="container-fluid">
+        <div class="rounded">
+            <div class="row h-100">
+
+                <!-- LEFT -->
+                <div id="password-left" class="col-lg-3 mb-3 mb-lg-0">
+                    <div class="align-items-center">
+                        <nav class="nav flex-column align-self-center text-center rounded p-3">
+
+                            <!-- Logo -->
+                            <img src="images/logo-password.png" class="rounded mx-auto pt-5 d-block" alt="Logo">
+
+                            <h3 class="login-heading mx-auto py-5 font-italic">Confirm your password</h3>
+
+                            <!-- Button -->
+                            <button id="submitbutton" class="btn btn-lg btn-primary btn-block btn-choose text-uppercase font-weight-bold mb-2" onclick="confirmPassword()" type="button" >Login  <i class="fas fa-sign-in-alt"></i></button>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- RIGHT -->
+                <div class="col-lg-9 mb-6">
+
+                    <!-- Error message -->
+                    <div class="container py-5">
+                        <h3 class="font-italic">${TILEERROR}</h3>
+                    </div>
+
+                    <!-- IMAGE -->
+                    <div class="container py-5">
+                        <div id="grid-source">
+                            <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}" class="img-fluid">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
+</section>
 
-    <div class="container" style="margin-top: 50px;">
-        <div id="grid-source">
-            <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}"/>
-        </div>
-    </div>
-
-    <div id="button-form" class="fixed-bottom d-flex justify-content-center">
-        <form action="ImageServlet" method="POST">
-            <input type="hidden" name="tilearray2">
-            <input type="hidden" name="imageaction" value="secondpassword">
-            <button id="submitbutton" class="btn btn-outline-primary" type="submit">Confirm Tiles</button>
-        </form>
-    </div>
+<form id="tileForm3" action="ImageServlet" method="POST">
+    <input type="hidden" name="tilearray2">
+    <input type="hidden" name="imageaction" value="secondpassword">
+</form>
 
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 </body>
 </html>

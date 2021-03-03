@@ -8,28 +8,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Select Tiles</title>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Enter Password</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
+    <!-- jQuery that works -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/8e47f0960d.js" crossorigin="anonymous"></script>
+
+    <!-- JavaScript for the Unsplash API -->
+    <script type="text/javascript" src="test.js"></script>
+
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/password.css" type="text/css"/>
-
-    <!--
-    ***************************************
-    Displaying image from servlet: https://mail.codejava.net/coding/how-to-display-images-from-database-in-jsp-page-with-java-servlet
-    Displaying image from servlet: https://stackoverflow.com/questions/2438375/how-to-convert-bufferedimage-to-image-to-display-on-jsp
-    Clickable grid code: https://stackoverflow.com/questions/6010615/clickable-grid-over-image-in-javascript-and-jquery
-    If HasClass: https://stackoverflow.com/questions/4565075/jquery-if-element-has-class-do-this
-    Array 'pop': https://stackoverflow.com/questions/19544452/remove-last-item-from-array
-    Add array to hidden field: https://stackoverflow.com/questions/40225171/add-array-values-to-hidden-form-field
-    Array.join: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
-    Table Padding Issues: https://stackoverflow.com/questions/16427903/remove-all-padding-and-margin-table-html-and-css
-    ***************************************
-    -->
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -42,10 +36,10 @@
 
 
             //Custom 8x8 grid code
-             var $mycols = 16;
-             var $myrows = 16;
-             var $cellwidth = Math.ceil($src.find('img').innerWidth() / $mycols);
-             var $cellheight = Math.ceil($src.find('img').innerHeight() / $myrows);
+            var $mycols = 16;
+            var $myrows = 16;
+            var $cellwidth = Math.ceil($src.find('img').innerWidth() / $mycols);
+            var $cellheight = Math.ceil($src.find('img').innerHeight() / $myrows);
 
             //number of columns and rows
             //var $cols = Math.ceil($src.find('img').innerWidth() / $gsize);
@@ -119,55 +113,72 @@
         });
 
     </script>
+
+
 </head>
 <body>
 
-    <div class="container" style="margin-top: 50px;">
-        <div class="page-header">
-            <h1>Select your tiles</h1>
+<!--
+    ***************************************
+    Displaying image from servlet: https://mail.codejava.net/coding/how-to-display-images-from-database-in-jsp-page-with-java-servlet
+    Displaying image from servlet: https://stackoverflow.com/questions/2438375/how-to-convert-bufferedimage-to-image-to-display-on-jsp
+    Clickable grid code: https://stackoverflow.com/questions/6010615/clickable-grid-over-image-in-javascript-and-jquery
+    If HasClass: https://stackoverflow.com/questions/4565075/jquery-if-element-has-class-do-this
+    Array 'pop': https://stackoverflow.com/questions/19544452/remove-last-item-from-array
+    Add array to hidden field: https://stackoverflow.com/questions/40225171/add-array-values-to-hidden-form-field
+    Array.join: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
+    Table Padding Issues: https://stackoverflow.com/questions/16427903/remove-all-padding-and-margin-table-html-and-css
+    ***************************************
+    -->
+
+<section>
+    <div class="container-fluid">
+        <div class="rounded">
+            <div class="row h-100">
+
+                <!-- LEFT -->
+                <div id="password-left" class="col-lg-3 mb-3 mb-lg-0">
+                    <div class="align-items-center">
+                        <nav class="nav flex-column align-self-center text-center rounded p-3">
+
+                            <!-- LOGO -->
+                            <img src="images/logo-password.png" class="rounded mx-auto pt-5 d-block" alt="Logo">
+
+                            <h3 class="login-heading mx-auto py-5 font-italic">Enter your password</h3>
+
+                            <!-- BUTTON -->
+                            <button id="submitbutton" class="btn btn-lg btn-primary btn-block btn-choose text-uppercase font-weight-bold mb-2" onclick="checkPassword()" type="button" >Login  <i class="fas fa-sign-in-alt"></i></button>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- RIGHT -->
+                <div class="col-lg-9 mb-6">
+
+                    <!-- IMAGE -->
+<%--                    <h3 class="mx-auto py-5 font-italic">${TILEERROR}</h3>--%>
+                    ${TILEERROR}
+
+                    <div class="container py-5">
+                        <div id="grid-source">
+                            <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}" class="img-fluid">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
+</section>
 
-    <div class="container" style="margin-top: 50px;">
-        <div id="grid-source">
-            <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}"/>
-        </div>
-    </div>
-
-    <div id="button-form" class="fixed-bottom d-flex justify-content-center">
-        <form action="ImageServlet" method="POST">
-            <input type="hidden" name="tilearray">
-            <input type="hidden" name="imageaction" value="compare">
-            <button id="submitbutton" class="btn btn-outline-primary" type="submit">Submit Tiles</button>
-        </form>
-    </div>
-
-
-<div class="container text-center">
-
-<%--    <div class="d-flex justify-content-center align-items-center container ">--%>
-<%--        <div class="row">--%>
-<%--            <form action="ImageServlet" method="POST">--%>
-<%--                <input type="hidden" name="tilearray">--%>
-<%--                <input type="hidden" name="imageaction" value="compare">--%>
-<%--                <div id="grid-source">--%>
-<%--                    <img src="data:image/jpg;base64,${IMAGEPASS.getBase64Image()}"/>--%>
-<%--                </div>--%>
-
-<%--                <br>--%>
-<%--                <br>--%>
-
-<%--                <button id="submitbutton" class="btn btn-primary btn-outline-primary" type="submit">Submit Tiles</button>--%>
-<%--            </form>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-
-    <div class="row">
-        <h2>${TILEERROR}</h2>
-    </div>
+<div id="button-form" class="fixed-bottom d-flex justify-content-center">
+    <form id="tileForm" action="ImageServlet" method="POST">
+        <input type="hidden" name="tilearray">
+        <input type="hidden" name="imageaction" value="compare">
+    </form>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 </body>
 </html>

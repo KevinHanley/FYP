@@ -37,19 +37,21 @@ public class MyServlet extends HttpServlet {
         // This Servlet is for running tests
         // *********************
 
+        System.out.println("HERE 1");
+        randomPage(request, response);
 
         //Variable to see if user is logging in, retrieving data, editing details or deleting data.
-        String action = request.getParameter("action");
-
-        //call suitable method based on input "action"
-        switch (action) {
-            case "base":
-                base64Test(request, response);
-                break;
-            default:
-                //do nothing if no action
-                break;
-        }
+//        String action = request.getParameter("action");
+//
+//        //call suitable method based on input "action"
+//        switch (action) {
+//            case "base":
+//                base64Test(request, response);
+//                break;
+//            default:
+//                //do nothing if no action
+//                break;
+//        }
 
     }
 
@@ -71,6 +73,22 @@ public class MyServlet extends HttpServlet {
 
         RequestDispatcher rd = request.getRequestDispatcher("/loggedIn.jsp");
         rd.forward(request, response);
+    }
+
+    protected void randomPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        System.out.println("HERE 2");
+
+        //Get the request parameters
+        String tilearray = request.getParameter("tilearray");
+
+
+        request.getSession(true).setAttribute("TILEARRAY", tilearray);
+
+        System.out.println("HERE 3");
+        RequestDispatcher rd = request.getRequestDispatcher("/template.jsp");
+        rd.forward(request, response);
+
     }
 
 

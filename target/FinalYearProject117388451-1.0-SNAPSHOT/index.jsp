@@ -70,15 +70,46 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <p>The HTML5 video element uses an mp4 video as a source. Change the source video to add in your own background! The header text is vertically centered using flex utilities that are build into Bootstrap 4.</p>
-                <p>The overlay color can be changed by changing the <code>background-color</code> of the <code>.overlay</code> class in the CSS.</p>
-                <p>Set the mobile fallback image in the CSS by changing the background image of the header element within the media query at the bottom of the CSS snippet.</p>
-                <p class="mb-0">
-                    Created by <a href="https://startbootstrap.com">Start Bootstrap</a>
-                </p>
+
+                <h1 class="display-4 text-center">What is PassPic?</h1>
+
+                <p class="lead mb-0">PassPic aims to change the way people interact with system authentication.</p>
+
+                <p class="lead mb-0">PassPic removes traditional passwords and replaces them with your own photos.</p>
+
+                <p class="lead mb-0">Users of the app click parts of the photo sequentially in order to log in.</p>
+
+                <p class="lead mb-0">This is your Password Picture (PassPic).</p>
+
+                <hr class="my-4 mt-5">
+
+                <h1 class="display-4 text-center">Value Proposition</h1>
+
+                <p class="lead mb-0">By removing traditional passwords, the security of a system has the potential to dramatically increase.</p>
+
+                <p class="lead mb-0">This is because people tend to re-use passwords quite frequently to access all their online accounts.</p>
+
+                <p class="lead mb-0">As such, an account or indeed an entire organization, could be at risk, if someone's re-used password is exposed on another system.</p>
+
+                <p class="lead mb-0">This is the issue PassPic aims to solve.</p>
+
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="py-4 bg-light mt-5">
+        <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; PassPic 2021</div>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    &middot;
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </section>
 
 

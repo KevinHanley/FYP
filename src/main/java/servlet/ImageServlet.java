@@ -321,7 +321,7 @@ public class ImageServlet extends HttpServlet {
         }else{
             //return to password.jsp
             destination = "/password.jsp";
-            errorMessage = "Incorrect tiles selected! Please try again";
+            errorMessage = "<div class=\"alert alert-danger\"><strong>Incorrect tiles, please try again!</strong></div>";
             request.getSession(true).setAttribute("TILEERROR", errorMessage);
 
         }
@@ -366,6 +366,7 @@ public class ImageServlet extends HttpServlet {
 
         // default destination in event sequences don't match
         String destination = "/confirmPassword.jsp";
+        String errorMessage = "";
 
         //Check if the two sequences of tiles match
         if(tileArray1.equals(tileArray2)){
@@ -401,6 +402,14 @@ public class ImageServlet extends HttpServlet {
                 ArrayList<GeneralUser> employees = awsUA.getEmployees(admin.getOrgID());
                 request.getSession(true).setAttribute("EMPLOYEES", employees);
 
+                String adminMessage = "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">\n" +
+                        "                            <strong>Editing Successful:</strong> The employee's picture password was changed.\n" +
+                        "                            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+                        "                                <span aria-hidden=\"true\">&times;</span>\n" +
+                        "                            </button>\n" +
+                        "                        </div>";
+                request.getSession(true).setAttribute("ADMINMESSAGE", adminMessage);
+
 
             } else if (user != null){
 
@@ -420,20 +429,25 @@ public class ImageServlet extends HttpServlet {
 
             }
 
+            //clear session variables
+            //Clear Session: https://stackoverflow.com/questions/13963720/how-to-effectively-destroy-session-in-java-servlet
+            //Clear Session Attributes: https://stackoverflow.com/questions/23476619/removing-all-session-attributes-with-one-command-in-java-web
+
+            request.getSession().removeAttribute("IMAGEPASS");
+            request.getSession().removeAttribute("NEWEMPLOYEE");
+            request.getSession().removeAttribute("TILEARRAY1");
+            request.getSession().removeAttribute("TILEARRAY2");
+            request.getSession().removeAttribute("SINGLEEMPLOYEE");
+            request.getSession().removeAttribute("TILEERROR");
+
         }else{
             //send error message back to confirmPassword.jsp
             //use if statement within HTML to display the error message, changed by setting a seesion attribute true/false.*******************************************
+            errorMessage = "<div class=\"alert alert-danger\"><strong>Incorrect tiles, please try again!</strong></div>";
+            request.getSession(true).setAttribute("TILEERROR", errorMessage);
+            destination = "/confirmPassword.jsp";
         }
 
-        //clear session variables
-        //Clear Session: https://stackoverflow.com/questions/13963720/how-to-effectively-destroy-session-in-java-servlet
-        //Clear Session Attributes: https://stackoverflow.com/questions/23476619/removing-all-session-attributes-with-one-command-in-java-web
-
-        request.getSession().removeAttribute("IMAGEPASS");
-        request.getSession().removeAttribute("NEWEMPLOYEE");
-        request.getSession().removeAttribute("TILEARRAY1");
-        request.getSession().removeAttribute("TILEARRAY2");
-        request.getSession().removeAttribute("SINGLEEMPLOYEE");
 
         //Open the destination
         RequestDispatcher rd = request.getRequestDispatcher(destination);
