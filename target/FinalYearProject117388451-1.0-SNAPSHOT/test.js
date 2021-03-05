@@ -46,8 +46,8 @@ function SearchPhotos(){
             //loop through each "photo"
             data.results.forEach(photo =>{
 
-                // let mydiv = document.createElement("div");
-                // mydiv.classList.add("kevinhover");
+                // let rowdiv = document.createElement("div");
+                // rowdiv.classList.add("col-md-4");
 
                 //get the path to the "small" size image from the data set
                 let link = photo.urls.small;
@@ -58,17 +58,17 @@ function SearchPhotos(){
                 elem.src = link;
                 elem.setAttribute("id", id);
                 elem.setAttribute("height", "200");
-                //elem.setAttribute("width", "400");
+                //elem.setAttribute("width", "200");
                 elem.style.margin = "5px";
                 elem.classList.add("image-hover");
                 elem.setAttribute("onclick", "DoActions(this.id)");
 
 
-                // mydiv.appendChild(elem);
+                // rowdiv.appendChild(elem);
 
 
                 //Add the image to the div
-                //document.getElementById("outputimage").appendChild(mydiv);
+                //document.getElementById("outputimage").appendChild(rowdiv);
                 document.getElementById("outputimage").appendChild(elem);
             })
         })

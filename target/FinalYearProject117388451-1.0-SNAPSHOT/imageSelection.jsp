@@ -235,6 +235,7 @@
 
                         <div class="container-fluid" style="margin-top: 50px; margin-bottom: 50px;">
                             <h3>Search Results</h3>
+                            <!-- maybe add: class="d-flex flex-wrap" below? -->
                             <div id="outputimage">
                                 <!-- images displayed here -->
                             </div>

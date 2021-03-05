@@ -153,7 +153,6 @@ public class ImageServlet extends HttpServlet {
     private void apiUpload(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
         //Substring: https://stackoverflow.com/questions/5131867/removing-the-first-3-characters-from-a-string/15919281
 
         //Get the request parameters

@@ -10,7 +10,6 @@ function SearchPhotos(){
     //Loading image when results are fetched :https://stackoverflow.com/questions/53799108/how-to-add-a-loading-animation-while-fetch-data-from-api-vanilla-js
     //Bootstrap Spinner: https://getbootstrap.com/docs/4.4/components/spinners/
 
-
     //clear the current photos in the div
     document.getElementById("outputimage").innerHTML = "";
 
@@ -46,8 +45,8 @@ function SearchPhotos(){
             //loop through each "photo"
             data.results.forEach(photo =>{
 
-                // let mydiv = document.createElement("div");
-                // mydiv.classList.add("kevinhover");
+                // let rowdiv = document.createElement("div");
+                // rowdiv.classList.add("col-md-4");
 
                 //get the path to the "small" size image from the data set
                 let link = photo.urls.small;
@@ -58,23 +57,19 @@ function SearchPhotos(){
                 elem.src = link;
                 elem.setAttribute("id", id);
                 elem.setAttribute("height", "200");
-                //elem.setAttribute("width", "400");
+                //elem.setAttribute("width", "200");
                 elem.style.margin = "5px";
                 elem.classList.add("image-hover");
                 elem.setAttribute("onclick", "DoActions(this.id)");
 
-
-                // mydiv.appendChild(elem);
-
+                // rowdiv.appendChild(elem);
+                //document.getElementById("outputimage").appendChild(rowdiv);
 
                 //Add the image to the div
-                //document.getElementById("outputimage").appendChild(mydiv);
                 document.getElementById("outputimage").appendChild(elem);
             })
         })
 }
-
-
 
 function ClearPhotos(){
     document.getElementById("outputimage").innerHTML = "";
@@ -90,15 +85,6 @@ function DoActions(id){
 
     var element = document.getElementById(id);
     element.classList.add("imageselected");
-
-    //border
-    // document.getElementById(id).style.border="5px solid orange";
-    // document.getElementById(id).style.opacity=0.5;
-
-    //SRC TEST
-    // let imageSource = document.getElementById(id).src;
-    // document.getElementById("imageurl").value = imageSource;
-
 
     //Base 64 Test
     let url = document.getElementById(id).src;
@@ -124,12 +110,10 @@ function DoActions(id){
                 document.getElementById("searchUpload").disabled = false;
             }
 
-
         })
         .catch(error => {
             console.error('There has been a problem with the fetch operation1:', error);
         });
-
 
     //Hit the download API
     //Triggering a download: https://help.unsplash.com/en/articles/2511258-guideline-triggering-a-download
@@ -151,11 +135,9 @@ function DoActions(id){
         });
 }
 
-
-
 function uploadForms(){
 
-    //submit outisde of form: https://stackoverflow.com/questions/7020659/submit-form-using-a-button-outside-the-form-tag/12567605#12567605
+    //submit outside of form: https://stackoverflow.com/questions/7020659/submit-form-using-a-button-outside-the-form-tag/12567605#12567605
     //check form empty: https://stackoverflow.com/questions/25793880/how-to-check-if-input-file-is-empty-in-jquery
 
     //check if a file was uploaded.
@@ -178,7 +160,6 @@ function uploadForms(){
     }
 
 }
-
 
 function checkPassword(){
 

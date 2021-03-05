@@ -243,7 +243,7 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Confirm Edits <i class="fas fa-long-arrow-alt-right"></i></button>
+                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 col-md-6 mx-auto" type="submit">Confirm Edits <i class="fas fa-long-arrow-alt-right"></i></button>
                 </form> <!-- end of edit employee -->
 
 
@@ -254,7 +254,7 @@
                     <input type="hidden" name="action" value="editpassword">
                     <input type="hidden" name="editpassworduserid" value="editpassword">
 
-                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Change Employee Picture Password <i class="fas fa-long-arrow-alt-right"></i></button>
+                    <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 col-md-6 mx-auto" type="submit">Change Employee Picture Password <i class="fas fa-long-arrow-alt-right"></i></button>
                 </form>
 
             </div>

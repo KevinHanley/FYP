@@ -65,18 +65,21 @@ header .overlay {
     min-height: 100vh;
 }
 
+/* login page */
 .bg-image {
     background-image: url('../images/beach-car.jpg');
     background-size: cover;
     background-position: center;
 }
 
+/* company page */
 .bg-image-2{
-    background-image: url('../images/towers.jpg');
+    background-image: url('../images/skyscraper.jpg');
     background-size: cover;
     background-position: center;
 }
 
+/* admin page */
 .bg-image-3{
     background-image: url('../images/admin.jpg');
     background-size: cover;
