@@ -1,6 +1,7 @@
 package servlet;
 
 import bll.GeneralUser;
+import dal.AWSPasswordAccess;
 import dal.AWSUserAccess;
 
 import javax.servlet.RequestDispatcher;
@@ -44,6 +45,9 @@ public class AccountServlet extends HttpServlet {
             case "logout":
                 logoutUser(request, response);
                 break;
+            case "forgot":
+                forgotPassword(request, response);
+                break;
             default:
                 //do nothing if no action
                 break;
@@ -63,21 +67,30 @@ public class AccountServlet extends HttpServlet {
         AWSUserAccess awsUA = new AWSUserAccess();
         GeneralUser user = awsUA.retrieveUser(emailAddress); //create a user object from the database
 
+        String destination, errorMessage;
+
         //set session attribute to an admin or user
         if(user.getUserType() == 1){
             //change user to admin
             GeneralUser admin = awsUA.retrieveAdmin(emailAddress);
             request.getSession(true).setAttribute("ADMIN", admin);
+            destination = "ImageServlet?imageaction=retrieve";
+            request.getSession().removeAttribute("EMAILERROR");
 
         }else if(user.getUserType() == 4){
             request.getSession(true).setAttribute("USER", user);
+            destination = "ImageServlet?imageaction=retrieve";
+            request.getSession().removeAttribute("EMAILERROR");
 
         }else{
-            System.out.println("Error in User Type");
+            destination = "account.jsp";
+            errorMessage = "<div class=\"alert alert-danger\"><strong>Incorrect email address provided!</strong></div>";
+            request.getSession(true).setAttribute("EMAILERROR", errorMessage);
+
         }
 
         //Get the users image from the database
-        RequestDispatcher rd = request.getRequestDispatcher("ImageServlet?imageaction=retrieve");
+        RequestDispatcher rd = request.getRequestDispatcher(destination);
         rd.forward(request, response);
 
     }
@@ -279,6 +292,41 @@ public class AccountServlet extends HttpServlet {
         session.invalidate();
 
         RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        rd.forward(request, response);
+    }
+
+
+    private void forgotPassword(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        //get the users details
+        // Get the user and their ID number
+        GeneralUser user = (GeneralUser) request.getSession().getAttribute("USER");
+        GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
+
+        int userID = 0;
+        int orgID = 0;
+
+        //check if a user or admin is logging in.
+        if(user != null){
+            userID = user.getUserID();
+            orgID = user.getOrgID();
+
+        }else if(admin != null){
+            userID = admin.getUserID();
+            orgID = admin.getOrgID();
+        }
+
+        //save their ID and Org ID to "messages" tables
+        AWSPasswordAccess awsPA = new AWSPasswordAccess();
+        awsPA.saveMessage(userID, orgID);
+
+        //Clear the session so the admin can log in
+        HttpSession session=request.getSession();
+        session.invalidate();
+
+        //reopen the dashboard
+        RequestDispatcher rd = request.getRequestDispatcher("/forgotPassword.jsp");
         rd.forward(request, response);
     }
 

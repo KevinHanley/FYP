@@ -304,13 +304,16 @@ public class ImageServlet extends HttpServlet {
                 //instantiate classes
                 AWSOrganisationAccess awsOA = new AWSOrganisationAccess();
                 AWSUserAccess awsUA = new AWSUserAccess();
+                AWSPasswordAccess awsPA = new AWSPasswordAccess();
 
                 //Retrieve organisation and employee details from database
                 Organisation organisation = awsOA.retrieveOrganisation(admin.getOrgID());
                 ArrayList<GeneralUser> employees = awsUA.getEmployees(admin.getOrgID());
+                ArrayList<GeneralUser> employeeMessages = awsPA.retrieveMessages(admin.getOrgID(), employees);
 
                 request.getSession(true).setAttribute("ORGANISATION", organisation);
                 request.getSession(true).setAttribute("EMPLOYEES", employees);
+                request.getSession(true).setAttribute("EMPLOYEEMESSAGES", employeeMessages);
                 destination = "/adminDashboard.jsp";
 
             }else{
@@ -421,6 +424,11 @@ public class ImageServlet extends HttpServlet {
                 //store hash
                 passwordAccess.storeHash(admin, generatedHash);
                 destination = "/adminDashboard.jsp";
+
+                //refresh employee list
+                AWSUserAccess awsUA = new AWSUserAccess();
+                ArrayList<GeneralUser> employees = awsUA.getEmployees(admin.getOrgID());
+                request.getSession(true).setAttribute("EMPLOYEES", employees);
 
             }else{
                 //Error

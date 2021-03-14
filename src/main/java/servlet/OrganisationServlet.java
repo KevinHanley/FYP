@@ -3,6 +3,7 @@ package servlet;
 import bll.GeneralUser;
 import bll.Organisation;
 import dal.AWSOrganisationAccess;
+import dal.AWSPasswordAccess;
 import dal.AWSUserAccess;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "OrganisationServlet")
 public class OrganisationServlet extends HttpServlet {
@@ -28,6 +31,15 @@ public class OrganisationServlet extends HttpServlet {
                 break;
             case "addAdmin":
                 addAdmin(request, response);
+                break;
+            case "editOrg":
+                editOrg(request, response);
+                break;
+            case "deleteOrg":
+                deleteOrg(request, response);
+                break;
+            case "removeMessage":
+                removeMessage(request, response);
                 break;
             default:
                 //do nothing if no action
@@ -131,6 +143,113 @@ public class OrganisationServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/imageSelection.jsp");
         rd.forward(request, response);
     }
+
+
+
+    protected void editOrg(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //Get current Organisation
+        Organisation thisOrganisation = (Organisation) request.getSession().getAttribute("ORGANISATION");
+
+        //orgID
+        int orgID = thisOrganisation.getOrgID();
+
+        //get inputs from the request
+        String orgName = request.getParameter("orgname");
+        String orgEmail = request.getParameter("orgemail");
+        String orgCategory = request.getParameter("orgcategory");
+        String orgDomain = request.getParameter("orgdomain");
+        String orgPlan = request.getParameter("orgplan");
+        String cardNum = request.getParameter("orgcardnum");
+        String cardExpiryMM = request.getParameter("orgexpirymm");
+        String cardExpiryYY = request.getParameter("orgexpiryyy");
+        String cardCVV = request.getParameter("orgcvv");
+        String cardExpiry = cardExpiryMM + "/" + cardExpiryYY;
+
+        //create new organisation object
+        Organisation newDetailsOrganisation = new Organisation();
+        newDetailsOrganisation.setOrgName(orgName);
+        newDetailsOrganisation.setOrgEmail(orgEmail);
+        newDetailsOrganisation.setOrgDomain(orgDomain);
+        newDetailsOrganisation.setOrgCategory(orgCategory);
+        newDetailsOrganisation.setOrgPlan(Integer.parseInt(orgPlan));
+        newDetailsOrganisation.setCardNum(cardNum);
+        newDetailsOrganisation.setCardExpiry(cardExpiry);
+        newDetailsOrganisation.setCardCVV(cardCVV);
+
+        //update database
+        AWSOrganisationAccess awsOrganisationAccess = new AWSOrganisationAccess();
+        awsOrganisationAccess.editOrganisation(orgID, newDetailsOrganisation);
+
+        //retrieve new org details inside Session Attribute 'Organisation'
+        Organisation updatedOrg = awsOrganisationAccess.retrieveOrganisation(orgID);
+
+        //Change the alert Banner
+        String adminMessage = "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">\n" +
+                "                            <strong>Editing Successful:</strong> The organisation's details were changed.\n" +
+                "                            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+                "                                <span aria-hidden=\"true\">&times;</span>\n" +
+                "                            </button>\n" +
+                "                        </div>";
+        request.getSession(true).setAttribute("ADMINMESSAGE", adminMessage);
+
+        //set session attributes with return data
+        request.getSession(true).setAttribute("ORGANISATION", updatedOrg);
+
+        //return to adminDashboard.jsp
+        RequestDispatcher rd = request.getRequestDispatcher("/adminDashboard.jsp");
+        rd.forward(request, response);
+    }
+
+
+
+    protected void deleteOrg(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //Get current Organisation
+        Organisation thisOrganisation = (Organisation) request.getSession().getAttribute("ORGANISATION");
+
+        //orgID
+        int orgID = thisOrganisation.getOrgID();
+
+        //Delete the organisation
+        AWSOrganisationAccess awsOA = new AWSOrganisationAccess();
+        awsOA.deleteOrganisation(orgID);
+
+        //Clear Session: https://kodejava.org/how-do-i-invalidate-users-session/
+        HttpSession session=request.getSession();
+        session.invalidate();
+
+        //bring to "sorry to see you leave" page
+        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        rd.forward(request, response);
+    }
+
+
+
+
+    protected void removeMessage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //get input from the request
+        String userID = request.getParameter("userid");
+        int intUserID = Integer.parseInt(userID);
+
+        //delete the message
+        AWSPasswordAccess awsPA = new AWSPasswordAccess();
+        awsPA.deleteMessage(intUserID);
+
+        //get session attributes
+        GeneralUser admin = (GeneralUser) request.getSession().getAttribute("ADMIN");
+        ArrayList<GeneralUser> employees = (ArrayList<GeneralUser>) request.getSession().getAttribute("EMPLOYEES");
+
+        //refresh the message list
+        ArrayList<GeneralUser> employeeMessages = awsPA.retrieveMessages(admin.getOrgID(), employees);
+        request.getSession(true).setAttribute("EMPLOYEEMESSAGES", employeeMessages);
+
+        //bring back to the dashboard homepage
+        RequestDispatcher rd = request.getRequestDispatcher("/adminDashboard.jsp");
+        rd.forward(request, response);
+    }
+
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

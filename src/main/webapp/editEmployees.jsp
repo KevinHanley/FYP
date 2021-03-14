@@ -86,6 +86,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
                         Settings
                     </a>
+                    <a class="nav-link" href="adminDashboard.jsp">
+                        <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
+                        Messages
+                    </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
@@ -248,10 +252,10 @@
 
 
                 <!-- NEW EMPLOYEE FORM -->
-                <h3 class="login-heading mb-4">Change Employee's Picture Password</h3>
+                <h3 class="login-heading mb-4" style="margin-top: 50px;">Change Employee's Picture Password</h3>
 
                 <form action="ImageServlet" method="POST">
-                    <input type="hidden" name="action" value="editpassword">
+                    <input type="hidden" name="imageaction" value="editpassword">
                     <input type="hidden" name="editpassworduserid" value="editpassword">
 
                     <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 col-md-6 mx-auto" type="submit">Change Employee Picture Password <i class="fas fa-long-arrow-alt-right"></i></button>

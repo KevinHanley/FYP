@@ -13,8 +13,28 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
+    <!-- jQuery that works -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/home.css" type="text/css"/>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var scroll_pos = 0;
+            $(document).scroll(function() {
+                scroll_pos = $(this).scrollTop();
+                if(scroll_pos > 100) {
+                    $("nav").css('background-color', '#ffffff');
+                    $("nav").css('border-bottom', '1px solid black');
+                } else {
+                    $("nav").css('background-color', 'transparent');
+                    $("nav").css('border-bottom', 'none');
+                }
+            });
+        });
+
+    </script>
 
 </head>
 <body>
@@ -22,13 +42,15 @@
 <!-- Links:
     StartBootstrap Video Header Template: https://startbootstrap.com/snippets/video-header
     Video by fauxels on Pexels: https://www.pexels.com/video/person-looking-at-pictures-in-his-phone-while-making-notes-3251809/
+    Gifs made with: https://cloudconvert.com/mov-to-gif
+    Change navbar color on scroll: https://stackoverflow.com/questions/52637835/dynamically-change-background-color-on-scroll
 -->
 
 <header>
     <div class="overlay">
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: transparent;">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="loggedIn.jsp">
+                <a class="navbar-brand" href="index.jsp">
                     <img src="images/logo4.png" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +88,8 @@
     </div>
 </header>
 
-<section class="my-5">
+<!-- INFO SECTION -->
+<section style="margin-top: 50px;">
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
@@ -96,21 +119,55 @@
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="py-4 bg-light mt-5">
-        <div class="container-fluid">
-            <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; PassPic 2021</div>
-                <div>
-                    <a href="#">Privacy Policy</a>
-                    &middot;
-                    <a href="#">Terms &amp; Conditions</a>
-                </div>
+<!-- GIF SECTION -->
+<section id="gif-section" style="margin-top: 100px; background-color: lightblue">
+
+    <div class="container-fluid" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-md-4 col-lg-6">
+                <h1 class="display-4 text-center">First you create an account!</h1>
+                <p class="lead mb-0">Enter your login details.</p>
+            </div>
+            <div class="col-md-8 col-lg-6 bg-gif-1"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-md-4 col-lg-6">
+                <h1 class="display-4 text-center">Next, choose your image!</h1>
+                <p class="lead mb-0">Either upload your own image or choose from millions of free images online.</p>
+            </div>
+            <div class="col-md-8 col-lg-6 bg-gif-3"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-md-4 col-lg-6">
+                <h1 class="display-4 text-center">Finally, create a password!</h1>
+                <p class="lead mb-0">Click on any combinations of tiles you desire.</p>
+            </div>
+            <div class="col-md-8 col-lg-6 bg-gif-2"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-4 bg-light">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; PassPic 2021</div>
+            <div>
+                <a href="#">Privacy Policy</a>
+                &middot;
+                <a href="#">Terms &amp; Conditions</a>
             </div>
         </div>
-    </footer>
-</section>
+    </div>
+</footer>
 
 
 

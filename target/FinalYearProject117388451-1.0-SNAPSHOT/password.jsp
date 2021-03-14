@@ -148,6 +148,8 @@
 
                             <!-- BUTTON -->
                             <button id="submitbutton" class="btn btn-lg btn-primary btn-block btn-choose text-uppercase font-weight-bold mb-2" onclick="checkPassword()" type="button" >Login  <i class="fas fa-sign-in-alt"></i></button>
+
+                            <a class="small text-white" href="AccountServlet?action=forgot">Forgot combination?</a>
                         </nav>
                     </div>
                 </div>

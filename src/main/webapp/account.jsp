@@ -33,6 +33,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-9 col-lg-8 mx-auto">
+                            ${EMAILERROR}
                             <h3 class="login-heading mb-4">Welcome back!</h3>
                             <form action="AccountServlet" method="POST">
                                 <input type="hidden" name="action" value="login">
@@ -43,9 +44,6 @@
                                 </div>
 
                                 <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in  <i class="fas fa-long-arrow-alt-right"></i></button>
-                                <div class="text-center">
-                                    <a class="small" href="#">Forgot password?</a>
-                                </div>
                             </form>
                         </div>
                     </div>

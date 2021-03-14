@@ -29,6 +29,10 @@ public class AWSUserAccess {
                 user.setLastName(rs.getString("lastName"));
                 user.setEmail(rs.getString("email"));;
                 user.setUserType(rs.getInt("userType"));
+                user.setOrgID(rs.getInt("orgID"));
+                user.setPhone(rs.getString("phone"));
+                user.setDateOfBirth(rs.getString("dateOfBirth"));
+                user.setGender(rs.getString("gender"));
             }
 
             conn.close();

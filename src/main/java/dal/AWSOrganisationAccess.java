@@ -97,5 +97,48 @@ public class AWSOrganisationAccess {
     }
 
 
+    public void editOrganisation(int orgID, Organisation org){
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        try{
+            Statement st = conn.createStatement();
+            st.execute("update Organisation set name='" + org.getOrgName() +"', email='" + org.getOrgEmail()
+                    + "', category='" + org.getOrgCategory() + "', domain='" + org.getOrgDomain() + "', plan=" + org.getOrgPlan()
+                    + ", cardnum='" + org.getCardNum() + "', expiry='"+ org.getCardExpiry() +"', cvv='" + org.getCardCVV() +"' where orgID=" + orgID);
+
+            conn.close();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+    }
+
+    public void deleteOrganisation(int orgID){
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        //Delete the company
+        try{
+            Statement st = conn.createStatement();
+            st.execute("delete from Organisation where orgID=" + orgID);
+
+            conn.close();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        Connection conn2 = AWSConnection.establishDatabaseConnection();
+        //delete all the employees
+        try{
+            Statement st2 = conn2.createStatement();
+            st2.execute("delete from User where orgID=" + orgID);
+
+            conn2.close();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
+
 
 }

@@ -53,6 +53,30 @@
                 modal.find('.modal-body h2').text(username);
                 modal.find('.modal-body .p2').text("This change cannot be undone?");
             });
+
+            //Modal code for deleting the organisation.
+            $('#confirm-org-delete').on('show.bs.modal', function(e) {
+
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+
+                var button = $(e.relatedTarget); //button that was clicked
+                var modal = $(this);
+                //Put the users name into the modal message
+                modal.find('.modal-body .p1').text("Are you sure you want to delete the account?");
+                modal.find('.modal-body .p2').text("This cannot be undone and all data will be lost.");
+            });
+
+            //Modal code for deleting a message.
+            $('#confirm-message-delete').on('show.bs.modal', function(e) {
+
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+
+                var button = $(e.relatedTarget); //button that was clicked
+                var modal = $(this);
+                //Put the users name into the modal message
+                modal.find('.modal-body .p1').text("Are you sure you want to remove this message?");
+                modal.find('.modal-body .p2').text("This cannot be undone.");
+            });
         });
     </script>
 
@@ -75,6 +99,45 @@
             <div class="modal-body">
                 <p class="p1">message</p>
                 <h2>message</h2>
+                <p class="p2">message</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal to appear when pressing delete button on a record -->
+<div class="modal fade" id="confirm-org-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                Confirm Organisation Deletion
+            </div>
+            <div class="modal-body">
+                <p class="p1">message</p>
+                <p class="p2">message</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal to appear when pressing delete button on a record -->
+<div class="modal fade" id="confirm-message-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                Confirm Message Deletion
+            </div>
+            <div class="modal-body">
+                <p class="p1">message</p>
                 <p class="p2">message</p>
             </div>
             <div class="modal-footer">
@@ -137,6 +200,10 @@
                     <a class="nav-link" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings" id="list-settings-list">
                         <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
                         Settings
+                    </a>
+                    <a class="nav-link" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages" id="list-messages-list">
+                        <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
+                        Messages
                     </a>
                 </div>
             </div>
@@ -449,7 +516,7 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Continue <i class="fas fa-long-arrow-alt-right"></i></button>
+                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 col-md-6 mx-auto" type="submit">Continue <i class="fas fa-long-arrow-alt-right"></i></button>
                         </form> <!-- end of add employee -->
                     </div>
 
@@ -461,7 +528,114 @@
                             <li class="breadcrumb-item active">Settings</li>
                         </ol>
 
-                        <h3 class="login-heading mb-4">Edit and Delete the company details</h3>
+                        <h3 class="login-heading mb-4">Edit Details</h3>
+
+                        <!-- EDIT ORG DETAILS -->
+                        <form action="OrganisationServlet" method="POST">
+                            <input type="hidden" name="action" value="editOrg">
+
+                            <!-- Name -->
+                            <div class="form-label-group">
+                                <input type="text" id="orgname" name="orgname" class="form-control" placeholder="Organisation Name" value="${ORGANISATION.getOrgName()}" required autofocus>
+                                <label for="orgname">Organisation Name</label>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-label-group">
+                                <input type="email" id="orgemail" name="orgemail" class="form-control" placeholder="Email Address" value="${ORGANISATION.getOrgEmail()}" required autofocus>
+                                <label for="orgemail">Email address</label>
+                            </div>
+
+                            <!-- Type -->
+                            <div class="form-label-group">
+                                <select class="form-control" name="orgcategory" id="orgcategory">
+                                    <option value="education">Education</option>
+                                    <option value="technology">Information Technology</option>
+                                    <option value="manufacturing">Manufacturing</option>
+                                    <option value="agriculture">Agriculture</option>
+                                    <option value="finance">Financial Services</option>
+                                    <option value="realestate">Real Estate</option>
+                                    <option value="health">Health Care</option>
+                                    <option value="energy">Energy</option>
+                                    <option value="retail">Retail</option>
+                                    <option value="communications">Communications</option>
+                                </select>
+                            </div>
+
+                            <!-- Domain -->
+                            <div class="form-label-group">
+                                <input type="text" id="orgdomain" name="orgdomain" class="form-control" placeholder="Organisation Domain" value="${ORGANISATION.getOrgDomain()}" required autofocus>
+                                <label for="orgdomain">Organisation Domain</label>
+                            </div>
+
+                            <!-- Plan -->
+                            <div class="form-label-group">
+                                <select class="form-control" name="orgplan" id="orgplan">
+                                    <option value="1">Premium</option>
+                                    <option value="2">Enterprise</option>
+                                </select>
+                            </div>
+
+                            <!-- Card Number -->
+                            <div class="form-label-group">
+                                <input type="number" id="orgcardnum" name="orgcardnum" class="form-control" placeholder="Card Number" value="${ORGANISATION.getCardNum()}" required autofocus>
+                                <label for="orgcardnum">Card Number</label>
+                            </div>
+
+
+                            <!-- ROW -->
+                            <div class="form-row">
+
+                                <!-- Card Expiry Month -->
+                                <div class="form-label-group col-md-6">
+                                    <select class="form-control" name="orgexpirymm" id="orgexpirymm">
+                                        <option value='01'>January</option>
+                                        <option value='02'>February</option>
+                                        <option value='03'>March</option>
+                                        <option value='04'>April</option>
+                                        <option value='05'>May</option>
+                                        <option value='06'>June</option>
+                                        <option value='07'>July</option>
+                                        <option value='08'>August</option>
+                                        <option value='09'>September</option>
+                                        <option value='10'>October</option>
+                                        <option value='11'>November</option>
+                                        <option value='12'>December</option>
+                                    </select>
+                                </div>
+
+
+                                <!-- Card Expiry Year -->
+                                <div class="form-label-group col-md-6">
+                                    <select class="form-control" name="orgexpiryyy" id="orgexpiryyy">
+                                        <option value='2021'>2021</option>
+                                        <option value='2022'>2022</option>
+                                        <option value='2023'>2023</option>
+                                        <option value='2024'>2024</option>
+                                        <option value='2025'>2025</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- CVV -->
+                            <div class="form-label-group">
+                                <input type="number" id="orgcvv" name="orgcvv" class="form-control" placeholder="Card CVV" value="${ORGANISATION.getCardCVV()}" required autofocus>
+                                <label for="orgcvv">CVV Number</label>
+                            </div>
+
+                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 col-md-6 mx-auto" type="submit">Update <i class="fas fa-long-arrow-alt-right"></i></button>
+                        </form>
+
+
+
+                        <h3 class="login-heading mb-4" style="margin-top: 50px;">Delete Account</h3>
+
+                        <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2 col-md-6 mx-auto" data-href="OrganisationServlet?action=deleteOrg" data-toggle="modal" data-target="#confirm-org-delete">
+                            Delete Account <i class="fas fa-trash"></i>
+                        </button>
+
+
+
                         <p>Changes will cascade to all employees</p>
                         <p>Modal to pop up?</p>
 
@@ -469,6 +643,66 @@
                         <p>Have other plans</p>
                         <p>MAX EMPLOYEES MUST BE UNDER THE 'business plan' limit!!!!</p>
                     </div>
+
+
+
+                    <!-- Message Tab -->
+                    <div class="tab-pane show" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                        <h1 class="mt-4"> ${ORGANISATION.getOrgName()} Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item">Dashboard</li>
+                            <li class="breadcrumb-item active">Messages</li>
+                        </ol>
+
+                        <!-- EMPLOYEE TABLE -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                All Messages
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Message</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Message</th>
+                                            <th></th>
+                                        </tr>
+                                        </tfoot>
+                                        <tbody>
+                                        <c:forEach items="${EMPLOYEEMESSAGES}" var="message">
+                                            <tr>
+                                                <td>${message.getFirstName()}</td>
+                                                <td>${message.getLastName()}</td>
+                                                <td>Requesting a password reset.</td>
+                                                <td style="text-align: center;">
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-danger" data-href="OrganisationServlet?action=removeMessage&userid=${message.getUserID()}" data-toggle="modal" data-target="#confirm-message-delete">
+                                                                <i class="fas fa-amazon"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end of tab -->
+
                 </div>
 
             </div>

@@ -49,6 +49,45 @@ header .overlay {
 
 }
 
+nav{
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+#gif-section{
+    padding: 20px;
+    margin-top: 100px;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+    width: 100%;
+    color: #ffffff;
+}
+
+
+.bg-gif-1 {
+    background-image: url('../images/login-small.gif');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    width: 500px;
+}
+
+.bg-gif-2 {
+    background-image: url('../images/password-small.gif');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    width: 500px;
+}
+
+.bg-gif-3 {
+    background-image: url('../images/upload-small.gif');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    width: 500px;
+}
+
 
 
 
@@ -79,13 +118,13 @@ header .overlay {
     background-position: center;
 }
 
-/* admin page */
 .bg-image-3{
     background-image: url('../images/admin.jpg');
     background-size: cover;
     background-position: center;
 }
 
+/* admin page */
 .login-heading {
     font-weight: 300;
 }

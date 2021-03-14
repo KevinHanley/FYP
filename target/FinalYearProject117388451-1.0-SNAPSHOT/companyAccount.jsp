@@ -24,8 +24,7 @@
 
 <!-- Links:
     StartBootstrap Login Template: https://startbootstrap.com/snippets/sign-in-split
-    Image by Zach Miles on Unsplash: https://unsplash.com/photos/Y84-eo8drzk
-    Image by Simone Hutsch on Unsplash: https://unsplash.com/photos/_wpce-AsLxk
+    Photo by Photoholgic on Unsplash: https://unsplash.com/photos/AN5G45qartA
 -->
 
 <div class="container-fluid">
