@@ -17,11 +17,66 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon-logo.ico" type="image/x-icon">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/8e47f0960d.js" crossorigin="anonymous"></script>
+
+    <!-- style sheets -->
+    <link rel="stylesheet" href="styles/extras.css" type="text/css"/>
+
 </head>
 <body>
 
-<h1>Hi Kev</h1>
+<!-- Links:
 
+    Photo by Paul Earle on Unsplash: https://unsplash.com/photos/wVjd0eWNqI8
+
+-->
+
+<header>
+    <div class="overlay">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="index.jsp">
+                    <img src="images/logo4.png" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.jsp">Home
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pricing.jsp">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="account.jsp">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="masthead">
+        <div class="container-fluid h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 text-center">
+                    <h1 class="font-weight-light">Request Submitted</h1>
+                    <p class="lead">A message was sent to your administrator to reset your password.</p>
+                    <p class="lead">This may take a few minutes.</p>
+                    <button class="btn btn-lg btn-primary btn-block btn-login font-weight-bold mb-2 col-md-6 mx-auto" style="border-radius: 20px;" onclick="window.location.href='index.jsp'">Home <i class="fas fa-long-arrow-alt-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
 <!-- Option 2: Separate Popper and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

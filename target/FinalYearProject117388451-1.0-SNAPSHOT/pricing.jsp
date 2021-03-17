@@ -19,6 +19,8 @@
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/pricing.css" type="text/css"/>
 
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon-logo.ico" type="image/x-icon">
 </head>
 <body>
 

@@ -298,7 +298,8 @@ public class ImageServlet extends HttpServlet {
         if(matching == true){
             //set destination based on usertype.
             if(user != null){
-                destination = "/loggedIn.jsp";
+                request.getSession().removeAttribute("TILEERROR");
+                destination = "/demoDashboard.jsp";
 
             }else if(admin != null){
                 //instantiate classes
@@ -311,9 +312,15 @@ public class ImageServlet extends HttpServlet {
                 ArrayList<GeneralUser> employees = awsUA.getEmployees(admin.getOrgID());
                 ArrayList<GeneralUser> employeeMessages = awsPA.retrieveMessages(admin.getOrgID(), employees);
 
+                String messageCount = String.valueOf(employeeMessages.size());
+                System.out.println("NUMBER IS: " + messageCount);
+
                 request.getSession(true).setAttribute("ORGANISATION", organisation);
                 request.getSession(true).setAttribute("EMPLOYEES", employees);
                 request.getSession(true).setAttribute("EMPLOYEEMESSAGES", employeeMessages);
+                request.getSession(true).setAttribute("MESSAGECOUNT", messageCount);
+
+                request.getSession().removeAttribute("TILEERROR");
                 destination = "/adminDashboard.jsp";
 
             }else{

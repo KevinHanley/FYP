@@ -32,6 +32,9 @@
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/image.css" type="text/css"/>
 
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon-logo.ico" type="image/x-icon">
+
     <script type="text/javascript">
         $(document).ready(function(){
 
@@ -51,6 +54,14 @@
                 $('#listBrowse').removeClass('active bg-primary text-white shadow-sm');
             });
 
+            $('#imagesearch').keyPress(function (e) {
+                if (e.which === 13) {
+                    alert("Hello");
+                    e.preventDefault();
+                    return false;
+
+                }
+            });
 
 
             function readURL(input) {

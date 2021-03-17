@@ -16,6 +16,8 @@
 
     <script type="text/javascript" src="test.js"></script>
 
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon-logo.ico" type="image/x-icon">
 </head>
 <body>
 

@@ -1,0 +1,45 @@
+/* CSS for the navbar */
+
+header {
+    position: relative;
+    height: 100vh;
+    min-height: 25rem;
+    width: 100%;
+    overflow: scroll;
+}
+
+header .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10vh;
+    width: 100%;
+    z-index: 2;
+}
+
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('https://source.unsplash.com/wVjd0eWNqI8/1920x1080');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.masthead-2 {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('https://source.unsplash.com/IZ01rjX0XQA/1920x1080');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.masthead-3 {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('https://source.unsplash.com/4Zaq5xY5M_c/1920x1080');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

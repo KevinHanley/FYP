@@ -31,6 +31,9 @@
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/random.css" type="text/css"/>
 
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon-logo.ico" type="image/x-icon">
+
     <!-- toggle the side bar -->
     <script type="text/javascript">
         $(document).ready(function(){
@@ -203,7 +206,7 @@
                     </a>
                     <a class="nav-link" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages" id="list-messages-list">
                         <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
-                        Messages
+                        Messages  <span class="badge badge-pill badge-warning">${MESSAGECOUNT}</span>
                     </a>
                 </div>
             </div>
@@ -555,10 +558,11 @@
                                     <option value="agriculture">Agriculture</option>
                                     <option value="finance">Financial Services</option>
                                     <option value="realestate">Real Estate</option>
-                                    <option value="health">Health Care</option>
+                                    <option value="healthcare">Healthcare</option>
                                     <option value="energy">Energy</option>
                                     <option value="retail">Retail</option>
                                     <option value="communications">Communications</option>
+                                    <option value="entertainment">Entertainment</option>
                                 </select>
                             </div>
 
@@ -633,15 +637,6 @@
                         <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2 col-md-6 mx-auto" data-href="OrganisationServlet?action=deleteOrg" data-toggle="modal" data-target="#confirm-org-delete">
                             Delete Account <i class="fas fa-trash"></i>
                         </button>
-
-
-
-                        <p>Changes will cascade to all employees</p>
-                        <p>Modal to pop up?</p>
-
-                        <p>Show details of their payment plan, dates payment is due (maybe a loading circle like AWS finance billing tracker).</p>
-                        <p>Have other plans</p>
-                        <p>MAX EMPLOYEES MUST BE UNDER THE 'business plan' limit!!!!</p>
                     </div>
 
 
@@ -671,14 +666,6 @@
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Message</th>
-                                            <th></th>
-                                        </tr>
-                                        </tfoot>
                                         <tbody>
                                         <c:forEach items="${EMPLOYEEMESSAGES}" var="message">
                                             <tr>
@@ -689,7 +676,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-danger" data-href="OrganisationServlet?action=removeMessage&userid=${message.getUserID()}" data-toggle="modal" data-target="#confirm-message-delete">
-                                                                <i class="fas fa-amazon"></i>
+                                                                <i class="fas fa-trash"></i>
                                                             </button>
                                                         </span>
                                                     </div>

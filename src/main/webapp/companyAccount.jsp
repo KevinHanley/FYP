@@ -19,6 +19,8 @@
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/home.css" type="text/css"/>
 
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon-logo.ico" type="image/x-icon">
 </head>
 <body>
 
@@ -61,10 +63,11 @@
                                         <option value="agriculture">Agriculture</option>
                                         <option value="finance">Financial Services</option>
                                         <option value="realestate">Real Estate</option>
-                                        <option value="health">Health Care</option>
+                                        <option value="healthcare">Healthcare</option>
                                         <option value="energy">Energy</option>
                                         <option value="retail">Retail</option>
                                         <option value="communications">Communications</option>
+                                        <option value="entertainment">Entertainment</option>
                                     </select>
                                 </div>
 

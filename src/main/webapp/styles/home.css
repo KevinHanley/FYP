@@ -39,16 +39,6 @@ header .overlay {
     z-index: 2;
 }
 
-@media (pointer: coarse) and (hover: none) {
-    header {
-        background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
-    }
-    header video {
-        display: none;
-    }
-
-}
-
 nav{
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;

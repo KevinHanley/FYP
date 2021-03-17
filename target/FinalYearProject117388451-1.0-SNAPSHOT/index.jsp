@@ -16,6 +16,9 @@
     <!-- jQuery that works -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon-logo.ico" type="image/x-icon">
+
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/home.css" type="text/css"/>
 
@@ -65,6 +68,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="pricing.jsp">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="demoHome.jsp">Demo</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="account.jsp">Login</a>

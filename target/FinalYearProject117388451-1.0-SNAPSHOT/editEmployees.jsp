@@ -22,6 +22,9 @@
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/random.css" type="text/css"/>
 
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon-logo.ico" type="image/x-icon">
+
     <!-- toggle the side bar -->
     <script type="text/javascript">
         $(document).ready(function(){

@@ -220,7 +220,7 @@ public class OrganisationServlet extends HttpServlet {
         session.invalidate();
 
         //bring to "sorry to see you leave" page
-        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/deleteConfirmation.jsp");
         rd.forward(request, response);
     }
 
@@ -244,6 +244,10 @@ public class OrganisationServlet extends HttpServlet {
         //refresh the message list
         ArrayList<GeneralUser> employeeMessages = awsPA.retrieveMessages(admin.getOrgID(), employees);
         request.getSession(true).setAttribute("EMPLOYEEMESSAGES", employeeMessages);
+
+        String messageCount = String.valueOf(employeeMessages.size());
+        System.out.println("NUMBER IS: " + messageCount);
+        request.getSession(true).setAttribute("MESSAGECOUNT", messageCount);
 
         //bring back to the dashboard homepage
         RequestDispatcher rd = request.getRequestDispatcher("/adminDashboard.jsp");
