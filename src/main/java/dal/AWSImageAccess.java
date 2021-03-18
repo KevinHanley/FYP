@@ -170,6 +170,75 @@ public class AWSImageAccess {
 
 
 
+    //EDIT
+    public void editImageToSQL(String fileName, BufferedImage uploadedImage, GeneralUser user) throws IOException {
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        //Get user id for Database
+        int userID = user.getUserID();
+
+        //get file as inputStream
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        ImageIO.write(uploadedImage, "jpg", outStream);
+        InputStream inStream = new ByteArrayInputStream(outStream.toByteArray());
+
+        //Send SQL to database
+        try{
+            String mySQL = "update Image set imageName = ?, imageFile = ? where userID = ? ";
+            PreparedStatement prepStat = conn.prepareStatement(mySQL);
+
+            prepStat.setString(1, fileName);
+            prepStat.setBlob(2, inStream);
+            prepStat.setInt(3, userID);
+
+            prepStat.execute();
+
+            conn.close();
+
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+    }
+
+    //EDIT
+    public void editUnsplashToSQL(String imageID, String base64String, GeneralUser user) throws IOException {
+
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        //Get user id for Database
+        int userID = user.getUserID();
+
+        //convert base64 String to input stream
+        byte[] decodedBytes = Base64.getDecoder().decode(base64String);
+        InputStream inputStream = new ByteArrayInputStream(decodedBytes);
+
+
+        //Send SQL to database
+        try{
+            String mySQL = "update Image set imageName = ?, imageFile = ? where userID = ? ";
+            PreparedStatement prepStat = conn.prepareStatement(mySQL);
+
+            prepStat.setString(1, imageID);
+            prepStat.setBlob(2, inputStream);
+            prepStat.setInt(3, userID);
+
+            prepStat.execute();
+
+            conn.close();
+
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+    }
+
+
+
+
+
 
     public void deleteImageFromMySQL(int userID){
 

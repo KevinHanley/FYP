@@ -20,7 +20,7 @@
     <script src="https://kit.fontawesome.com/8e47f0960d.js" crossorigin="anonymous"></script>
 
     <!-- JavaScript for the Unsplash API -->
-    <script type="text/javascript" src="test.js"></script>
+    <script type="text/javascript" src="unsplash.js"></script>
 
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/password.css" type="text/css"/>

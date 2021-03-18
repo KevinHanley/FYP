@@ -34,6 +34,7 @@
     BASE64 Icon: https://base64.guru/converter/encode/image/ico
     StartBootstrap Template: https://startbootstrap.com/snippets/login
 
+    Background Photo by Courtney Cook in Unsplash: https://unsplash.com/photos/urOLqivlYz8
 -->
 
 

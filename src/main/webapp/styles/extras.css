@@ -43,3 +43,7 @@ header .overlay {
     background-position: center;
     background-repeat: no-repeat;
 }
+
+#home-body{
+    padding-top: 56px;
+}

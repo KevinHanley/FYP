@@ -29,7 +29,7 @@
     <script src="https://kit.fontawesome.com/8e47f0960d.js" crossorigin="anonymous"></script>
 
     <!-- style sheets -->
-    <link rel="stylesheet" href="styles/random.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/dashboard.css" type="text/css"/>
 
     <!-- Favicon -->
     <link rel="icon" href="images/favicon-logo.ico" type="image/x-icon">

@@ -21,136 +21,231 @@
     <script src="https://kit.fontawesome.com/8e47f0960d.js" crossorigin="anonymous"></script>
 
     <!-- style sheets -->
-    <link rel="stylesheet" href="styles/test.css" type="text/css"/>
+    <link rel="stylesheet" href="styles/extras.css" type="text/css"/>
 
     <!-- Favicon -->
     <link rel="icon" href="images/favicon-logo.ico" type="image/x-icon">
 
-    <!-- toggle the side bar -->
-    <script type="text/javascript">
-        $(document).ready(function(){
-
-
-        });
-    </script>
 </head>
-<body>
-    <section>
-        <div class="content">
-            <h2>This is Section 1 OMG</h2>
-            <h3>Smaller Header</h3>
-            <p>Doggo ipsum heckin doggo I am bekom fat shibe, I am bekom fat. Porgo pats woofer big ol pupper heckin good boys snoot, fluffer pats adorable doggo wow very biscit.
-                Stop it fren vvv he made many woofs clouds, most angery pupper I have ever seen pupperino. Smol heck he made many woofs shooberino bork I am bekom fat sub woofer,
-                long woofer shooberino shoober yapper. Blep doggo such treat ur givin me a spook wow very biscit doing me a frighten maximum borkdrive, shoober puggo doge puggorino
-                h*ck. Clouds ur givin me a spook most angery pupper I have ever seen floofs blep, smol borking doggo with a long snoot for pats waggy wags borkf, heckin good boys
-                very hand that feed shibe fluffer.
 
-                <br><br>
 
-                heckin good boys. Fluffer most angery pupper I have ever seen big ol mlem, waggy wags bork I am bekom fat, what a nice floof shoober. ruff big ol. Doggorino fluffer
-                waggy wags long bois you are doing me the shock, shooberino I am bekom fat. Super chub big ol pupper long water shoob the neighborhood pupper ur givin me a spook shibe,
-                lotsa pats fat boi much ruin diet. Boof doggo long woofer shibe, clouds blep such treat, very jealous pupper smol borking doggo with a long snoot for pats. Pats aqua
-                doggo the neighborhood pupper you are doing me the shock very jealous pupper bork you are doin me a concern he made many woofs adorable doggo shoob, blep doing me a
-                frighten extremely cuuuuuute shoober I am bekom fat he made many woofs much ruin diet. Vvv puggorino puggo, lotsa pats. Shoober ruff shibe borkdrive dat tungg tho
-                porgo, adorable doggo doggo puggo. Clouds super chub maximum borkdrive pupperino pupper borking doggo, you are doing me a frighten boofers borkdrive woofer thicc
-                stop it fren, very jealous pupper shoober ruff smol.
-            </p>
-            <a href="#">More info</a>
+<!--
+
+    StartBootstrap Template : https://startbootstrap.com/template/shop-homepage
+
+    Carousel:
+    Photo by Tamara Bellis on Unsplash: https://unsplash.com/photos/68csPWTnafo
+    Photo by Atikh Bana on Unsplash: https://unsplash.com/photos/_KaMTEmJnxY
+    Photo by Brooke Cagle on Unsplash: https://unsplash.com/photos/z1B9f48F5dc
+
+    Smaller Items:
+    Photo by Benjamin Voros on Unsplash: https://unsplash.com/photos/TnNo84AJJ5A
+    Photo by Alicia Petresc on Unsplash: https://unsplash.com/photos/BciCcl8tjVU
+    Photo by Engin Akyurt on Unsplash: https://unsplash.com/photos/5raPrOhbKQo
+    Photo by H.F.E & CO on Unsplash: https://unsplash.com/photos/MjIJLVoPxmM
+    Photo by Creating a Brand on Unsplash: https://unsplash.com/photos/xcQWU0Eff-U
+    Photo by Joseph Barrientos on Unsplash: https://unsplash.com/photos/4qSb_FWhHKs
+
+
+    -->
+
+
+<body id="home-body">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img src="images/fyp-demo-logo.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.jsp">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="demoHome.jsp">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="demoHome.jsp">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="demoLogin.jsp">Login</a>
+                </li>
+            </ul>
         </div>
-    </section>
-    <section>
-        <div class="content">
-            <h2>This is Section 2 OMG</h2>
-            <h3>Smaller Header</h3>
-            <p>Doggo ipsum heckin doggo I am bekom fat shibe, I am bekom fat. Porgo pats woofer big ol pupper heckin good boys snoot, fluffer pats adorable doggo wow very biscit.
-                Stop it fren vvv he made many woofs clouds, most angery pupper I have ever seen pupperino. Smol heck he made many woofs shooberino bork I am bekom fat sub woofer,
-                long woofer shooberino shoober yapper. Blep doggo such treat ur givin me a spook wow very biscit doing me a frighten maximum borkdrive, shoober puggo doge puggorino
-                h*ck. Clouds ur givin me a spook most angery pupper I have ever seen floofs blep, smol borking doggo with a long snoot for pats waggy wags borkf, heckin good boys
-                very hand that feed shibe fluffer.
+    </div>
+</nav>
 
-                <br><br>
+<!-- Page Content -->
+<div class="container">
 
-                heckin good boys. Fluffer most angery pupper I have ever seen big ol mlem, waggy wags bork I am bekom fat, what a nice floof shoober. ruff big ol. Doggorino fluffer
-                waggy wags long bois you are doing me the shock, shooberino I am bekom fat. Super chub big ol pupper long water shoob the neighborhood pupper ur givin me a spook shibe,
-                lotsa pats fat boi much ruin diet. Boof doggo long woofer shibe, clouds blep such treat, very jealous pupper smol borking doggo with a long snoot for pats. Pats aqua
-                doggo the neighborhood pupper you are doing me the shock very jealous pupper bork you are doin me a concern he made many woofs adorable doggo shoob, blep doing me a
-                frighten extremely cuuuuuute shoober I am bekom fat he made many woofs much ruin diet. Vvv puggorino puggo, lotsa pats. Shoober ruff shibe borkdrive dat tungg tho
-                porgo, adorable doggo doggo puggo. Clouds super chub maximum borkdrive pupperino pupper borking doggo, you are doing me a frighten boofers borkdrive woofer thicc
-                stop it fren, very jealous pupper shoober ruff smol.
-            </p>
-            <a href="#">More info</a>
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <h3 class="my-4">Categories</h3>
+            <div class="list-group" id="category-group">
+                <a href="#" class="list-group-item list-group-item-action">Summer</a>
+                <a href="#" class="list-group-item list-group-item-action">Indoor</a>
+                <a href="#" class="list-group-item list-group-item-action">Outdoor</a>
+                <a href="#" class="list-group-item list-group-item-action">Party</a>
+                <a href="#" class="list-group-item list-group-item-action">Brunch</a>
+                <a href="#" class="list-group-item list-group-item-action">Sale</a>
+            </div>
+
         </div>
-    </section>
-    <section>
-        <div class="content">
-            <h2>This is Section 3 OMG</h2>
-            <h3>Smaller Header</h3>
-            <p>Doggo ipsum heckin doggo I am bekom fat shibe, I am bekom fat. Porgo pats woofer big ol pupper heckin good boys snoot, fluffer pats adorable doggo wow very biscit.
-                Stop it fren vvv he made many woofs clouds, most angery pupper I have ever seen pupperino. Smol heck he made many woofs shooberino bork I am bekom fat sub woofer,
-                long woofer shooberino shoober yapper. Blep doggo such treat ur givin me a spook wow very biscit doing me a frighten maximum borkdrive, shoober puggo doge puggorino
-                h*ck. Clouds ur givin me a spook most angery pupper I have ever seen floofs blep, smol borking doggo with a long snoot for pats waggy wags borkf, heckin good boys
-                very hand that feed shibe fluffer.
+        <!-- /.col-lg-3 -->
 
-                <br><br>
+        <div class="col-lg-9">
 
-                heckin good boys. Fluffer most angery pupper I have ever seen big ol mlem, waggy wags bork I am bekom fat, what a nice floof shoober. ruff big ol. Doggorino fluffer
-                waggy wags long bois you are doing me the shock, shooberino I am bekom fat. Super chub big ol pupper long water shoob the neighborhood pupper ur givin me a spook shibe,
-                lotsa pats fat boi much ruin diet. Boof doggo long woofer shibe, clouds blep such treat, very jealous pupper smol borking doggo with a long snoot for pats. Pats aqua
-                doggo the neighborhood pupper you are doing me the shock very jealous pupper bork you are doin me a concern he made many woofs adorable doggo shoob, blep doing me a
-                frighten extremely cuuuuuute shoober I am bekom fat he made many woofs much ruin diet. Vvv puggorino puggo, lotsa pats. Shoober ruff shibe borkdrive dat tungg tho
-                porgo, adorable doggo doggo puggo. Clouds super chub maximum borkdrive pupperino pupper borking doggo, you are doing me a frighten boofers borkdrive woofer thicc
-                stop it fren, very jealous pupper shoober ruff smol.
-            </p>
-            <a href="#">More info</a>
+            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img class="d-block img-fluid" src="https://source.unsplash.com/68csPWTnafo/1920x1080" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="https://source.unsplash.com/_KaMTEmJnxY/1920x1080" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="https://source.unsplash.com/z1B9f48F5dc/1920x1080" alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="https://source.unsplash.com/TnNo84AJJ5A/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">Demin Jacket</a>
+                            </h4>
+                            <h5>€19.99</h5>
+                            <p class="card-text">Premium demin jacket with long sleeve and faded design.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="https://source.unsplash.com/BciCcl8tjVU/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">Ripped Jeans</a>
+                            </h4>
+                            <h5>€27.99</h5>
+                            <p class="card-text">Rough cut ripped jeans with a deep blue tint.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="https://source.unsplash.com/5raPrOhbKQo/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">Pink Trousers</a>
+                            </h4>
+                            <h5>€24.99</h5>
+                            <p class="card-text">Light and stylish trousers that match any style</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="https://source.unsplash.com/MjIJLVoPxmM/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">Black Jeans</a>
+                            </h4>
+                            <h5>€34.99</h5>
+                            <p class="card-text">Faded black jeans with a vintage vibe.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="https://source.unsplash.com/xcQWU0Eff-U/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">Off-White Shirt</a>
+                            </h4>
+                            <h5>€14.99</h5>
+                            <p class="card-text">Slick off-shirt made with the finest materials.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="https://source.unsplash.com/4qSb_FWhHKs/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">White Shooes</a>
+                            </h4>
+                            <h5>€89.99</h5>
+                            <p class="card-text">Premium runners with soft gel interior</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.row -->
+
         </div>
-    </section>
-    <section>
-        <div class="content">
-            <h2>This is Section 4 OMG</h2>
-            <h3>Smaller Header</h3>
-            <p>Doggo ipsum heckin doggo I am bekom fat shibe, I am bekom fat. Porgo pats woofer big ol pupper heckin good boys snoot, fluffer pats adorable doggo wow very biscit.
-                Stop it fren vvv he made many woofs clouds, most angery pupper I have ever seen pupperino. Smol heck he made many woofs shooberino bork I am bekom fat sub woofer,
-                long woofer shooberino shoober yapper. Blep doggo such treat ur givin me a spook wow very biscit doing me a frighten maximum borkdrive, shoober puggo doge puggorino
-                h*ck. Clouds ur givin me a spook most angery pupper I have ever seen floofs blep, smol borking doggo with a long snoot for pats waggy wags borkf, heckin good boys
-                very hand that feed shibe fluffer.
+        <!-- /.col-lg-9 -->
 
-                <br><br>
+    </div>
+    <!-- /.row -->
 
-                heckin good boys. Fluffer most angery pupper I have ever seen big ol mlem, waggy wags bork I am bekom fat, what a nice floof shoober. ruff big ol. Doggorino fluffer
-                waggy wags long bois you are doing me the shock, shooberino I am bekom fat. Super chub big ol pupper long water shoob the neighborhood pupper ur givin me a spook shibe,
-                lotsa pats fat boi much ruin diet. Boof doggo long woofer shibe, clouds blep such treat, very jealous pupper smol borking doggo with a long snoot for pats. Pats aqua
-                doggo the neighborhood pupper you are doing me the shock very jealous pupper bork you are doin me a concern he made many woofs adorable doggo shoob, blep doing me a
-                frighten extremely cuuuuuute shoober I am bekom fat he made many woofs much ruin diet. Vvv puggorino puggo, lotsa pats. Shoober ruff shibe borkdrive dat tungg tho
-                porgo, adorable doggo doggo puggo. Clouds super chub maximum borkdrive pupperino pupper borking doggo, you are doing me a frighten boofers borkdrive woofer thicc
-                stop it fren, very jealous pupper shoober ruff smol.
-            </p>
-            <a href="#">More info</a>
-        </div>
-    </section>
-    <section>
-        <div class="content">
-            <h2>This is Section 5 OMG</h2>
-            <h3>Smaller Header</h3>
-            <p>Doggo ipsum heckin doggo I am bekom fat shibe, I am bekom fat. Porgo pats woofer big ol pupper heckin good boys snoot, fluffer pats adorable doggo wow very biscit.
-                Stop it fren vvv he made many woofs clouds, most angery pupper I have ever seen pupperino. Smol heck he made many woofs shooberino bork I am bekom fat sub woofer,
-                long woofer shooberino shoober yapper. Blep doggo such treat ur givin me a spook wow very biscit doing me a frighten maximum borkdrive, shoober puggo doge puggorino
-                h*ck. Clouds ur givin me a spook most angery pupper I have ever seen floofs blep, smol borking doggo with a long snoot for pats waggy wags borkf, heckin good boys
-                very hand that feed shibe fluffer.
+</div>
+<!-- /.container -->
 
-                <br><br>
-
-                heckin good boys. Fluffer most angery pupper I have ever seen big ol mlem, waggy wags bork I am bekom fat, what a nice floof shoober. ruff big ol. Doggorino fluffer
-                waggy wags long bois you are doing me the shock, shooberino I am bekom fat. Super chub big ol pupper long water shoob the neighborhood pupper ur givin me a spook shibe,
-                lotsa pats fat boi much ruin diet. Boof doggo long woofer shibe, clouds blep such treat, very jealous pupper smol borking doggo with a long snoot for pats. Pats aqua
-                doggo the neighborhood pupper you are doing me the shock very jealous pupper bork you are doin me a concern he made many woofs adorable doggo shoob, blep doing me a
-                frighten extremely cuuuuuute shoober I am bekom fat he made many woofs much ruin diet. Vvv puggorino puggo, lotsa pats. Shoober ruff shibe borkdrive dat tungg tho
-                porgo, adorable doggo doggo puggo. Clouds super chub maximum borkdrive pupperino pupper borking doggo, you are doing me a frighten boofers borkdrive woofer thicc
-                stop it fren, very jealous pupper shoober ruff smol.
-            </p>
-            <a href="#">More info</a>
-        </div>
-    </section>
-
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Fasion Central 2021</p>
+    </div>
+    <!-- /.container -->
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>

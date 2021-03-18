@@ -90,6 +90,10 @@ public class ImageServlet extends HttpServlet {
         GeneralUser newEmployee = (GeneralUser) request.getSession().getAttribute("NEWEMPLOYEE");
         GeneralUser singleEmployee = (GeneralUser) request.getSession().getAttribute("SINGLEEMPLOYEE");
 
+        if(singleEmployee == null){
+            System.out.println("Single employee is null Kevin!");
+        }
+
         //Image object
         PasswordImage passImg = new PasswordImage();
 
@@ -107,7 +111,7 @@ public class ImageServlet extends HttpServlet {
         } else if (singleEmployee != null){
 
             //upload the admins image
-            awsIA.uploadImageToMySQL(fileName, uploadedImage, singleEmployee);
+            awsIA.editImageToSQL(fileName, uploadedImage, singleEmployee);
 
             //Get image back from database
             int editingID = singleEmployee.getUserID();
@@ -172,6 +176,14 @@ public class ImageServlet extends HttpServlet {
 
         //Save as a BLOB in Remote AWS MySQL Database
         AWSImageAccess awsIA = new AWSImageAccess();
+
+
+
+        if(singleEmployee == null){
+            System.out.println("Single employee is null Kevin x2!");
+        }
+
+
         if(newEmployee != null){
 
             //upload the new employees image
@@ -184,7 +196,7 @@ public class ImageServlet extends HttpServlet {
         } else if (singleEmployee != null){
 
             //upload the editing employees image
-            awsIA.uploadUnsplashImageToMySQL(imageID, newBase64String, singleEmployee);
+            awsIA.editUnsplashToSQL(imageID, newBase64String, singleEmployee);
 
             //Get image back from database
             int editingID = singleEmployee.getUserID();
@@ -209,6 +221,8 @@ public class ImageServlet extends HttpServlet {
             passImg = awsIA.retrieveImageFromMySQL(userID);
 
         }else{
+            System.out.println("YOLO 5 x2!");
+
             //Error
             System.out.println("Error no users available");
 
@@ -403,7 +417,7 @@ public class ImageServlet extends HttpServlet {
             } else if (singleEmployee != null){
 
                 //store hash
-                passwordAccess.storeHash(singleEmployee, generatedHash);
+                passwordAccess.editHash(singleEmployee, generatedHash);
                 destination = "/adminDashboard.jsp";
 
                 //refresh employee list

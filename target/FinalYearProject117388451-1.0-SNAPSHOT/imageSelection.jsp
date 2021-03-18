@@ -27,7 +27,7 @@
     <script src="https://kit.fontawesome.com/8e47f0960d.js" crossorigin="anonymous"></script>
 
     <!-- JavaScript for the Unsplash API -->
-    <script type="text/javascript" src="test.js"></script>
+    <script type="text/javascript" src="unsplash.js"></script>
 
     <!-- style sheets -->
     <link rel="stylesheet" href="styles/image.css" type="text/css"/>
@@ -54,46 +54,6 @@
                 $('#listBrowse').removeClass('active bg-primary text-white shadow-sm');
             });
 
-            $('#imagesearch').keyPress(function (e) {
-                if (e.which === 13) {
-                    alert("Hello");
-                    e.preventDefault();
-                    return false;
-
-                }
-            });
-
-
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $('#imageResult')
-                            .attr('src', e.target.result);
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-
-            $(function () {
-                $('#upload').on('change', function () {
-                    readURL(input);
-                });
-            });
-
-            /*  ==========================================
-                SHOW UPLOADED IMAGE NAME
-            * ========================================== */
-            var input = document.getElementById( 'upload' );
-            var infoArea = document.getElementById( 'upload-label' );
-
-            input.addEventListener( 'change', showFileName );
-            function showFileName( event ) {
-                var input = event.srcElement;
-                var fileName = input.files[0].name;
-                infoArea.textContent = 'File name: ' + fileName;
-            }
         });
     </script>
 
@@ -147,7 +107,7 @@
                             </a>
                         </nav>
                     </div>
-                </div>
+                </div> <!-- end of left panel -->
 
                 <div class="col-lg-9 mb-6">
 
@@ -156,24 +116,24 @@
                     <!-- ********** -->
 
                     <div class="collapse" id="browseSection">
-                        <%--                        <form action="ImageServlet" method="POST" enctype="multipart/form-data">--%>
-                        <%--                            <input type="hidden" name="imageaction" value="upload">--%>
+<%--                        <form action="ImageServlet" method="POST" enctype="multipart/form-data">--%>
+<%--                            <input type="hidden" name="imageaction" value="upload">--%>
 
-                        <%--                            <div class="input-group mb-3">--%>
-                        <%--                                <div class="custom-file">--%>
-                        <%--                                    <input type="file" class="custom-file-input" id="myFile" name="file" accept="image/jpeg" onchange="document.getElementById('display').src = window.URL.createObjectURL(this.files[0]); document.getElementById('deviceUpload').disabled = false">--%>
-                        <%--                                    <label class="custom-file-label" for="myFile" aria-describedby="myFile">Choose file</label>--%>
-                        <%--                                </div>--%>
-                        <%--                                <div class="input-group-append">--%>
-                        <%--                                    <button class="btn btn-primary" type="submit" id="deviceUpload" disabled>Upload</button>--%>
-                        <%--                                </div>--%>
-                        <%--                            </div>--%>
+<%--                            <div class="input-group mb-3">--%>
+<%--                                <div class="custom-file">--%>
+<%--                                    <input type="file" class="custom-file-input" id="myFile" name="file" accept="image/jpeg" onchange="document.getElementById('display').src = window.URL.createObjectURL(this.files[0]); document.getElementById('deviceUpload').disabled = false">--%>
+<%--                                    <label class="custom-file-label" for="myFile" aria-describedby="myFile">Choose file</label>--%>
+<%--                                </div>--%>
+<%--                                <div class="input-group-append">--%>
+<%--                                    <button class="btn btn-primary" type="submit" id="deviceUpload" disabled>Upload</button>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
 
 
-                        <%--                        </form>--%>
+<%--                        </form>--%>
 
-                        <%--                        <h5>Preview of your image:</h5>--%>
-                        <%--                        <img id="display" alt="Image Preview" width="500" height="500" style="margin-bottom: 50px;" />--%>
+<%--                        <h5>Preview of your image:</h5>--%>
+<%--                        <img id="display" alt="Image Preview" width="500" height="500" style="margin-bottom: 50px;" />--%>
 
 
                         <!-- Upload image input-->
@@ -182,7 +142,7 @@
 
                             <!-- upload box -->
                             <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                                <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0" name="file" accept="image/jpeg">
+                                <input id="upload" type="file" onchange="readURL(this); showFileName(this);" class="form-control border-0" name="file" accept="image/jpeg">
                                 <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                                 <div class="input-group-append">
                                     <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
@@ -202,33 +162,6 @@
                     <!-- ********** -->
 
                     <div class="collapse" id="searchSection">
-
-                        <%--                        <div class="container">--%>
-                        <%--                            <div class="input-group mb-3">--%>
-                        <%--                                <input id="imagesearch" type="text" class="form-control" placeholder="Search Query" aria-label="Search Query" aria-describedby="basic-addon2">--%>
-                        <%--                                <div class="input-group-append">--%>
-                        <%--                                    <button onclick="SearchPhotos()" class="btn btn-outline-primary" type="button">Search</button>--%>
-                        <%--                                </div>--%>
-                        <%--                            </div>--%>
-                        <%--                        </div>--%>
-
-                        <%--                        <div class="container" style="margin-top: 50px;">--%>
-                        <%--                            <form action="ImageServlet" method="POST">--%>
-                        <%--                                <input type="hidden" name="imageaction" value="apiUpload">--%>
-                        <%--                                <input type="hidden" id="basestring" name="basestring" value="">--%>
-                        <%--                                <input type="hidden" id="imageid" name="imageid" value="">--%>
-
-                        <%--                                <button class="btn btn-primary" type="submit" id="searchUpload" disabled>Upload</button>--%>
-                        <%--                            </form>--%>
-                        <%--                        </div>--%>
-
-                        <%--                        <div class="container-fluid" style="margin-top: 50px; margin-bottom: 50px;">--%>
-                        <%--                            <h3>Search Results</h3>--%>
-                        <%--                            <div id="outputimage">--%>
-                        <%--                                <!-- images displayed here -->--%>
-                        <%--                            </div>--%>
-                        <%--                        </div>--%>
-
                         <form id="searchForm" action="ImageServlet" method="POST">
                             <input type="hidden" name="imageaction" value="apiUpload">
                             <input type="hidden" id="basestring" name="basestring" value="">
@@ -243,7 +176,6 @@
                                 </div>
                             </div>
                         </form>
-
                         <div class="container-fluid" style="margin-top: 50px; margin-bottom: 50px;">
                             <h3>Search Results</h3>
                             <!-- maybe add: class="d-flex flex-wrap" below? -->
@@ -251,10 +183,9 @@
                                 <!-- images displayed here -->
                             </div>
                         </div>
-
                     </div> <!-- end of collapse -->
 
-                </div> <!-- end -->
+                </div> <!-- end of right panel-->
             </div>
         </div>
     </div>

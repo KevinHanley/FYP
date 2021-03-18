@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class AWSPasswordAccess {
 
-
+    //UPDATE
     public void storeHash(GeneralUser user, String inputHash){
         Connection conn = AWSConnection.establishDatabaseConnection();
 
@@ -22,7 +22,7 @@ public class AWSPasswordAccess {
         }
     }
 
-
+    //READ
     public String retrieveHash(GeneralUser user){
 
         String hash = null;
@@ -45,6 +45,20 @@ public class AWSPasswordAccess {
         return hash;
     }
 
+    //EDIT
+    public void editHash(GeneralUser editUser, String newHash){
+
+        Connection conn = AWSConnection.establishDatabaseConnection();
+
+        try{
+            Statement st = conn.createStatement();
+            st.execute("update Password set hash='" + newHash +"' where userID=" + editUser.getUserID());
+            conn.close();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
 
     public boolean compareHash(GeneralUser user, String inputHash){
 
@@ -63,6 +77,7 @@ public class AWSPasswordAccess {
     }
 
 
+    //DELETE
     public void deleteHash(int userID){
 
         Connection conn = AWSConnection.establishDatabaseConnection();
